@@ -2,7 +2,6 @@ package com.mairwunnx.application;
 
 import com.mairwunnx.application.router.Router;
 import com.mairwunnx.application.router.RouterFX;
-import com.mairwunnx.application.router.types.RouterArg;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
@@ -31,7 +30,7 @@ public class EntryPoint extends Application {
     @Override
     public void start(final @NotNull Stage stage) {
         router.ensureStage(stage);
-        router.navigate("hello-view", new RouterArg<>("router", router));
+        router.navigate("hello-view");
 
         /*router.navigate("hello-view", new RouterArg<>("testInt", 1));
         router.navigate("hello-view", new RouterArg<>("testInt", 1));

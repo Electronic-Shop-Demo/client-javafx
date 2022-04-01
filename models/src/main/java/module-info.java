@@ -1,0 +1,3 @@
+module application.models.main {
+
+}

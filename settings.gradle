@@ -1,1 +1,5 @@
 rootProject.name = "application"
+include 'models'
+include 'dto'
+include 'services'
+

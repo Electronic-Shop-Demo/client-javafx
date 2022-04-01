@@ -1,0 +1,2 @@
+module application.dto.main {
+}

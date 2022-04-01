@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?><?import javafx.scene.control.Label?><?import javafx.scene.image.Image?><?import javafx.scene.image.ImageView?><?import javafx.scene.layout.*?>
+<VBox style="-fx-background-color: #f2f2f2; -fx-border-color: #b1b1b1; -fx-background-radius: 8; -fx-border-radius: 8;"
+    xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:id="parent" maxWidth="300" prefWidth="300">
+    <padding>
+        <Insets bottom="6.0" left="6.0" right="6.0" top="5.0" />
+    </padding>
+    <ImageView fx:id="image" pickOnBounds="true" preserveRatio="true">
+        <Image url="@./ana.png" smooth="true" requestedWidth="300" preserveRatio="true" />
+        <VBox.margin>
+            <Insets bottom="10" />
+        </VBox.margin>
+    </ImageView>
+    <Label fx:id="title"
+        style="-fx-text-fill: #212121; -fx-font-size: 16; -fx-font-family: 'Open Sans SemiBold'; -fx-font-smoothing-type: lcd"
+        wrapText="true">
+        <VBox.margin>
+            <Insets right="8" bottom="14" />
+        </VBox.margin>
+    </Label>
+    <Label fx:id="description"
+        style="-fx-text-fill: #323232; -fx-font-size: 14; -fx-font-family: 'Open Sans'; -fx-font-smoothing-type: lcd"
+        wrapText="true">
+        <VBox.margin>
+            <Insets right="8" bottom="12" />
+        </VBox.margin>
+    </Label>
+    <HBox alignment="BOTTOM_LEFT">
+        <VBox.margin>
+            <Insets right="8" bottom="6" />
+        </VBox.margin>
+
+        <Label fx:id="price"
+            style="-fx-text-fill: #25727f; -fx-font-size: 22; -fx-font-family: 'Open Sans'; -fx-font-weight: bold; -fx-font-smoothing-type: lcd"
+            wrapText="true">
+            <HBox.margin>
+                <Insets right="18" />
+            </HBox.margin>
+        </Label>
+
+        <Label fx:id="warning"
+            visible="false"
+            style="-fx-text-fill: #981515; -fx-font-size: 22; -fx-font-family: 'Open Sans'; -fx-font-weight: bold; -fx-font-style: italic; -fx-font-smoothing-type: lcd" />
+    </HBox>
+</VBox>

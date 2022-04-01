@@ -444,6 +444,8 @@ public final class RouterImpl implements Router {
         }
     }
 
+    private RouterController prevController;
+
     private <T> void applyStageAndScene(
         @NotNull final FXMLLoader fxmlLoader,
         @NotNull final Scene scene,
@@ -456,7 +458,12 @@ public final class RouterImpl implements Router {
             final var controller = fxmlLoader.getController();
             if (controller instanceof RouterController routerController) {
                 if (getCurrentScene() != null) {
-                    routerController.onShow(getStage(), getCurrentScene(), arg);
+                    if (prevController != null) {
+                        prevController.onExit(this);
+                    }
+
+                    prevController = routerController;
+                    routerController.onShow(this, arg);
                 }
             }
 

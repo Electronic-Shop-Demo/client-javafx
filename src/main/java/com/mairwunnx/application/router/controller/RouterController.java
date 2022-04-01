@@ -1,8 +1,7 @@
 package com.mairwunnx.application.router.controller;
 
+import com.mairwunnx.application.router.Router;
 import com.mairwunnx.application.router.types.RouterArg;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,7 +25,7 @@ public interface RouterController {
         throw new NullPointerException();
     }
 
-    <T> void onShow(@NotNull Stage stage, @NotNull Scene scene, @Nullable RouterArg<T> arg);
+    <T> void onShow(@NotNull final Router router, @Nullable final RouterArg<T> arg);
 
-    void onExit(@NotNull Stage stage, @NotNull Scene scene);
+    void onExit(@NotNull final Router router);
 }

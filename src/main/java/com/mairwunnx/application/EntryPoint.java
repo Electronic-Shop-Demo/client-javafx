@@ -13,6 +13,10 @@ public class EntryPoint extends Application {
     @Override
     public void init() throws Exception {
         super.init();
+
+        System.setProperty("prism.lcdtext", "false");
+        System.setProperty("prism.text", "t2k");
+
         router = RouterFX.build(router -> {
             router
                 .configure(config -> config.automapping(true).autosize(true).implicitDefaults(true))

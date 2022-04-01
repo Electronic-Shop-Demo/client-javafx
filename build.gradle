@@ -78,6 +78,14 @@ dependencies {
 
     implementation 'org.projectlombok:lombok:1.18.22'
 
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.13.2'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.2'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.2'
+
+
+
+
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 
@@ -85,4 +93,7 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+
+    implementation(project('dto'))
+    implementation(project('models'))
 }

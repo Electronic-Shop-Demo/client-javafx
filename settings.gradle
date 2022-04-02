@@ -1,5 +1,31 @@
+import org.gradle.api.initialization.resolve.RepositoriesMode
+import org.gradle.api.internal.FeaturePreviews
+
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
+enableFeaturePreview(FeaturePreviews.Feature.VERSION_CATALOGS.toString())
+enableFeaturePreview(FeaturePreviews.Feature.VERSION_ORDERING_V2.toString())
+
+dependencyResolutionManagement {
+    versionCatalogs {
+        libs {
+            from(files('libs.versions.toml'))
+        }
+    }
+
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+}
+
 rootProject.name = "application"
-include 'models'
-include 'dto'
-include 'services'
+include('dto', 'models', 'services')
 

@@ -90,9 +90,7 @@ public class HelloController implements RouterController, Initializable {
 
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
-        executor.execute(() -> {
-            HttpClientComponent.getInstance();
-        });
+        executor.execute(HttpClientComponent::getInstance);
 
         observableList.addListener((ListChangeListener<? super ProductResponse>) c -> {
             final var productResponses = c.getList();

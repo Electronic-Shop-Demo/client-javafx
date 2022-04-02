@@ -64,36 +64,28 @@ tasks.withType(Checkstyle) {
     }
 }
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
-    implementation 'org.jetbrains:annotations:23.0.0'
-    implementation 'org.mapstruct:mapstruct:1.4.2.Final'
-    implementation('org.controlsfx:controlsfx:11.1.1')
-    implementation('com.dlsc.formsfx:formsfx-core:11.5.0') {
+    implementation(libs.bundles.jetbrains)
+    implementation(libs.bundles.fxControls)
+    implementation(libs.bundles.fxForms) {
         exclude(group: 'org.openjfx')
     }
+    implementation(libs.bundles.lombok)
+    implementation(libs.bundles.mapstruct)
+    implementation(libs.bundles.jackson)
 
-    implementation 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor(libs.bundles.lombok)
+    annotationProcessor(libs.bundles.mapstructProcessor)
 
-    implementation 'com.fasterxml.jackson.core:jackson-core:2.13.2'
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.2'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.2'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.2'
+    testCompileOnly(libs.bundles.lombok)
+    testCompileOnly(libs.bundles.mapstructProcessor)
 
+    testAnnotationProcessor(libs.bundles.lombok)
+    testAnnotationProcessor(libs.bundles.mapstructProcessor)
 
+    testImplementation(libs.bundles.jupiterApi)
+    testRuntimeOnly(libs.bundles.jupiterEngine)
 
-
-    annotationProcessor 'org.projectlombok:lombok:1.18.22'
-    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
-
-    testCompileOnly 'org.projectlombok:lombok:1.18.22'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
-    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
-
-    implementation(project('dto'))
-    implementation(project('models'))
+    implementation(project('dto')) { transitive(false) }
+    implementation(project('models')) { transitive(false) }
 }

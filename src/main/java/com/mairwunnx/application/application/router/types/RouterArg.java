@@ -1,4 +1,4 @@
-package com.mairwunnx.application.router.types;
+package com.mairwunnx.application.application.router.types;
 
 import org.jetbrains.annotations.NotNull;
 

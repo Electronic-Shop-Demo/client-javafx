@@ -1,7 +1,7 @@
-package com.mairwunnx.application.router.impl;
+package com.mairwunnx.application.application.router.impl;
 
-import com.mairwunnx.application.router.configurators.RouterListener;
-import com.mairwunnx.application.router.contracts.ListeningEvent;
+import com.mairwunnx.application.application.router.configurators.RouterListener;
+import com.mairwunnx.application.application.router.contracts.ListeningEvent;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,6 +1,6 @@
-package com.mairwunnx.application.router.graph;
+package com.mairwunnx.application.application.router.graph;
 
-import com.mairwunnx.application.router.types.RouterGraphEntry;
+import com.mairwunnx.application.application.router.types.RouterGraphEntry;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 

@@ -1,8 +1,8 @@
-package com.mairwunnx.application.router.impl;
+package com.mairwunnx.application.application.router.impl;
 
-import com.mairwunnx.application.router.configurators.RouterImplementation;
-import com.mairwunnx.application.router.contracts.AutoMapper;
-import com.mairwunnx.application.router.contracts.Mapper;
+import com.mairwunnx.application.application.router.configurators.RouterImplementation;
+import com.mairwunnx.application.application.router.contracts.AutoMapper;
+import com.mairwunnx.application.application.router.contracts.Mapper;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;

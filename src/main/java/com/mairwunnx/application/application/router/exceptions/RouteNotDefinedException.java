@@ -1,4 +1,4 @@
-package com.mairwunnx.application.router.exceptions;
+package com.mairwunnx.application.application.router.exceptions;
 
 import lombok.experimental.StandardException;
 

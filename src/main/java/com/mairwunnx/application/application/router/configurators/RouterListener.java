@@ -1,6 +1,6 @@
-package com.mairwunnx.application.router.configurators;
+package com.mairwunnx.application.application.router.configurators;
 
-import com.mairwunnx.application.router.contracts.ListeningEvent;
+import com.mairwunnx.application.application.router.contracts.ListeningEvent;
 import org.jetbrains.annotations.Nullable;
 
 public interface RouterListener {

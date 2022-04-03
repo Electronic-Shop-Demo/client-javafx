@@ -1,8 +1,8 @@
-package com.mairwunnx.application.router;
+package com.mairwunnx.application.application.router;
 
-import com.mairwunnx.application.router.builders.RouterBuilder;
-import com.mairwunnx.application.router.impl.RouterBuilderImpl;
-import com.mairwunnx.application.router.impl.RouterImpl;
+import com.mairwunnx.application.application.router.builders.RouterBuilder;
+import com.mairwunnx.application.application.router.impl.RouterBuilderImpl;
+import com.mairwunnx.application.application.router.impl.RouterImpl;
 import org.jetbrains.annotations.NotNull;
 
 public interface RouterFX {

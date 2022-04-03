@@ -1,8 +1,8 @@
-package com.mairwunnx.application.router.impl;
+package com.mairwunnx.application.application.router.impl;
 
-import com.mairwunnx.application.router.configurators.RouterMapper;
-import com.mairwunnx.application.router.types.RouterMappedEntry;
-import com.mairwunnx.application.router.types.Size;
+import com.mairwunnx.application.application.router.configurators.RouterMapper;
+import com.mairwunnx.application.application.router.types.RouterMappedEntry;
+import com.mairwunnx.application.application.router.types.Size;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;

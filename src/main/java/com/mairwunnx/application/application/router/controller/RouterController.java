@@ -1,7 +1,7 @@
-package com.mairwunnx.application.router.controller;
+package com.mairwunnx.application.application.router.controller;
 
-import com.mairwunnx.application.router.Router;
-import com.mairwunnx.application.router.types.RouterArg;
+import com.mairwunnx.application.application.router.Router;
+import com.mairwunnx.application.application.router.types.RouterArg;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,5 +27,5 @@ public interface RouterController {
 
     <T> void onShow(@NotNull final Router router, @Nullable final RouterArg<T> arg);
 
-    void onExit(@NotNull final Router router);
+    default void onExit(@NotNull final Router router) {}
 }

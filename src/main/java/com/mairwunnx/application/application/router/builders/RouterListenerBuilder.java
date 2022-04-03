@@ -1,6 +1,6 @@
-package com.mairwunnx.application.router.builders;
+package com.mairwunnx.application.application.router.builders;
 
-import com.mairwunnx.application.router.impl.RouterListenerImpl;
+import com.mairwunnx.application.application.router.impl.RouterListenerImpl;
 import org.jetbrains.annotations.NotNull;
 
 @FunctionalInterface

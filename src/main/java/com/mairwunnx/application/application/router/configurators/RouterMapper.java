@@ -1,6 +1,6 @@
-package com.mairwunnx.application.router.configurators;
+package com.mairwunnx.application.application.router.configurators;
 
-import com.mairwunnx.application.router.types.RouterMappedEntry;
+import com.mairwunnx.application.application.router.types.RouterMappedEntry;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;

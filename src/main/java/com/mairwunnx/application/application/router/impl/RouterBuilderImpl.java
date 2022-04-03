@@ -1,14 +1,14 @@
-package com.mairwunnx.application.router.impl;
+package com.mairwunnx.application.application.router.impl;
 
-import com.mairwunnx.application.router.builders.RouterConfigurationBuilder;
-import com.mairwunnx.application.router.builders.RouterImplementationBuilder;
-import com.mairwunnx.application.router.builders.RouterListenerBuilder;
-import com.mairwunnx.application.router.builders.RouterMapperBuilder;
-import com.mairwunnx.application.router.configurators.RouterConfiguration;
-import com.mairwunnx.application.router.configurators.RouterImplementation;
-import com.mairwunnx.application.router.configurators.RouterListener;
-import com.mairwunnx.application.router.configurators.RouterMapper;
-import com.mairwunnx.application.router.types.RouterEntry;
+import com.mairwunnx.application.application.router.builders.RouterConfigurationBuilder;
+import com.mairwunnx.application.application.router.builders.RouterImplementationBuilder;
+import com.mairwunnx.application.application.router.builders.RouterListenerBuilder;
+import com.mairwunnx.application.application.router.builders.RouterMapperBuilder;
+import com.mairwunnx.application.application.router.configurators.RouterConfiguration;
+import com.mairwunnx.application.application.router.configurators.RouterImplementation;
+import com.mairwunnx.application.application.router.configurators.RouterListener;
+import com.mairwunnx.application.application.router.configurators.RouterMapper;
+import com.mairwunnx.application.application.router.types.RouterEntry;
 import javafx.stage.Stage;
 import lombok.AccessLevel;
 import lombok.Getter;

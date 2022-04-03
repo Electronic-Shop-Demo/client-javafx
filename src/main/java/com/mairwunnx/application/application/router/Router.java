@@ -1,8 +1,8 @@
-package com.mairwunnx.application.router;
+package com.mairwunnx.application.application.router;
 
-import com.mairwunnx.application.router.configurators.RouterConfiguration;
-import com.mairwunnx.application.router.graph.RouterGraph;
-import com.mairwunnx.application.router.types.RouterArg;
+import com.mairwunnx.application.application.router.configurators.RouterConfiguration;
+import com.mairwunnx.application.application.router.graph.RouterGraph;
+import com.mairwunnx.application.application.router.types.RouterArg;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;

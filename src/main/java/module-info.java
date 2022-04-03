@@ -17,8 +17,18 @@ module com.mairwunnx.application {
     requires org.apache.commons.lang3;
     requires org.apache.logging.log4j;
 
-    opens com.mairwunnx.application to javafx.fxml;
-    opens com.mairwunnx.application.router to com.mairwunnx.application;
+    requires javax.inject;
+    requires com.google.guice;
 
+    opens com.mairwunnx.application to javafx.fxml, com.google.guice;
+    opens com.mairwunnx.application.application.di.modules to com.google.guice;
+
+    exports com.mairwunnx.application.application.router;
     exports com.mairwunnx.application;
+    exports com.mairwunnx.application.application;
+    opens com.mairwunnx.application.application to com.google.guice, javafx.fxml;
+    exports com.mairwunnx.application.application.controllers;
+    opens com.mairwunnx.application.application.controllers to com.google.guice, javafx.fxml;
+    exports com.mairwunnx.application.application.components;
+    opens com.mairwunnx.application.application.components to com.google.guice, javafx.fxml;
 }

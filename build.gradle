@@ -7,13 +7,28 @@ plugins {
     id 'checkstyle'
 }
 
-group 'com.mairwunnx'
-version '1.0.0'
+allprojects {
+    group 'com.mairwunnx'
+    version '1.0.0'
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of 18
-        vendor = JvmVendorSpec.ORACLE
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of 18
+            vendor = JvmVendorSpec.ORACLE
+        }
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+        options.compilerArgs += "--enable-preview"
+    }
+
+    tasks.withType(Test) {
+        jvmArgs += "--enable-preview"
     }
 }
 
@@ -25,10 +40,6 @@ application {
 javafx {
     version = '18'
     modules = ['javafx.controls', 'javafx.fxml']
-}
-
-test {
-    useJUnitPlatform()
 }
 
 jlink {
@@ -43,15 +54,6 @@ jlinkZip {
     group = 'distribution'
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-    options.compilerArgs += "--enable-preview"
-}
-
-tasks.withType(Test) {
-    jvmArgs += "--enable-preview"
-}
-
 tasks.withType(Checkstyle) {
     reports {
         xml.required = false
@@ -62,10 +64,8 @@ tasks.withType(Checkstyle) {
 
 dependencies {
     implementation(libs.bundles.jetbrains)
-    implementation(libs.bundles.fxControls)
-    implementation(libs.bundles.fxForms) {
-        exclude group: 'org.openjfx'
-    }
+    implementation(libs.bundles.fxControls) { exclude group: 'org.openjfx' }
+    implementation(libs.bundles.fxForms) { exclude group: 'org.openjfx' }
     implementation(libs.bundles.lombok)
     implementation(libs.bundles.mapstruct)
     implementation(libs.bundles.jackson)

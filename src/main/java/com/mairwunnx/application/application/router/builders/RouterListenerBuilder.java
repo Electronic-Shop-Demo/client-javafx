@@ -5,5 +5,5 @@ import org.jetbrains.annotations.NotNull;
 
 @FunctionalInterface
 public interface RouterListenerBuilder {
-    void apply(@NotNull RouterListenerImpl config);
+    void apply(@NotNull RouterListenerImpl listener);
 }

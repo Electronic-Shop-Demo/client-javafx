@@ -1,6 +1,7 @@
-package com.mairwunnx.application.router.impl;
+package com.mairwunnx.application.application.router.impl;
 
-import com.mairwunnx.application.router.configurators.RouterConfiguration;
+import com.mairwunnx.application.application.router.configurators.RouterConfiguration;
+import javafx.util.Callback;
 import lombok.Getter;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
@@ -20,6 +21,10 @@ public final class RouterConfigurationImpl implements RouterConfiguration {
     @Nullable
     @Getter
     private ResourceBundle currentBundle;
+
+    @Nullable
+    @Getter
+    private Callback<Class<?>, Object> controllerFactory;
 
     @NotNull
     public RouterConfigurationImpl automapping(final boolean value) {
@@ -46,6 +51,13 @@ public final class RouterConfigurationImpl implements RouterConfiguration {
     public RouterConfigurationImpl withBundle(final ResourceBundle bundle) {
         requireIsNotInitialized();
         currentBundle = bundle;
+        return this;
+    }
+
+    @NotNull
+    public RouterConfigurationImpl controllerFactory(final Callback<Class<?>, Object> factory) {
+        requireIsNotInitialized();
+        controllerFactory = factory;
         return this;
     }
 

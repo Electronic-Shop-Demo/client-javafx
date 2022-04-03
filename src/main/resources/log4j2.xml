@@ -5,12 +5,12 @@
             <Policies>
                 <OnStartupTriggeringPolicy />
             </Policies>
-            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss.SSSS}] %c{1.} [%thread/%level]: %msg%n" />
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss.SSSS}] [%c{1.}] [%thread/%level]: %msg%n" />
             <DefaultRolloverStrategy max="10" />
         </RollingRandomAccessFile>
 
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%highlight[%d{yyyy-MM-dd HH:mm:ss.SSSS}] %c{1.} [%thread/%level]: %msg%n" />
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss.SSSS}] [%c{1.}] [%thread/%level]: %msg%n" />
         </Console>
     </Appenders>
     <Loggers>

@@ -34,7 +34,7 @@ allprojects {
 
 application {
     mainModule = 'com.mairwunnx.application'
-    mainClass = 'com.mairwunnx.application.EntryPoint'
+    mainClass = 'com.mairwunnx.application.ZygoteInit'
 }
 
 javafx {

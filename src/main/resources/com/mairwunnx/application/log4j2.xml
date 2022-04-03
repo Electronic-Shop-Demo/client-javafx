@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <RollingRandomAccessFile name="File" fileName="logs/latest.log" filePattern="logs/log-%d{MM-dd-yyyy}-%i.log.gz">
+            <Policies>
+                <OnStartupTriggeringPolicy />
+            </Policies>
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss.SSSS}] %c{1.} [%thread/%level]: %msg%n" />
+            <DefaultRolloverStrategy max="10" />
+        </RollingRandomAccessFile>
+
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%highlight[%d{yyyy-MM-dd HH:mm:ss.SSSS}] %c{1.} [%thread/%level]: %msg%n" />
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="trace">
+            <AppenderRef ref="File" />
+            <AppenderRef ref="Console" />
+        </Root>
+    </Loggers>
+</Configuration>

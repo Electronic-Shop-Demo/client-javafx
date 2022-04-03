@@ -1,10 +1,12 @@
-package com.mairwunnx.application;
+package com.mairwunnx.application.application.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mairwunnx.application.router.Router;
-import com.mairwunnx.application.router.controller.RouterController;
-import com.mairwunnx.application.router.types.RouterArg;
+import com.google.inject.Inject;
+import com.mairwunnx.application.application.components.HttpClientComponent;
+import com.mairwunnx.application.application.router.Router;
+import com.mairwunnx.application.application.router.controller.RouterController;
+import com.mairwunnx.application.application.router.types.RouterArg;
 import com.mairwunnx.dto.response.products.ProductResponse;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -26,12 +28,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class HelloController implements RouterController, Initializable {
-    private final ExecutorService executor = Executors.newSingleThreadExecutor();
-
     private Router router;
 
     @FXML
@@ -39,6 +37,9 @@ public class HelloController implements RouterController, Initializable {
 
     @FXML
     private FlowPane products;
+
+    @Inject
+    private HttpClientComponent httpClientComponent;
 
     private final ObservableList<ProductResponse> observableList = FXCollections.observableArrayList();
 
@@ -60,9 +61,15 @@ public class HelloController implements RouterController, Initializable {
 
         final var mapper = new ObjectMapper();
 
-        HttpClientComponent.getInstance()
+        httpClientComponent
             .getHttpClient()
             .sendAsync(request, HttpResponse.BodyHandlers.ofString())
+            .handle((response, throwable) -> {
+                if (throwable != null) {
+                    Platform.runLater(() -> welcomeText.setText("Error! Connection error."));
+                }
+                return response;
+            })
             .thenApply(response -> {
                 handleStatus(response.statusCode());
                 return response;
@@ -80,7 +87,6 @@ public class HelloController implements RouterController, Initializable {
             })
             .thenAccept(observableList::setAll);
 
-
         welcomeText.setText("WOW!");
     }
 
@@ -90,8 +96,6 @@ public class HelloController implements RouterController, Initializable {
 
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
-        executor.execute(HttpClientComponent::getInstance);
-
         observableList.addListener((ListChangeListener<? super ProductResponse>) c -> {
             final var productResponses = c.getList();
             final List<Node> cells = new ArrayList<>();
@@ -110,10 +114,5 @@ public class HelloController implements RouterController, Initializable {
     @Override
     public <T> void onShow(@NotNull final Router router, @Nullable final RouterArg<T> arg) {
         this.router = router;
-    }
-
-    @Override
-    public void onExit(@NotNull final Router router) {
-
     }
 }

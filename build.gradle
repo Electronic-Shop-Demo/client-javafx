@@ -79,6 +79,8 @@ dependencies {
     testAnnotationProcessor(libs.bundles.lombok)
     testAnnotationProcessor(libs.bundles.mapstructProcessor)
 
+    testImplementation(libs.bundles.javaAssert)
+    testImplementation(libs.bundles.fxTest)
     testImplementation(libs.bundles.jupiterApi)
     testRuntimeOnly(libs.bundles.jupiterEngine)
 

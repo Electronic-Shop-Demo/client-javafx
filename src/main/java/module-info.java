@@ -14,6 +14,9 @@ module com.mairwunnx.application {
     requires com.fasterxml.jackson.annotation;
     requires com.fasterxml.jackson.databind;
 
+    requires org.apache.commons.lang3;
+    requires org.apache.logging.log4j;
+
     opens com.mairwunnx.application to javafx.fxml;
     opens com.mairwunnx.application.router to com.mairwunnx.application;
 

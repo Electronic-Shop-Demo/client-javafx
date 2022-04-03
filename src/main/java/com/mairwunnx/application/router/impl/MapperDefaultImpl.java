@@ -55,7 +55,6 @@ final class MapperDefaultImpl implements Mapper {
             );
         }).toList();
 
-        System.out.println("mapped = " + mapped);
         entries.addAll(mapped);
     }
 

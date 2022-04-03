@@ -23,6 +23,8 @@ public interface Router {
 
     @NotNull RouterGraph getGraph();
 
+    void shutdown();
+
     void navigate(@NotNull String key);
 
     void navigate(@NotNull String key, @NotNull ResourceBundle bundle);

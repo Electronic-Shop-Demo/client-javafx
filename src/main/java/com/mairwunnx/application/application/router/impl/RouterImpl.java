@@ -127,6 +127,14 @@ public final class RouterImpl implements Router {
         if (getCurrentController() != null) {
             getCurrentController().onExit(this);
         }
+
+        setCurrentScene(null);
+        setCurrentBundle(null);
+        setCurrentController(null);
+        setConfiguration(null);
+        setMapper(null);
+        setListener(null);
+        setStage(null);
     }
 
     @Override
@@ -432,15 +440,21 @@ public final class RouterImpl implements Router {
         @NotNull final RouterEntry entry,
         @Nullable final ResourceBundle bundle
     ) {
+        final FXMLLoader loader;
+
         if (bundle != null) {
-            return new FXMLLoader(callerClass.getResource(entry.layout()), bundle);
+            loader = new FXMLLoader(callerClass.getResource(entry.layout()), bundle);
+        } else if (getCurrentBundle() != null) {
+            loader = new FXMLLoader(callerClass.getResource(entry.layout()), getCurrentBundle());
+        } else {
+            loader = new FXMLLoader(callerClass.getResource(entry.layout()));
         }
 
-        if (getCurrentBundle() != null) {
-            return new FXMLLoader(callerClass.getResource(entry.layout()), getCurrentBundle());
-        } else {
-            return new FXMLLoader(callerClass.getResource(entry.layout()));
+        if (getConfiguration() != null && getConfiguration().getControllerFactory() != null) {
+            loader.setControllerFactory(getConfiguration().getControllerFactory());
         }
+
+        return loader;
     }
 
     @NotNull

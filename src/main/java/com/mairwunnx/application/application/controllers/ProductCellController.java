@@ -1,4 +1,4 @@
-package com.mairwunnx.application;
+package com.mairwunnx.application.application.controllers;
 
 import com.mairwunnx.dto.response.products.ProductResponse;
 import javafx.fxml.FXML;

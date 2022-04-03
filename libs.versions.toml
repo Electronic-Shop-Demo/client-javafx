@@ -2,15 +2,19 @@
 jetbrains-annotations = "23.0.0"
 fx-controls = "11.1.1"
 fx-forms = "11.5.0"
+fx-test = "4.0.16-alpha"
 lombok = "1.18.22"
 mapstruct = "1.4.2.Final"
 jackson = "2.13.2"
 junit = "5.8.2"
+jassert = "3.13.2"
 
 [libraries]
 jetbrains-annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrains-annotations" }
 fx-controls = { module = "org.controlsfx:controlsfx", version.ref = "fx-controls" }
 fx-formsfx-core = { module = "com.dlsc.formsfx:formsfx-core", version.ref = "fx-forms" }
+fx-test = { module = "org.testfx:testfx-core", version.ref = "fx-test" }
+fx-junit-5 = { module = "org.testfx:testfx-junit5", version.ref = "fx-test" }
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
 mapstruct = { module = "org.mapstruct:mapstruct", version.ref = "mapstruct" }
 mapstruct-processor = { module = "org.mapstruct:mapstruct-processor", version.ref = "mapstruct" }
@@ -20,14 +24,17 @@ jackson-datatype-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-dat
 jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
 jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
 jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
+jassert = { module = "org.assertj:assertj-core", version.ref = "jassert" }
 
 [bundles]
 jetbrains = ["jetbrains-annotations"]
 fxControls = ["fx-controls"]
 fxForms = ["fx-formsfx-core"]
+fxTest = ["fx-test", "fx-junit-5"]
 lombok = ["lombok"]
 mapstruct = ["mapstruct"]
 mapstructProcessor = ["mapstruct-processor"]
 jackson = ["jackson-core", "jackson-annotations", "jackson-datatype-jsr310", "jackson-databind"]
 jupiterApi = ["jupiter-api"]
 jupiterEngine = ["jupiter-engine"]
+javaAssert = ["jassert"]

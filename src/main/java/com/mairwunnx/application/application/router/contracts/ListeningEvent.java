@@ -1,7 +1,7 @@
-package com.mairwunnx.application.router.contracts;
+package com.mairwunnx.application.application.router.contracts;
 
-import com.mairwunnx.application.router.types.RouterArg;
-import com.mairwunnx.application.router.types.RouterEvent;
+import com.mairwunnx.application.application.router.types.RouterArg;
+import com.mairwunnx.application.application.router.types.RouterEvent;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

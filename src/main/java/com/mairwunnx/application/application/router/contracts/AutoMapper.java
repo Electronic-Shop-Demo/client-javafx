@@ -1,7 +1,7 @@
-package com.mairwunnx.application.router.contracts;
+package com.mairwunnx.application.application.router.contracts;
 
-import com.mairwunnx.application.router.configurators.RouterConfiguration;
-import com.mairwunnx.application.router.types.RouterEntry;
+import com.mairwunnx.application.application.router.configurators.RouterConfiguration;
+import com.mairwunnx.application.application.router.types.RouterEntry;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;

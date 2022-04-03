@@ -1,8 +1,8 @@
-package com.mairwunnx.application.router.impl;
+package com.mairwunnx.application.application.router.impl;
 
-import com.mairwunnx.application.router.configurators.RouterConfiguration;
-import com.mairwunnx.application.router.contracts.AutoMapper;
-import com.mairwunnx.application.router.types.RouterEntry;
+import com.mairwunnx.application.application.router.configurators.RouterConfiguration;
+import com.mairwunnx.application.application.router.contracts.AutoMapper;
+import com.mairwunnx.application.application.router.types.RouterEntry;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 

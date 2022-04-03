@@ -69,6 +69,7 @@ dependencies {
     implementation(libs.bundles.lombok)
     implementation(libs.bundles.mapstruct)
     implementation(libs.bundles.jackson)
+    implementation(libs.bundles.log4j2)
 
     annotationProcessor(libs.bundles.lombok)
     annotationProcessor(libs.bundles.mapstructProcessor)

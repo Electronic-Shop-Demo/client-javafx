@@ -1,6 +1,5 @@
 module application.dto.main {
     requires org.jetbrains.annotations;
-    requires lombok;
     requires com.fasterxml.jackson.annotation;
 
     exports com.mairwunnx.dto.request.products;

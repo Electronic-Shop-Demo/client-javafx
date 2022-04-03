@@ -8,6 +8,9 @@ import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 @Log4j2
 public final class ApplicationRouter {
     public Router buildRouter() {
@@ -20,7 +23,11 @@ public final class ApplicationRouter {
                 })
                 .map(mapper -> {
                     for (final Routes value : Routes.values()) {
-                        mapper.withLayout(value.getLayout()).apply();
+                        mapper
+                            .withKey(value.getKey())
+                            .withTitle(value.getTitle())
+                            .withLayout(value.getLayout())
+                            .apply();
                     }
                 })
                 .listening(listener -> {
@@ -37,8 +44,8 @@ public final class ApplicationRouter {
     }
 
     public enum Routes {
-        MAIN("hello-view.fxml"),
-        TEST("hello-test.fxml");
+        MAIN("hello-view", "/com/mairwunnx/application/hello-view.fxml"),
+        TEST("hello-view", "/com/mairwunnx/application/hello-test.fxml");
 
         @NotNull
         @Getter
@@ -47,9 +54,14 @@ public final class ApplicationRouter {
         @Getter
         private final String layout;
 
-        Routes(@NotNull final String layout) {
-            this.key = StringUtils.removeEnd(layout, ".fxml");
+        @NotNull
+        @Getter
+        private final String title;
+
+        Routes(@NotNull final String key, @NotNull final String layout) {
+            this.key = key;
             this.layout = layout;
+            this.title = Arrays.stream(key.split("-")).map(StringUtils::capitalize).collect(Collectors.joining(" "));
         }
 
         @NotNull

@@ -10,13 +10,9 @@ plugins {
 group 'com.mairwunnx'
 version '1.0.0'
 
-ext {
-    junitVersion = '5.8.2'
-}
-
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(18)
+        languageVersion = JavaLanguageVersion.of 18
         vendor = JvmVendorSpec.ORACLE
     }
 }
@@ -36,7 +32,7 @@ test {
 }
 
 jlink {
-    imageZip = project.file("${buildDir}/distributions/app-${javafx.platform.classifier}.zip")
+    imageZip = project.file "${buildDir}/distributions/app-${javafx.platform.classifier}.zip"
     options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
     launcher {
         name = 'app'
@@ -68,7 +64,7 @@ dependencies {
     implementation(libs.bundles.jetbrains)
     implementation(libs.bundles.fxControls)
     implementation(libs.bundles.fxForms) {
-        exclude(group: 'org.openjfx')
+        exclude group: 'org.openjfx'
     }
     implementation(libs.bundles.lombok)
     implementation(libs.bundles.mapstruct)
@@ -86,6 +82,6 @@ dependencies {
     testImplementation(libs.bundles.jupiterApi)
     testRuntimeOnly(libs.bundles.jupiterEngine)
 
-    implementation(project('dto')) { transitive(false) }
-    implementation(project('models')) { transitive(false) }
+    implementation(project('dto')) { transitive false }
+    implementation(project('models')) { transitive false }
 }

@@ -72,6 +72,11 @@ public final class RouterImpl implements Router {
     @Setter(value = AccessLevel.PRIVATE)
     private List<RouterEntry> routerEntries;
 
+    @Nullable
+    @Getter
+    @Setter(value = AccessLevel.PRIVATE)
+    private RouterController currentController;
+
     private final StackWalker walker = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
 
     public RouterImpl(
@@ -115,6 +120,13 @@ public final class RouterImpl implements Router {
     @Override
     public void ensureBundle(@NotNull final ResourceBundle bundle) {
         setCurrentBundle(bundle);
+    }
+
+    @Override
+    public void shutdown() {
+        if (getCurrentController() != null) {
+            getCurrentController().onExit(this);
+        }
     }
 
     @Override
@@ -463,6 +475,7 @@ public final class RouterImpl implements Router {
                     }
 
                     prevController = routerController;
+                    setCurrentController(routerController);
                     routerController.onShow(this, arg);
                 }
             }

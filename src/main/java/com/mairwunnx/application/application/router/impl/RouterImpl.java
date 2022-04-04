@@ -46,6 +46,11 @@ public final class RouterImpl implements Router {
     @Nullable
     @Getter
     @Setter(value = AccessLevel.PRIVATE)
+    private String currentStylesheet;
+
+    @Nullable
+    @Getter
+    @Setter(value = AccessLevel.PRIVATE)
     private Stage stage;
 
     @Nullable
@@ -123,6 +128,17 @@ public final class RouterImpl implements Router {
     }
 
     @Override
+    public void ensureStylesheet(@NotNull final String path) {
+        if (getStage() == null) {
+            throw new IllegalStateException(
+                "Can't ensure stylesheets while stage is not provided, provide stage via ensureStage or configuration"
+            );
+        }
+
+        setCurrentStylesheet(path);
+    }
+
+    @Override
     public void shutdown() {
         if (getCurrentController() != null) {
             getCurrentController().onExit(this);
@@ -151,7 +167,7 @@ public final class RouterImpl implements Router {
         graph.push(new RouterGraphEntry<>(entry.key(), entry.layout(), entry.size(), entry.title(), null));
         currentScene = scene;
 
-        applyStageAndScene(fxmlLoader, scene, entry, null);
+        applyStageAndScene(fxmlLoader, scene, entry, null, callerClass);
         fireOnNavigationPerformedEventWithArg(key, null);
     }
 
@@ -169,7 +185,7 @@ public final class RouterImpl implements Router {
         graph.push(new RouterGraphEntry<>(entry.key(), entry.layout(), entry.size(), entry.title(), null));
         currentScene = scene;
 
-        applyStageAndScene(fxmlLoader, scene, entry, null);
+        applyStageAndScene(fxmlLoader, scene, entry, null, callerClass);
         fireOnNavigationPerformedEventWithArg(key, null);
     }
 
@@ -189,7 +205,7 @@ public final class RouterImpl implements Router {
         graph.push(new RouterGraphEntry<>(entry.key(), entry.layout(), entry.size(), entry.title(), arg));
         currentScene = scene;
 
-        applyStageAndScene(fxmlLoader, scene, entry, arg);
+        applyStageAndScene(fxmlLoader, scene, entry, arg, callerClass);
         fireOnNavigationPerformedEventWithArg(key, arg);
     }
 
@@ -211,7 +227,7 @@ public final class RouterImpl implements Router {
         graph.push(new RouterGraphEntry<>(entry.key(), entry.layout(), entry.size(), entry.title(), arg));
         currentScene = scene;
 
-        applyStageAndScene(fxmlLoader, scene, entry, arg);
+        applyStageAndScene(fxmlLoader, scene, entry, arg, callerClass);
         fireOnNavigationPerformedEventWithArg(key, arg);
     }
 
@@ -230,7 +246,7 @@ public final class RouterImpl implements Router {
         graph.push(new RouterGraphEntry<>(entry.key(), entry.layout(), entry.size(), entry.title(), null));
         currentScene = scene;
 
-        applyStageAndScene(fxmlLoader, scene, entry, null);
+        applyStageAndScene(fxmlLoader, scene, entry, null, callerClass);
         fireOnNavigationPerformedEventWithArg(key, null);
     }
 
@@ -249,7 +265,7 @@ public final class RouterImpl implements Router {
         graph.push(new RouterGraphEntry<>(entry.key(), entry.layout(), entry.size(), entry.title(), null));
         currentScene = scene;
 
-        applyStageAndScene(fxmlLoader, scene, entry, null);
+        applyStageAndScene(fxmlLoader, scene, entry, null, callerClass);
         fireOnNavigationPerformedEventWithArg(key, null);
     }
 
@@ -268,7 +284,7 @@ public final class RouterImpl implements Router {
         graph.push(new RouterGraphEntry<>(entry.key(), entry.layout(), entry.size(), entry.title(), arg));
         currentScene = scene;
 
-        applyStageAndScene(fxmlLoader, scene, entry, arg);
+        applyStageAndScene(fxmlLoader, scene, entry, arg, callerClass);
         fireOnNavigationPerformedEventWithArg(key, arg);
     }
 
@@ -291,7 +307,7 @@ public final class RouterImpl implements Router {
         graph.push(new RouterGraphEntry<>(entry.key(), entry.layout(), entry.size(), entry.title(), arg));
         currentScene = scene;
 
-        applyStageAndScene(fxmlLoader, scene, entry, arg);
+        applyStageAndScene(fxmlLoader, scene, entry, arg, callerClass);
         fireOnNavigationPerformedEventWithArg(key, arg);
     }
 
@@ -312,7 +328,7 @@ public final class RouterImpl implements Router {
 
             currentScene = scene;
 
-            applyStageAndScene(fxmlLoader, scene, entry, last.arg());
+            applyStageAndScene(fxmlLoader, scene, entry, last.arg(), callerClass);
             fireOnBackPerformedEventWithArg(null);
         }
     }
@@ -334,7 +350,7 @@ public final class RouterImpl implements Router {
 
             currentScene = scene;
 
-            applyStageAndScene(fxmlLoader, scene, entry, arg);
+            applyStageAndScene(fxmlLoader, scene, entry, arg, callerClass);
             fireOnBackPerformedEventWithArg(arg);
         }
     }
@@ -353,7 +369,7 @@ public final class RouterImpl implements Router {
 
             currentScene = scene;
 
-            applyStageAndScene(fxmlLoader, scene, entry, last.arg());
+            applyStageAndScene(fxmlLoader, scene, entry, last.arg(), callerClass);
         }
     }
 
@@ -371,7 +387,7 @@ public final class RouterImpl implements Router {
 
             currentScene = scene;
 
-            applyStageAndScene(fxmlLoader, scene, entry, last.arg());
+            applyStageAndScene(fxmlLoader, scene, entry, last.arg(), callerClass);
         }
     }
 
@@ -389,7 +405,7 @@ public final class RouterImpl implements Router {
 
             currentScene = scene;
 
-            applyStageAndScene(fxmlLoader, scene, entry, arg);
+            applyStageAndScene(fxmlLoader, scene, entry, arg, callerClass);
         }
     }
 
@@ -407,7 +423,7 @@ public final class RouterImpl implements Router {
 
             currentScene = scene;
 
-            applyStageAndScene(fxmlLoader, scene, entry, arg);
+            applyStageAndScene(fxmlLoader, scene, entry, arg, callerClass);
         }
     }
 
@@ -476,10 +492,23 @@ public final class RouterImpl implements Router {
         @NotNull final FXMLLoader fxmlLoader,
         @NotNull final Scene scene,
         @NotNull final RouterEntry entry,
-        @Nullable final RouterArg<T> arg
+        @Nullable final RouterArg<T> arg,
+        @NotNull final Class<?> callerClass
     ) {
         if (getStage() != null) {
             getStage().setScene(scene);
+
+            if (getCurrentStylesheet() != null) {
+                final var resource = callerClass.getResource(getCurrentStylesheet());
+                if (resource != null) {
+                    final var externalForm = resource.toExternalForm();
+
+                    if (scene.getStylesheets().contains(externalForm)) {
+                        scene.getStylesheets().removeAll(externalForm);
+                    }
+                    scene.getStylesheets().addAll(externalForm);
+                }
+            }
 
             final var controller = fxmlLoader.getController();
             if (controller instanceof RouterController routerController) {

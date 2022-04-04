@@ -22,7 +22,7 @@ public final class Application extends javafx.application.Application {
     public void start(final @NotNull Stage stage) {
         if (router != null) {
             router.ensureStage(stage);
-            router.navigate(ApplicationRouter.Routes.MAIN.toString());
+            router.navigate(ApplicationRouter.Routes.HOME.toString());
         }
     }
 

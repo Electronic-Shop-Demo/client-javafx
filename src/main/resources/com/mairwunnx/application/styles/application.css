@@ -1,4 +1,26 @@
-.test {
-  -fx-background-color: #ff00f1;
+.topbar-panel {
+  -fx-background-color: #232323;
+}
+.button-primary {
+  -fx-background-color: #166d3c;
+  -fx-text-fill: white;
+}
+/* Home */
+.button-back {
+  -fx-background-radius: 6;
+  -fx-padding: 4;
+  -fx-background-color: transparent;
+  -fx-graphic: url("../assets/round_arrow_back_white_24dp.png");
+}
+.button-back:hover {
+  -fx-background-color: rgba(255, 255, 255, 0.08);
+}
+.button-back:pressed {
+  -fx-background-color: rgba(255, 255, 255, 0.05);
+}
+.button-back:focused {
+  -fx-border-radius: 6;
+  -fx-border-width: 2;
+  -fx-border-color: #166d3c;
 }
 /*# sourceMappingURL=application.css.map */

@@ -6,6 +6,7 @@
     </list>
     <writeAnnotations>
       <writeAnnotation name="com.google.inject.Inject" />
+      <writeAnnotation name="javafx.fxml.FXML" />
     </writeAnnotations>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />

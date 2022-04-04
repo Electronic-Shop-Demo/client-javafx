@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?><?import javafx.scene.control.*?><?import javafx.scene.layout.*?><?import javafx.scene.text.Font?>
+<fx:root fx:id="root" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <Pane fx:id="pane" managed="false" prefHeight="52.0" style="-fx-background-color: #166d3c;" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+    <GridPane fx:id="grid" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints prefHeight="52.0" vgrow="SOMETIMES" />
+            <RowConstraints prefHeight="130.0" vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+        </rowConstraints>
+        <Pane style="-fx-background-color: #166d3c;" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" />
+        <TextField fx:id="search" maxWidth="800.0" promptText="Search keyboards, mises and more" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+        <Label alignment="TOP_LEFT" text="Bryansk" textFill="WHITE" wrapText="true" GridPane.columnIndex="1">
+            <font>
+                <Font name="Open Sans SemiBold" size="13.0" />
+            </font>
+            <GridPane.margin>
+                <Insets left="16.0" />
+            </GridPane.margin>
+            <padding>
+                <Insets right="8.0" />
+            </padding>
+        </Label>
+        <Button fx:id="signin" mnemonicParsing="false" text="Log in or register" GridPane.columnIndex="5" GridPane.halignment="RIGHT">
+            <GridPane.margin>
+                <Insets left="8.0" right="16.0" />
+            </GridPane.margin>
+        </Button>
+        <Button fx:id="cart" mnemonicParsing="false" text="Cart" GridPane.columnIndex="4">
+            <GridPane.margin>
+                <Insets left="8.0" right="8.0" />
+            </GridPane.margin>
+        </Button>
+        <Button fx:id="favorite" mnemonicParsing="false" text="Favorite" GridPane.columnIndex="3">
+            <GridPane.margin>
+                <Insets left="8.0" right="8.0" />
+            </GridPane.margin>
+        </Button>
+        <Button fx:id="backButton" text="back" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <GridPane.margin>
+                <Insets left="16.0" right="4.0" />
+            </GridPane.margin>
+        </Button>
+    </GridPane>
+</fx:root>

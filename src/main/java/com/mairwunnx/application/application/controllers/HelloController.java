@@ -45,12 +45,12 @@ public final class HelloController implements RouterController, Initializable {
 
 
     @FXML
-    protected void onBackButtonClick() {
+    private void onBackButtonClick() {
         router.back();
     }
 
     @FXML
-    protected void onHelloButtonClick() {
+    private void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
 
         final var request =

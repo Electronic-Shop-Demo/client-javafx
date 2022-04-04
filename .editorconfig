@@ -450,3 +450,8 @@ ij_groovy_while_brace_force = never
 ij_groovy_while_on_new_line = false
 ij_groovy_wrap_chain_calls_after_dot = false
 ij_groovy_wrap_long_lines = false
+
+[{*.fxml,*.xml,*.xaml}]
+ij_xml_attribute_wrap = on_every_item
+ij_xml_align_attributes = true
+ij_xml_indent_size = 4

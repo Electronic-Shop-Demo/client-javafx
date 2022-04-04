@@ -9,7 +9,7 @@
     <Pane fx:id="pane"
           managed="false"
           prefHeight="52.0"
-          style="-fx-background-color: #166d3c;"
+          styleClass="topbar-panel"
           visible="false"
           AnchorPane.leftAnchor="0.0"
           AnchorPane.rightAnchor="0.0"
@@ -31,7 +31,7 @@
             <RowConstraints vgrow="SOMETIMES" />
         </rowConstraints>
 
-        <Pane style="-fx-background-color: #166d3c;" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" />
+        <Pane styleClass="topbar-panel" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" />
 
         <TextField fx:id="search"
                    maxWidth="800.0"
@@ -76,10 +76,18 @@
             </GridPane.margin>
         </Button>
 
-        <Button fx:id="backButton" text="back" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+        <Button fx:id="backButton"
+                accessibleText="back"
+                GridPane.halignment="CENTER"
+                GridPane.valignment="CENTER"
+                styleClass="button-back">
             <GridPane.margin>
                 <Insets left="16.0" right="4.0" />
             </GridPane.margin>
+
+            <tooltip>
+                <Tooltip text="Go back" />
+            </tooltip>
         </Button>
     </GridPane>
 </fx:root>

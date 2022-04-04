@@ -15,7 +15,7 @@ public final class GuiceInjector {
     @Setter(value = AccessLevel.PRIVATE)
     private static Injector injector;
 
-    public static void ensureModules(final String[] args) {
+    public static void ensureModules(@NotNull final String[] args) {
         setInjector(Guice.createInjector(new AppModule(args)));
         getInjector().getInstance(PostInit.class).init();
     }

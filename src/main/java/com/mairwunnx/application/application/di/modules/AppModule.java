@@ -6,20 +6,21 @@ import com.google.inject.Singleton;
 import com.mairwunnx.application.application.components.HttpClientComponent;
 import com.mairwunnx.application.application.di.qulifiers.StartupArgs;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public final class AppModule extends AbstractModule {
-    @Nullable
+    @NotNull
     private static String[] args;
 
     public AppModule(@NotNull final String[] args) {
-        AppModule.args = args;
+        if (args != null) {
+            AppModule.args = args;
+        }
     }
 
     @Provides
     @StartupArgs
     static String[] provideArgs() {
-        return args == null ? new String[]{} : args;
+        return args;
     }
 
     @Singleton

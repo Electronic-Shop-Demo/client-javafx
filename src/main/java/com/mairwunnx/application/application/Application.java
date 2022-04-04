@@ -8,6 +8,8 @@ import org.jetbrains.annotations.Nullable;
 
 @Log4j2
 public final class Application extends javafx.application.Application {
+    private static final String STYLESHEET = "/com/mairwunnx/application/styles/application.css";
+
     @Nullable
     private Router router = null;
 
@@ -22,6 +24,7 @@ public final class Application extends javafx.application.Application {
     public void start(final @NotNull Stage stage) {
         if (router != null) {
             router.ensureStage(stage);
+            router.ensureStylesheet(STYLESHEET);
             router.navigate(ApplicationRouter.Routes.HOME.toString());
         }
     }

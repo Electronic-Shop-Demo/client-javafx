@@ -13,7 +13,7 @@ import javafx.scene.shape.Rectangle;
 import java.io.IOException;
 import java.util.random.RandomGenerator;
 
-public class ProductCellController {
+public final class ProductCellController {
     private static final RandomGenerator RANDOM_GENERATOR = RandomGenerator.of("L32X64MixRandom");
 
     @FXML

@@ -43,7 +43,6 @@ public final class HelloController implements RouterController, Initializable {
 
     private final ObservableList<ProductResponse> observableList = FXCollections.observableArrayList();
 
-
     @FXML
     private void onBackButtonClick() {
         router.back();

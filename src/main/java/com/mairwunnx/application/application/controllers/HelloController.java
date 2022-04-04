@@ -29,7 +29,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class HelloController implements RouterController, Initializable {
+public final class HelloController implements RouterController, Initializable {
     private Router router;
 
     @FXML

@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 @Log4j2
 public final class ApplicationRouter {
+    @NotNull
     public Router buildRouter() {
         return RouterFX.build(router -> {
             router

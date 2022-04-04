@@ -22,6 +22,7 @@ module com.mairwunnx.application {
 
     opens com.mairwunnx.application to javafx.fxml, com.google.guice;
     opens com.mairwunnx.application.application.di.modules to com.google.guice;
+    opens com.mairwunnx.application.application.views to javafx.fxml;
 
     exports com.mairwunnx.application.application.router;
     exports com.mairwunnx.application;
@@ -31,4 +32,5 @@ module com.mairwunnx.application {
     opens com.mairwunnx.application.application.controllers to com.google.guice, javafx.fxml;
     exports com.mairwunnx.application.application.components;
     opens com.mairwunnx.application.application.components to com.google.guice, javafx.fxml;
+    opens com.mairwunnx.application.application.controllers.home to com.google.guice, javafx.fxml;
 }

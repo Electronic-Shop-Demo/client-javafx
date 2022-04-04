@@ -46,6 +46,7 @@ public final class ApplicationRouter {
 
     public enum Routes {
         MAIN("hello-view", "/com/mairwunnx/application/hello-view.fxml"),
+        HOME("home", "/com/mairwunnx/application/layouts/home/home.fxml"),
         TEST("hello-view", "/com/mairwunnx/application/hello-test.fxml");
 
         @NotNull

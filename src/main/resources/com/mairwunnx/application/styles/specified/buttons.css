@@ -136,37 +136,6 @@
 .focusable-button:focused {
   -fx-border-color: white;
 }
-.tooltip {
-  -fx-background-color: white;
-  -fx-background-radius: 6;
-  -fx-border-color: white;
-  -fx-border-radius: 4;
-  -fx-border-width: 2;
-  -fx-text-fill: #232323;
-  -fx-font-family: "Open Sans";
-  -fx-font-size: 1.08333333em;
-}
-.field-regular {
-  -fx-font-family: "Open Sans";
-  -fx-font-size: 1em;
-  -fx-text-fill: #232323;
-  -fx-background-color: linear-gradient(to bottom, derive(#166d3c, -10%), #125830), linear-gradient(from 0px 0px to 0px 5px, derive(#898989, -9%), white);
-  -fx-background-radius: 6;
-  -fx-background-insets: 0, 1;
-  -fx-border-color: transparent;
-  -fx-border-width: 2;
-  -fx-border-radius: 5;
-  -fx-highlight-fill: #166d3c;
-  -fx-highlight-text-fill: white;
-  -fx-prompt-text-fill: #898989;
-  -fx-padding: 0.333333em 0.583em 0.333333em 0.583em;
-}
-.field-regular:focused {
-  -fx-background-color: #166d3c, white, #166d3c, linear-gradient(from 0px 0px to 0px 5px, derive(#166d3c, -9%), white);
-  -fx-background-insets: -1, 1, -1, 2.35;
-  -fx-border-color: white;
-  -fx-border-width: 2;
-}
 .button-location {
   -fx-graphic: url("../assets/outline_location_on_white_24dp.png");
   -fx-padding: 4 14 !important;
@@ -323,7 +292,4 @@
 .button-cart-compact:pressed {
   -fx-background-color: rgba(255, 255, 255, 0.06);
 }
-.topbar-panel {
-  -fx-background-color: #232323;
-}
-/*# sourceMappingURL=application.css.map */
+/*# sourceMappingURL=buttons.css.map */

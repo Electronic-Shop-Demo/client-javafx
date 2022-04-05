@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.mairwunnx.application.application.views.TopBar?><?import javafx.scene.layout.AnchorPane?>
-<AnchorPane maxWidth="1600.0"
+<AnchorPane fx:id="root"
+            maxWidth="1600.0"
             minWidth="400.0"
             prefHeight="518.0"
             prefWidth="793.0"

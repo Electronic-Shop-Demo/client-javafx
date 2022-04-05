@@ -1,0 +1,97 @@
+@import "../system";
+@import "../images";
+@import "../values";
+
+.button-primary {
+    -fx-background-color: @on-surface-alt-primary;
+    -fx-text-fill: @on-surface-alt-on-primary;
+
+    .regular-button();
+
+    &:hover {
+        -fx-background-color: @on-surface-alt-primary-lighten-1;
+    }
+
+    &:armed,
+    &:pressed {
+        -fx-background-color: @on-surface-alt-primary-darken-1;
+    }
+}
+
+.button-regular {
+    -fx-background-color: @on-surface-any;
+    -fx-text-fill: @on-surface-on-any;
+
+    .regular-button();
+
+    &:hover {
+        -fx-background-color: @on-surface-any-lighten-1;
+    }
+
+    &:armed,
+    &:pressed {
+        -fx-background-color: @on-surface-any-darken-1;
+    }
+}
+
+.button-regular-alt {
+    -fx-background-color: @on-surface-alt-any;
+    -fx-text-fill: @on-surface-alt-on-any;
+
+    .regular-button();
+
+    &:hover {
+        -fx-background-color: @on-surface-alt-any-darken-1;
+    }
+
+    &:armed,
+    &:pressed {
+        -fx-background-color: @on-surface-alt-any-darken-2;
+    }
+}
+
+.iconic-button-text {
+    -fx-padding: 4 14 !important;
+    -fx-font-size: @size-13-px;
+    -fx-font-family: @font-medium;
+
+    .iconic-button();
+}
+
+.iconic-button {
+    -fx-background-radius: @button-background-radius;
+    -fx-padding: 4;
+    -fx-text-fill: @on-surface-alt-any;
+    -fx-text-alignment: center;
+    -fx-background-color: transparent;
+
+    .focusable-button();
+
+    &:hover {
+        -fx-background-color: @base-fade-1;
+    }
+
+    &:armed,
+    &:pressed {
+        -fx-background-color: @base-fade-2;
+    }
+}
+
+.regular-button {
+    -fx-background-radius: @button-background-radius;
+    -fx-padding: 4 14;
+    -fx-font-size: @size-13-px;
+    -fx-font-family: @font-medium;
+
+    .focusable-button();
+}
+
+.focusable-button {
+    -fx-border-radius: @button-border-radius;
+    -fx-border-width: 2;
+    -fx-border-color: transparent;
+
+    &:focused {
+        -fx-border-color: @focus;
+    }
+}

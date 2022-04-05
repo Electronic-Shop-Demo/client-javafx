@@ -52,7 +52,10 @@ public final class Application extends javafx.application.Application {
     }
 
     private void initializeRouter() {
-        router = new ApplicationRouter().buildRouter();
+        router = new ApplicationRouter()
+            .setOnNavigationPerformedInterceptor((key, stage, arg, e) -> interceptSceneChanging(stage))
+            .buildRouter();
+
         log.info("Application router created");
     }
 

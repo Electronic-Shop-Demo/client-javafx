@@ -1,0 +1,45 @@
+@import "font-collection";
+@import "font-sizes";
+@import "images";
+@import "values";
+
+@base: white;
+@base-fade-1: fade(color("@{base}"), 10%);
+@base-fade-2: fade(color("@{base}"), 6%);
+
+@pure-white: white;
+@pure-white-darken-1: darken(@pure-white, 5%);
+@pure-white-darken-2: darken(@pure-white, 10%);
+@pure-white: white;
+
+@chocolate-dark: #232323;
+@chocolate-dark-lighten-1: lighten(@chocolate-dark, 5%);
+@chocolate-dark-lightest: lighten(@chocolate-dark, 40%);
+@chocolate-dark-darken-1: darken(@chocolate-dark, 5%);
+
+@sweet-green: #166d3c;
+@sweet-green-lighten-1: lighten(@sweet-green, 5%);
+@sweet-green-darken-1: darken(@sweet-green, 5%);
+
+@surface: @pure-white;
+@surface-alt: @chocolate-dark;
+@surface-contrast: @sweet-green;
+
+@on-surface-alt-primary: @sweet-green;
+@on-surface-alt-primary-lighten-1: @sweet-green-lighten-1;
+@on-surface-alt-primary-darken-1: @sweet-green-darken-1;
+@on-surface-alt-on-primary: @pure-white;
+
+@on-surface-alt-any: @pure-white;
+@on-surface-alt-any-darken-1: @pure-white-darken-1;
+@on-surface-alt-any-darken-2: @pure-white-darken-2;
+@on-surface-alt-on-any: @chocolate-dark;
+
+@on-surface-any: @chocolate-dark;
+@on-surface-any-lighten-1: @chocolate-dark-lighten-1;
+@on-surface-any-darken-1: @chocolate-dark-darken-1;
+@on-surface-any-lightest: @chocolate-dark-lightest;
+@on-surface-on-any: @pure-white;
+
+
+@focus: @pure-white;

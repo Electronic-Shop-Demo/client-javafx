@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.function.Consumer;
 
 import static com.mairwunnx.application.application.compact.CompactUtils.switchToCompact;
-import static com.mairwunnx.application.application.compact.InteractionUtils.setOnUserInteract;
+import static com.mairwunnx.application.application.interaction.InteractionUtils.setOnUserInteract;
 
 public final class TopBar extends AnchorPane implements JfxView, JfxCompactable {
     public static final double WIDE_MODE_WIDTH_THRESHOLD = 1_500.0;

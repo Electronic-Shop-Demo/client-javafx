@@ -1,0 +1,28 @@
+@import "../system";
+@import "../font-collection";
+@import "../font-sizes";
+@import "../values";
+@import "../images";
+
+.field-regular {
+    -fx-font-family: @font-regular;
+    -fx-font-size: @size-12-px;
+    -fx-text-fill: @on-surface-any;
+    -fx-background-color: linear-gradient(to bottom, derive(@sweet-green, -10%), @sweet-green-darken-1), linear-gradient(from 0px 0px to 0px 5px, derive(@chocolate-dark-lightest, -9%), @surface);
+    -fx-background-radius: @textfield-background-radius;
+    -fx-background-insets: 0, 1;
+    -fx-border-color: transparent;
+    -fx-border-width: 2;
+    -fx-border-radius: @textfield-border-radius;
+    -fx-highlight-fill: @on-surface-alt-primary;
+    -fx-highlight-text-fill: @on-surface-alt-on-primary;
+    -fx-prompt-text-fill: @on-surface-any-lightest;
+    -fx-padding: 0.333333em 0.583em 0.333333em 0.583em;
+
+    &:focused {
+        -fx-background-color: @surface-contrast, @surface, @surface-contrast, linear-gradient(from 0px 0px to 0px 5px, derive(@surface-contrast, -9%), @surface);
+        -fx-background-insets: -1, 1, -1, 2.35;
+        -fx-border-color: @focus;
+        -fx-border-width: 2;
+    }
+}

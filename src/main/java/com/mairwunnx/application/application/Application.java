@@ -1,6 +1,9 @@
 package com.mairwunnx.application.application;
 
 import com.mairwunnx.application.application.router.Router;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j2;
 import org.jetbrains.annotations.NotNull;

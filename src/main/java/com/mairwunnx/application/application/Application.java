@@ -52,4 +52,32 @@ public final class Application extends javafx.application.Application {
         router = new ApplicationRouter().buildRouter();
         log.info("Application router created");
     }
+
+    private void interceptSceneChanging(@NotNull final Stage stage) {
+        initializeSceneAccelerators(stage);
+        initializeSceneFocusHandlers(stage);
+    }
+
+    private void initializeSceneAccelerators(@NotNull final Stage stage) {
+        stage.getScene().getAccelerators().put(
+            new KeyCodeCombination(KeyCode.LEFT, KeyCombination.ALT_DOWN),
+            () -> {
+                if (router != null) router.back();
+            }
+        );
+    }
+
+    private void initializeSceneFocusHandlers(@NotNull final Stage stage) {
+        stage.getScene().getAccelerators().put(
+            new KeyCodeCombination(KeyCode.ESCAPE),
+            () -> {
+                if (stage.getScene().getFocusOwner() != null) {
+                    stage.getScene().getRoot().requestFocus();
+                }
+            }
+        );
+    }
+
+    private void noop() {
+    }
 }

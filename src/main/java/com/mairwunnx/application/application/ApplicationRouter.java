@@ -3,16 +3,25 @@ package com.mairwunnx.application.application;
 import com.mairwunnx.application.application.di.GuiceInjector;
 import com.mairwunnx.application.application.router.Router;
 import com.mairwunnx.application.application.router.RouterFX;
+import com.mairwunnx.application.application.router.contracts.ListeningEvent;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
 @Log4j2
 public final class ApplicationRouter {
+    @Nullable private ListeningEvent onNavigationPerformed;
+
+    public ApplicationRouter setOnNavigationPerformedInterceptor(final ListeningEvent onNavigationPerformed) {
+        this.onNavigationPerformed = onNavigationPerformed;
+        return this;
+    }
+
     @NotNull
     public Router buildRouter() {
         return RouterFX.build(router -> {
@@ -34,6 +43,10 @@ public final class ApplicationRouter {
                 .listening(listener -> {
                     listener.onNavigationPerformed((key, stage, arg, e) -> {
                         log.info("Navigation performed to {} with arg {}", key, arg);
+
+                        if (onNavigationPerformed != null) {
+                            onNavigationPerformed.action(key, stage, arg, e);
+                        }
                     });
 
                     listener.onBackPerformed((key, stage, arg, e) -> {

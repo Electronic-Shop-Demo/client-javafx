@@ -1,5 +1,6 @@
 package com.mairwunnx.application.application.views;
 
+import com.mairwunnx.application.application.Application;
 import com.mairwunnx.application.application.contracts.JfxCompactable;
 import com.mairwunnx.application.application.contracts.JfxView;
 import javafx.fxml.FXML;
@@ -63,6 +64,9 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
     @Getter
     private final HashMap<Node, Object> compactSavedParams = new HashMap<>();
 
+    private String compactSignInText;
+    private double minCompactSize;
+
     public TopBar() {
         initialize();
     }
@@ -83,7 +87,7 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
             cart.setText(null);
             favorite.setText(null);
             locationButton.setText(null);
-            signin.setText("Log in");
+            signin.setText(compactSignInText);
         } else {
             cart.setText((String) getCompactSavedParams().get(cart));
             favorite.setText((String) getCompactSavedParams().get(favorite));
@@ -96,15 +100,23 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
     }
 
     private void initialize() {
+        extractBundleValues();
         expose();
         updateWidthConstraints(root.getWidth());
-        setCompactMode(root.getWidth() <= SMALL_MODE_WIDTH_THRESHOLD);
+        setCompactMode(root.getWidth() <= minCompactSize);
         subscribeOnRootWidthChanged();
         subscribeOnBackButtonClicked();
         subscribeOnSearchTextChanged();
         subscribeOnFavoriteClicked();
         subscribeOnCartClicked();
         subscribeOnLoginOrRegisterRequested();
+    }
+
+    private void extractBundleValues() {
+        compactSignInText = Application.getCurrentResourceBundle().getString("compactButtonSignInText");
+        minCompactSize = Double.parseDouble(
+            Application.getCurrentResourceBundle().getString("layoutTopbarMinCompactSize")
+        );
     }
 
     private void subscribeOnRootWidthChanged() {
@@ -130,7 +142,7 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
         final var newDoubleValue = newValue.doubleValue();
 
         if (oldDoubleValue != newDoubleValue) {
-            if (newDoubleValue <= SMALL_MODE_WIDTH_THRESHOLD) {
+            if (minCompactSize > newDoubleValue) {
                 if (!isCompactModeEnabled()) {
                     setCompactMode(true);
                 }

@@ -9,9 +9,12 @@ import lombok.extern.log4j.Log4j2;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ResourceBundle;
+
 @Log4j2
 public final class Application extends javafx.application.Application {
     private static final String STYLESHEET = "/com/mairwunnx/application/styles/application.css";
+    private static final String BUNDLE = "/com/mairwunnx/application/bundles/strings";
 
     @Nullable
     private Router router = null;
@@ -28,6 +31,7 @@ public final class Application extends javafx.application.Application {
         if (router != null) {
             router.ensureStage(stage);
             router.ensureStylesheet(STYLESHEET);
+            router.ensureBundle(ResourceBundle.getBundle(BUNDLE));
             router.navigate(ApplicationRouter.Routes.HOME.toString());
         }
     }

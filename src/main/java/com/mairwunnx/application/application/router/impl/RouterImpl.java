@@ -125,6 +125,7 @@ public final class RouterImpl implements Router {
     @Override
     public void ensureBundle(@NotNull final ResourceBundle bundle) {
         setCurrentBundle(bundle);
+        fireOnResourceBundleChanged(this, bundle);
     }
 
     @Override
@@ -629,6 +630,14 @@ public final class RouterImpl implements Router {
                     arg,
                     event
                 );
+            }
+        }
+    }
+
+    private void fireOnResourceBundleChanged(@NotNull final Router router, @NotNull final ResourceBundle bundle) {
+        if (getListener() != null) {
+            if (getListener().getOnResourceBundleChanged() != null) {
+                getListener().getOnResourceBundleChanged().accept(router, bundle);
             }
         }
     }

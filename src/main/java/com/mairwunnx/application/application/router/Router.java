@@ -17,6 +17,8 @@ public interface Router {
 
     void ensureStylesheet(@NotNull String path);
 
+    @Nullable Stage getStage();
+
     @Nullable Scene getCurrentScene();
 
     @Nullable ResourceBundle getCurrentBundle();

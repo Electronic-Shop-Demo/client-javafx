@@ -11,14 +11,24 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
+import java.util.ResourceBundle;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
 @Log4j2
 public final class ApplicationRouter {
     @Nullable private ListeningEvent onNavigationPerformed;
+    @Nullable private BiConsumer<Router, ResourceBundle> onResourceBundleChanged;
 
     public ApplicationRouter setOnNavigationPerformedInterceptor(final ListeningEvent onNavigationPerformed) {
         this.onNavigationPerformed = onNavigationPerformed;
+        return this;
+    }
+
+    public ApplicationRouter setOnResourceBundleInterceptor(
+        final BiConsumer<Router, ResourceBundle> onResourceBundleChanged
+    ) {
+        this.onResourceBundleChanged = onResourceBundleChanged;
         return this;
     }
 
@@ -51,6 +61,12 @@ public final class ApplicationRouter {
 
                     listener.onBackPerformed((key, stage, arg, e) -> {
                         log.info("Navigation performed to back ({}) with arg {}", key, arg);
+                    });
+
+                    listener.onResourceBundleChanged((lambdaRouterVal, bundle) -> {
+                        if (onResourceBundleChanged != null) {
+                            onResourceBundleChanged.accept(lambdaRouterVal, bundle);
+                        }
                     });
                 })
                 .ensureInitialize();

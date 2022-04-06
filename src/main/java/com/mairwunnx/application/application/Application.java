@@ -5,16 +5,24 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 @Log4j2
 public final class Application extends javafx.application.Application {
     private static final String STYLESHEET = "/com/mairwunnx/application/styles/application.css";
     private static final String BUNDLE = "/com/mairwunnx/application/bundles/strings";
+
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
+    private static ResourceBundle currentResourceBundle;
 
     @Nullable
     private Router router = null;
@@ -29,11 +37,18 @@ public final class Application extends javafx.application.Application {
     @Override
     public void start(final @NotNull Stage stage) {
         if (router != null) {
+            setCurrentResourceBundle(ResourceBundle.getBundle(BUNDLE, Locale.forLanguageTag("ru-RU")));
+            setDefaults(stage); // todo load;
+            router.ensureBundle(getCurrentResourceBundle());
             router.ensureStage(stage);
             router.ensureStylesheet(STYLESHEET);
-            router.ensureBundle(ResourceBundle.getBundle(BUNDLE));
             router.navigate(ApplicationRouter.Routes.HOME.toString());
         }
+    }
+
+    private void setDefaults(@NotNull final Stage stage) {
+        stage.setWidth(Double.parseDouble(getCurrentResourceBundle().getString("defaultWindowWidth")));
+        stage.setHeight(Double.parseDouble(getCurrentResourceBundle().getString("defaultWindowHeight")));
     }
 
     @Override
@@ -58,6 +73,7 @@ public final class Application extends javafx.application.Application {
     private void initializeRouter() {
         router = new ApplicationRouter()
             .setOnNavigationPerformedInterceptor((key, stage, arg, e) -> interceptSceneChanging(stage))
+            .setOnResourceBundleInterceptor((router, bundle) -> setCurrentResourceBundle(bundle))
             .buildRouter();
 
         log.info("Application router created");
@@ -86,8 +102,5 @@ public final class Application extends javafx.application.Application {
                 }
             }
         );
-    }
-
-    private void noop() {
     }
 }

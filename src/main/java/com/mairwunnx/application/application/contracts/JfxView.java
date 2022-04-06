@@ -1,5 +1,6 @@
 package com.mairwunnx.application.application.contracts;
 
+import com.mairwunnx.application.application.Application;
 import com.mairwunnx.application.application.views.TopBar;
 import javafx.fxml.FXMLLoader;
 import org.jetbrains.annotations.NotNull;
@@ -10,7 +11,9 @@ public sealed interface JfxView permits TopBar {
     @NotNull String layoutPath();
 
     default void expose() {
-        final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(layoutPath()));
+        final FXMLLoader fxmlLoader = new FXMLLoader(
+            getClass().getResource(layoutPath()), Application.getCurrentResourceBundle()
+        );
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 

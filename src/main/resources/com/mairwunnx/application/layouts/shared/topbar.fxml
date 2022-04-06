@@ -17,12 +17,12 @@
 
     <GridPane fx:id="rootGrid" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <columnConstraints>
-            <ColumnConstraints />
-            <ColumnConstraints minWidth="10.0" />
-            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
-            <ColumnConstraints />
-            <ColumnConstraints />
-            <ColumnConstraints />
+            <ColumnConstraints minWidth="-Infinity" />
+            <ColumnConstraints minWidth="-Infinity" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="-Infinity" />
+            <ColumnConstraints minWidth="-Infinity" />
+            <ColumnConstraints minWidth="-Infinity" />
+            <ColumnConstraints minWidth="-Infinity" />
         </columnConstraints>
 
         <rowConstraints>
@@ -35,7 +35,7 @@
 
         <Button fx:id="backButton"
                 styleClass="button-back"
-                accessibleText="Move back"
+                accessibleText="%backButtonAccessible"
                 GridPane.valignment="CENTER"
                 GridPane.halignment="CENTER">
             <GridPane.margin>
@@ -43,7 +43,7 @@
             </GridPane.margin>
 
             <tooltip>
-                <Tooltip text="Go back" />
+                <Tooltip text="%backButtonTooltip" />
             </tooltip>
         </Button>
 
@@ -57,42 +57,42 @@
             </GridPane.margin>
 
             <tooltip>
-                <Tooltip text="Current location" />
+                <Tooltip text="%locationButtonTooltip" />
             </tooltip>
         </Button>
 
         <TextField fx:id="search"
                    styleClass="field-regular"
                    maxWidth="800.0"
-                   promptText="Search keyboards, mises and more"
+                   promptText="%searchPromptText"
                    GridPane.columnIndex="2"
                    GridPane.valignment="CENTER"
                    GridPane.halignment="CENTER" />
 
-        <Button fx:id="favorite" styleClass="button-favorite" text="Favorite" GridPane.columnIndex="3">
+        <Button fx:id="favorite" styleClass="button-favorite" text="%buttonFavoriteText" GridPane.columnIndex="3">
             <GridPane.margin>
                 <Insets left="12.0" right="6.0" />
             </GridPane.margin>
 
             <tooltip>
-                <Tooltip text="Your wishlist" />
+                <Tooltip text="%buttonFavoriteTooltip" />
             </tooltip>
         </Button>
 
-        <Button fx:id="cart" styleClass="button-cart" text="Cart" GridPane.columnIndex="4">
+        <Button fx:id="cart" styleClass="button-cart" text="%buttonCartText" GridPane.columnIndex="4">
             <GridPane.margin>
                 <Insets left="6.0" right="8.0" />
             </GridPane.margin>
 
             <tooltip>
-                <Tooltip text="Your cart" />
+                <Tooltip text="%buttonCartTooltip" />
             </tooltip>
         </Button>
 
         <Button fx:id="signin"
                 styleClass="button-primary"
                 defaultButton="true"
-                text="Log in or register"
+                text="%buttonSignInText"
                 GridPane.columnIndex="5"
                 GridPane.halignment="RIGHT">
             <GridPane.margin>
@@ -100,7 +100,7 @@
             </GridPane.margin>
 
             <tooltip>
-                <Tooltip text="Sign in or register" />
+                <Tooltip text="%buttonSignInTooltip" />
             </tooltip>
         </Button>
     </GridPane>

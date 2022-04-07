@@ -12,8 +12,6 @@ import org.jetbrains.annotations.Nullable;
 
 @Log4j2
 public class HomeController implements RouterController {
-    private Router router;
-
     @FXML
     private TopBar topbar;
 
@@ -22,7 +20,6 @@ public class HomeController implements RouterController {
 
     @Override
     public <T> void onShow(@NotNull final Router router, @Nullable final RouterArg<T> arg) {
-        this.router = router;
         root.requestFocus();
         root.setOnMousePressed(e -> root.requestFocus());
         topbar.setOnBackRequested(() -> log.debug("top bar back button clicked"));

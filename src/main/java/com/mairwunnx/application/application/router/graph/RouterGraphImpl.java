@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.LinkedList;
 import java.util.List;
 
+@SuppressWarnings("unchecked")
 @ApiStatus.Internal
 public class RouterGraphImpl implements RouterGraph {
     private final LinkedList<RouterGraphEntry<?>> graph = new LinkedList<>();

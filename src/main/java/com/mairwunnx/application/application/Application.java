@@ -4,16 +4,12 @@ import com.mairwunnx.application.application.di.GuiceInjector;
 import com.mairwunnx.application.application.preferences.Preferences;
 import com.mairwunnx.application.application.preferences.impl.PreferencesImpl.PredefinedSettings;
 import com.mairwunnx.application.application.router.Router;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -27,11 +23,14 @@ public final class Application extends javafx.application.Application {
     @Setter(AccessLevel.PRIVATE)
     private static ResourceBundle currentResourceBundle;
 
-    @Nullable
     private Router router = null;
-
-    @Nullable
     private Preferences preferences = null;
+    private MainRouterHandler mainRouterHandler = null;
+    private StageConfigurator stageConfigurator = null;
+
+    public Application() {
+        log.info("Instantiating {} JavaFX application class", Application.class.getName());
+    }
 
     @Override
     public void init() {
@@ -39,13 +38,14 @@ public final class Application extends javafx.application.Application {
         injectPreferences();
         initializeProperties();
         initializeRouter();
+        postInit();
     }
 
     @Override
     public void start(final @NotNull Stage stage) {
         if (router != null) {
             loadResourceBundle();
-            loadStageConfiguration(stage);
+            stageConfigurator.loadStageProperties(getCurrentResourceBundle(), preferences, stage);
             router.ensureBundle(getCurrentResourceBundle());
             router.ensureStage(stage);
             router.ensureStylesheet(STYLESHEET);
@@ -55,7 +55,7 @@ public final class Application extends javafx.application.Application {
 
     @Override
     public void stop() {
-        saveStageProperties();
+        saveApplicationConfiguration();
         shutdownRouter();
     }
 
@@ -66,7 +66,9 @@ public final class Application extends javafx.application.Application {
     private void initializeProperties() {
         try {
             System.setProperty("prism.lcdtext", "false");
+            log.debug("Property prism.lcdtext set to false");
             System.setProperty("prism.text", "t2k");
+            log.debug("Property prism.text set to t2k");
         } catch (final SecurityException ex) {
             log.error("Security error, has no able to change system properties", ex);
         }
@@ -74,11 +76,15 @@ public final class Application extends javafx.application.Application {
 
     private void initializeRouter() {
         router = new ApplicationRouter()
-            .setOnNavigationPerformedInterceptor((key, stage, arg, e) -> interceptSceneChanging(stage))
+            .setOnNavigationPerformedInterceptor((k, s, a, e) -> mainRouterHandler.interceptSceneChanging(s))
             .setOnResourceBundleInterceptor((router, bundle) -> setCurrentResourceBundle(bundle))
             .buildRouter();
-
         log.info("Application router created");
+    }
+
+    private void postInit() {
+        mainRouterHandler = new MainRouterHandler(router);
+        stageConfigurator = new StageConfigurator();
     }
 
     private void loadResourceBundle() {
@@ -96,81 +102,9 @@ public final class Application extends javafx.application.Application {
         }
     }
 
-    private void loadStageConfiguration(@NotNull final Stage stage) {
-        if (preferences != null) {
-            final var sizeW = preferences.getIntOrDefault(
-                PredefinedSettings.SIZE_WIDTH.getKey(),
-                Integer.parseInt(getCurrentResourceBundle().getString("defaultWindowWidth"))
-            );
-            final var sizeH = preferences.getIntOrDefault(
-                PredefinedSettings.SIZE_HEIGHT.getKey(),
-                Integer.parseInt(getCurrentResourceBundle().getString("defaultWindowHeight"))
-            );
-
-            final var winX = preferences.getIntOrDefault(PredefinedSettings.WINDOW_X.getKey(), -1);
-            final var winY = preferences.getIntOrDefault(PredefinedSettings.WINDOW_Y.getKey(), -1);
-            final var isMaximized = preferences.getBooleanOrFalse(PredefinedSettings.WINDOW_IS_MAXIMIZED.getKey());
-
-            if (isMaximized) {
-                stage.setMaximized(true);
-            } else {
-                if (winX != -1 && winY != -1) {
-                    stage.setX(winX);
-                    stage.setY(winY);
-                }
-
-                stage.setWidth(sizeW);
-                stage.setHeight(sizeH);
-            }
-        } else {
-            log.error("Must be not happen! But preferences is null, instance of preferences not injected.");
-            stage.setWidth(Integer.parseInt(getCurrentResourceBundle().getString("defaultWindowWidth")));
-            stage.setHeight(Integer.parseInt(getCurrentResourceBundle().getString("defaultWindowHeight")));
-        }
-    }
-
-    private void interceptSceneChanging(@NotNull final Stage stage) {
-        stage.setMinWidth(stage.getScene().getRoot().minWidth(stage.getHeight()));
-        initializeSceneAccelerators(stage);
-        initializeSceneFocusHandlers(stage);
-    }
-
-    private void initializeSceneAccelerators(@NotNull final Stage stage) {
-        stage.getScene().getAccelerators().put(
-            new KeyCodeCombination(KeyCode.LEFT, KeyCombination.ALT_DOWN),
-            () -> {
-                if (router != null) router.back();
-            }
-        );
-    }
-
-    private void initializeSceneFocusHandlers(@NotNull final Stage stage) {
-        stage.getScene().getAccelerators().put(
-            new KeyCodeCombination(KeyCode.ESCAPE),
-            () -> {
-                if (stage.getScene().getFocusOwner() != null) {
-                    stage.getScene().getRoot().requestFocus();
-                }
-            }
-        );
-    }
-
-    private void saveStageProperties() {
-        if (preferences != null) {
-            if (router != null) {
-                final var stage = router.getStage();
-                if (stage != null) {
-                    preferences
-                        .setInt(PredefinedSettings.WINDOW_X.getKey(), (int) router.getStage().getX())
-                        .setInt(PredefinedSettings.WINDOW_Y.getKey(), (int) router.getStage().getY())
-                        .setInt(PredefinedSettings.SIZE_WIDTH.getKey(), (int) router.getStage().getWidth())
-                        .setInt(PredefinedSettings.SIZE_HEIGHT.getKey(), (int) router.getStage().getHeight())
-                        .setBoolean(PredefinedSettings.WINDOW_IS_MAXIMIZED.getKey(), router.getStage().isMaximized())
-                        .commitSynchronously();
-                }
-            }
-        } else {
-            log.warn("Preferences saving call skipped, preferences is null");
+    private void saveApplicationConfiguration() {
+        if (router.getStage() != null) {
+            stageConfigurator.saveStageProperties(router.getStage(), preferences);
         }
     }
 

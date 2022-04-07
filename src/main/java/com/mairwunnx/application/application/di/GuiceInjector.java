@@ -2,6 +2,7 @@ package com.mairwunnx.application.application.di;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Stage;
 import com.mairwunnx.application.PostInit;
 import com.mairwunnx.application.application.di.modules.AppModule;
 import lombok.AccessLevel;
@@ -16,7 +17,7 @@ public final class GuiceInjector {
     private static Injector injector;
 
     public static void ensureModules(@NotNull final String[] args) {
-        setInjector(Guice.createInjector(new AppModule(args)));
+        setInjector(Guice.createInjector(Stage.PRODUCTION, new AppModule(args)));
         getInjector().getInstance(PostInit.class).init();
     }
 }

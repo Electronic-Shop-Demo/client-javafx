@@ -29,7 +29,6 @@ module com.mairwunnx.application {
     opens com.mairwunnx.application.application.views to javafx.fxml;
 
     exports com.mairwunnx.application;
-    exports com.mairwunnx.application.application;
     exports com.mairwunnx.application.application.components;
     exports com.mairwunnx.application.application.controllers;
     exports com.mairwunnx.application.application.router;

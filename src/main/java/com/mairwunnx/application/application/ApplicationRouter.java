@@ -34,49 +34,45 @@ public final class ApplicationRouter {
 
     @NotNull
     public Router buildRouter() {
-        return RouterFX.build(router -> {
-            router
-                .configure(config -> {
-                    config.autosize(true);
-                    config.implicitDefaults(true);
-                    config.controllerFactory(type -> GuiceInjector.getInjector().getInstance(type));
-                })
-                .map(mapper -> {
-                    for (final Routes value : Routes.values()) {
-                        mapper
-                            .withKey(value.getKey())
-                            .withTitle(value.getTitle())
-                            .withLayout(value.getLayout())
-                            .apply();
+        return RouterFX.build(router -> router
+            .configure(config -> {
+                config.autosize(true);
+                config.implicitDefaults(true);
+                config.controllerFactory(type -> GuiceInjector.getInjector().getInstance(type));
+            })
+            .map(mapper -> {
+                for (final Routes value : Routes.values()) {
+                    mapper
+                        .withKey(value.getKey())
+                        .withTitle(value.getTitle())
+                        .withLayout(value.getLayout())
+                        .apply();
+                }
+            })
+            .listening(listener -> {
+                listener.onNavigationPerformed((key, stage, arg, e) -> {
+                    log.debug("Navigation performed to {} with arg {}", key, arg);
+
+                    if (onNavigationPerformed != null) {
+                        onNavigationPerformed.action(key, stage, arg, e);
                     }
-                })
-                .listening(listener -> {
-                    listener.onNavigationPerformed((key, stage, arg, e) -> {
-                        log.info("Navigation performed to {} with arg {}", key, arg);
+                });
 
-                        if (onNavigationPerformed != null) {
-                            onNavigationPerformed.action(key, stage, arg, e);
-                        }
-                    });
+                listener.onBackPerformed((key, stage, arg, e) ->
+                    log.debug("Navigation performed to back ({}) with arg {}", key, arg)
+                );
 
-                    listener.onBackPerformed((key, stage, arg, e) -> {
-                        log.info("Navigation performed to back ({}) with arg {}", key, arg);
-                    });
-
-                    listener.onResourceBundleChanged((lambdaRouterVal, bundle) -> {
-                        if (onResourceBundleChanged != null) {
-                            onResourceBundleChanged.accept(lambdaRouterVal, bundle);
-                        }
-                    });
-                })
-                .ensureInitialize();
-        });
+                listener.onResourceBundleChanged((lambdaRouterVal, bundle) -> {
+                    if (onResourceBundleChanged != null) {
+                        onResourceBundleChanged.accept(lambdaRouterVal, bundle);
+                    }
+                });
+            })
+            .ensureInitialize());
     }
 
     public enum Routes {
-        MAIN("hello-view", "/com/mairwunnx/application/hello-view.fxml"),
-        HOME("home", "/com/mairwunnx/application/layouts/home/home.fxml"),
-        TEST("hello-view", "/com/mairwunnx/application/hello-test.fxml");
+        HOME("home", "/com/mairwunnx/application/layouts/home/home.fxml");
 
         @NotNull
         @Getter
@@ -92,7 +88,11 @@ public final class ApplicationRouter {
         Routes(@NotNull final String key, @NotNull final String layout) {
             this.key = key;
             this.layout = layout;
-            this.title = Arrays.stream(key.split("-")).map(StringUtils::capitalize).collect(Collectors.joining(" "));
+            this.title =
+                Arrays
+                    .stream(StringUtils.split(key, "-"))
+                    .map(StringUtils::capitalize)
+                    .collect(Collectors.joining(" "));
         }
 
         @NotNull

@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 @ApiStatus.Internal
 public final class RouterMapperImpl implements RouterMapper {
     @NotNull

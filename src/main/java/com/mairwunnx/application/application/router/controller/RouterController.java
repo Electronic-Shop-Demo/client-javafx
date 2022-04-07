@@ -5,6 +5,7 @@ import com.mairwunnx.application.application.router.types.RouterArg;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings({"unchecked", "unused"})
 public interface RouterController {
     @Nullable
     default <T> T getArgumentFromOrNull(@Nullable final RouterArg<?> arg, @Nullable final String key) {

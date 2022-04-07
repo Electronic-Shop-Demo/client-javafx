@@ -9,6 +9,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ResourceBundle;
 
+@SuppressWarnings({"UnusedReturnValue", "unused"})
 @ApiStatus.Internal
 public final class RouterConfigurationImpl implements RouterConfiguration {
     private boolean isInitialized;

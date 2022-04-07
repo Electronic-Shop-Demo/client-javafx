@@ -1,6 +1,5 @@
 package com.mairwunnx.application.application.controllers.home;
 
-import com.mairwunnx.application.application.Application;
 import com.mairwunnx.application.application.router.Router;
 import com.mairwunnx.application.application.router.controller.RouterController;
 import com.mairwunnx.application.application.router.types.RouterArg;
@@ -10,8 +9,6 @@ import javafx.scene.layout.AnchorPane;
 import lombok.extern.log4j.Log4j2;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Objects;
 
 @Log4j2
 public class HomeController implements RouterController {
@@ -26,14 +23,6 @@ public class HomeController implements RouterController {
     @Override
     public <T> void onShow(@NotNull final Router router, @Nullable final RouterArg<T> arg) {
         this.router = router;
-        System.out.println("root.getMinWidth() = " + root.getMinWidth());
-        Objects.requireNonNull(router.getStage()).setMinWidth(root.getMinWidth()); // todo delegate to stage
-        final var sizeS = Application.getCurrentResourceBundle().getString("layoutTopbarMinCompactSize");
-        final var size = Double.parseDouble(sizeS);
-        final var optimalSize = size + 100;
-        // todo: rewrite this
-        router.getStage().setWidth(optimalSize);
-
         root.requestFocus();
         root.setOnMousePressed(e -> root.requestFocus());
         topbar.setOnBackRequested(() -> log.debug("top bar back button clicked"));

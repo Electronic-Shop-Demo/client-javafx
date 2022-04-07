@@ -1,5 +1,8 @@
 package com.mairwunnx.application.application;
 
+import com.mairwunnx.application.application.di.GuiceInjector;
+import com.mairwunnx.application.application.preferences.Preferences;
+import com.mairwunnx.application.application.preferences.impl.PreferencesImpl.PredefinedSettings;
 import com.mairwunnx.application.application.router.Router;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
@@ -27,9 +30,13 @@ public final class Application extends javafx.application.Application {
     @Nullable
     private Router router = null;
 
+    @Nullable
+    private Preferences preferences = null;
+
     @Override
     public void init() {
         log.info("Initializing the JavaFX application");
+        injectPreferences();
         initializeProperties();
         initializeRouter();
     }
@@ -37,8 +44,8 @@ public final class Application extends javafx.application.Application {
     @Override
     public void start(final @NotNull Stage stage) {
         if (router != null) {
-            setCurrentResourceBundle(ResourceBundle.getBundle(BUNDLE, Locale.forLanguageTag("ru-RU")));
-            setDefaults(stage); // todo load;
+            loadResourceBundle();
+            loadStageConfiguration(stage);
             router.ensureBundle(getCurrentResourceBundle());
             router.ensureStage(stage);
             router.ensureStylesheet(STYLESHEET);
@@ -46,19 +53,14 @@ public final class Application extends javafx.application.Application {
         }
     }
 
-    private void setDefaults(@NotNull final Stage stage) {
-        stage.setWidth(Double.parseDouble(getCurrentResourceBundle().getString("defaultWindowWidth")));
-        stage.setHeight(Double.parseDouble(getCurrentResourceBundle().getString("defaultWindowHeight")));
-    }
-
     @Override
     public void stop() {
-        if (router != null) {
-            router.shutdown();
-            router = null;
-        } else {
-            log.warn("Router shutdown call skipped, router is null");
-        }
+        saveStageProperties();
+        shutdownRouter();
+    }
+
+    private void injectPreferences() {
+        preferences = GuiceInjector.getInjector().getInstance(Preferences.class);
     }
 
     private void initializeProperties() {
@@ -79,7 +81,56 @@ public final class Application extends javafx.application.Application {
         log.info("Application router created");
     }
 
+    private void loadResourceBundle() {
+        if (preferences != null) {
+            final var lang = preferences.getStringOrDefault(PredefinedSettings.LOCALE.getKey(), null);
+            if (lang == null) {
+                setCurrentResourceBundle(ResourceBundle.getBundle(BUNDLE));
+            } else {
+                log.info("Loading bundle with requested language code {}", lang);
+                setCurrentResourceBundle(ResourceBundle.getBundle(BUNDLE, Locale.forLanguageTag(lang)));
+            }
+        } else {
+            log.error("Must be not happen! But preferences is null, instance of preferences not injected.");
+            setCurrentResourceBundle(ResourceBundle.getBundle(BUNDLE));
+        }
+    }
+
+    private void loadStageConfiguration(@NotNull final Stage stage) {
+        if (preferences != null) {
+            final var sizeW = preferences.getIntOrDefault(
+                PredefinedSettings.SIZE_WIDTH.getKey(),
+                Integer.parseInt(getCurrentResourceBundle().getString("defaultWindowWidth"))
+            );
+            final var sizeH = preferences.getIntOrDefault(
+                PredefinedSettings.SIZE_HEIGHT.getKey(),
+                Integer.parseInt(getCurrentResourceBundle().getString("defaultWindowHeight"))
+            );
+
+            final var winX = preferences.getIntOrDefault(PredefinedSettings.WINDOW_X.getKey(), -1);
+            final var winY = preferences.getIntOrDefault(PredefinedSettings.WINDOW_Y.getKey(), -1);
+            final var isMaximized = preferences.getBooleanOrFalse(PredefinedSettings.WINDOW_IS_MAXIMIZED.getKey());
+
+            if (isMaximized) {
+                stage.setMaximized(true);
+            } else {
+                if (winX != -1 && winY != -1) {
+                    stage.setX(winX);
+                    stage.setY(winY);
+                }
+
+                stage.setWidth(sizeW);
+                stage.setHeight(sizeH);
+            }
+        } else {
+            log.error("Must be not happen! But preferences is null, instance of preferences not injected.");
+            stage.setWidth(Integer.parseInt(getCurrentResourceBundle().getString("defaultWindowWidth")));
+            stage.setHeight(Integer.parseInt(getCurrentResourceBundle().getString("defaultWindowHeight")));
+        }
+    }
+
     private void interceptSceneChanging(@NotNull final Stage stage) {
+        stage.setMinWidth(stage.getScene().getRoot().minWidth(stage.getHeight()));
         initializeSceneAccelerators(stage);
         initializeSceneFocusHandlers(stage);
     }
@@ -102,5 +153,33 @@ public final class Application extends javafx.application.Application {
                 }
             }
         );
+    }
+
+    private void saveStageProperties() {
+        if (preferences != null) {
+            if (router != null) {
+                final var stage = router.getStage();
+                if (stage != null) {
+                    preferences
+                        .setInt(PredefinedSettings.WINDOW_X.getKey(), (int) router.getStage().getX())
+                        .setInt(PredefinedSettings.WINDOW_Y.getKey(), (int) router.getStage().getY())
+                        .setInt(PredefinedSettings.SIZE_WIDTH.getKey(), (int) router.getStage().getWidth())
+                        .setInt(PredefinedSettings.SIZE_HEIGHT.getKey(), (int) router.getStage().getHeight())
+                        .setBoolean(PredefinedSettings.WINDOW_IS_MAXIMIZED.getKey(), router.getStage().isMaximized())
+                        .commitSynchronously();
+                }
+            }
+        } else {
+            log.warn("Preferences saving call skipped, preferences is null");
+        }
+    }
+
+    private void shutdownRouter() {
+        if (router != null) {
+            router.shutdown();
+            router = null;
+        } else {
+            log.warn("Router shutdown call skipped, router is null");
+        }
     }
 }

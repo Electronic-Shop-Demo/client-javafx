@@ -26,7 +26,6 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
     public static final double WIDE_MODE_WIDTH_THRESHOLD = 1_500.0;
     public static final int WIDE_MORE_CONSTRAINT_MULTIPLIER = 6;
     public static final double DEFAULT_MODE_CONSTRAINT = 0.0;
-    public static final double SMALL_MODE_WIDTH_THRESHOLD = 730.0;
 
     @FXML private AnchorPane root;
     @FXML private GridPane rootGrid;

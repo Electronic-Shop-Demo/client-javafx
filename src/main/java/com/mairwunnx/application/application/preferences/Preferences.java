@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
+@SuppressWarnings({"UnusedReturnValue", "unused"})
 public interface Preferences {
     @Nullable
     String getStringOrDefault(@NotNull final String key, @Nullable final String defaultValue);

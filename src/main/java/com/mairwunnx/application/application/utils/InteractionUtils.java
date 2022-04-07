@@ -1,4 +1,4 @@
-package com.mairwunnx.application.application.interaction;
+package com.mairwunnx.application.application.utils;
 
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;

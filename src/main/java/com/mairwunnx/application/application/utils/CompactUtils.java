@@ -1,4 +1,4 @@
-package com.mairwunnx.application.application.compact;
+package com.mairwunnx.application.application.utils;
 
 import javafx.scene.Node;
 import org.apache.commons.lang3.StringUtils;

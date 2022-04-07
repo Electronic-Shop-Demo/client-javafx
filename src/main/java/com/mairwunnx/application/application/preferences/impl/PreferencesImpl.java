@@ -95,12 +95,12 @@ public final class PreferencesImpl implements Preferences {
 
     @Override
     public int getIntOrDefault(@NotNull final String key, final int defaultValue) {
-        return NumberUtils.toInt(getStringOrDefault(key, (String) null), defaultValue);
+        return NumberUtils.toInt(getStringOrDefault(key, null), defaultValue);
     }
 
     @Override
     public boolean getBooleanOrFalse(@NotNull final String key) {
-        return BooleanUtils.toBoolean(getStringOrDefault(key, (String) null));
+        return BooleanUtils.toBoolean(getStringOrDefault(key, null));
     }
 
     @NotNull
@@ -135,26 +135,20 @@ public final class PreferencesImpl implements Preferences {
     }
 
     public enum PredefinedSettings {
-        SIZE_WIDTH("window-width", -1),
-        SIZE_HEIGHT("window-height", -1),
-        WINDOW_X("window-x", -1),
-        WINDOW_Y("window-y", -1),
-        WINDOW_IS_MAXIMIZED("window-is-maximized", false),
-        LOCALE("locale", "null");
+        SIZE_WIDTH("window-width"),
+        SIZE_HEIGHT("window-height"),
+        WINDOW_X("window-x"),
+        WINDOW_Y("window-y"),
+        WINDOW_IS_MAXIMIZED("window-is-maximized"),
+        LOCALE("locale");
 
         @NotNull
         @Getter
         @Setter(value = AccessLevel.PRIVATE)
         private String key;
 
-        @NotNull
-        @Getter
-        @Setter(value = AccessLevel.PRIVATE)
-        private Object value;
-
-        PredefinedSettings(final String key, final Object value) {
+        PredefinedSettings(final String key) {
             setKey(key);
-            setValue(value);
         }
     }
 }

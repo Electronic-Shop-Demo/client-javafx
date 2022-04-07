@@ -13,6 +13,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ResourceBundle;
 import java.util.function.BiConsumer;
 
+@SuppressWarnings("unused")
 @ApiStatus.Internal
 public final class RouterListenerImpl implements RouterListener {
     @Nullable

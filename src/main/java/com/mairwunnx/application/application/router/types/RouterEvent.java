@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
+@SuppressWarnings("unused")
 public class RouterEvent {
     @Getter
     private final boolean isCancellationAllowed;

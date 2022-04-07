@@ -16,7 +16,7 @@ public class RouterGraphImpl implements RouterGraph {
         graph.addLast(entry);
     }
 
-    public <T> void removeLast() {
+    public void removeLast() {
         if (!graph.isEmpty()) {
             graph.removeLast();
         }

@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ResourceBundle;
 
+@SuppressWarnings("unused")
 public interface Router {
     void ensureStage(@NotNull Stage stage);
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?><?import javafx.scene.control.*?><?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?><?import javafx.scene.control.*?><?import javafx.scene.Cursor?><?import javafx.scene.layout.*?><?import org.controlsfx.control.textfield.CustomTextField?>
 <fx:root fx:id="root"
          type="javafx.scene.layout.AnchorPane"
          xmlns="http://javafx.com/javafx/11.0.14-internal"
@@ -61,13 +61,17 @@
             </tooltip>
         </Button>
 
-        <TextField fx:id="search"
-                   styleClass="field-regular"
-                   maxWidth="800.0"
-                   promptText="%searchPromptText"
-                   GridPane.columnIndex="2"
-                   GridPane.valignment="CENTER"
-                   GridPane.halignment="CENTER" />
+        <CustomTextField fx:id="search"
+                         styleClass="field-regular"
+                         maxWidth="800.0"
+                         promptText="%searchPromptText"
+                         GridPane.columnIndex="2"
+                         GridPane.valignment="CENTER"
+                         GridPane.halignment="CENTER">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </CustomTextField>
 
         <Button fx:id="favorite" styleClass="button-favorite" text="%buttonFavoriteText" GridPane.columnIndex="3">
             <GridPane.margin>

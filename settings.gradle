@@ -27,6 +27,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "application"
-include 'dto', 'models', 'services', 'ui-models', 'ui-lib', 'ui-navigation'
-include 'ui-preferences'
+include 'dto', 'models', 'services', 'ui-models', 'ui-lib', 'ui-navigation', 'ui-preferences'
 

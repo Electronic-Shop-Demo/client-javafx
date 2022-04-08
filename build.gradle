@@ -89,4 +89,6 @@ dependencies {
 
     implementation(project('dto')) { transitive false }
     implementation(project('models')) { transitive false }
+    implementation(project('ui-navigation')) { transitive false }
+    implementation(project('ui-preferences')) { transitive false }
 }

@@ -1,0 +1,8 @@
+plugins {
+    id 'java'
+}
+
+dependencies {
+    implementation(libs.bundles.jetbrains)
+    implementation(libs.bundles.apacheCommons)
+}

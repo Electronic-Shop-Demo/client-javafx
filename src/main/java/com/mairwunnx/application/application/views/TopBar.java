@@ -16,21 +16,30 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import org.controlsfx.control.textfield.CustomTextField;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import static com.mairwunnx.application.application.utils.CompactUtils.switchToCompact;
 import static com.mairwunnx.application.application.utils.InteractionUtils.setOnUserInteract;
 
+/**
+ * Top bar layout implementation class.
+ *
+ * @see com.mairwunnx.application.application.contracts.JfxView
+ * @see com.mairwunnx.application.application.contracts.JfxCompactable
+ * @since 1.0.0
+ */
 @Log4j2
 public final class TopBar extends AnchorPane implements JfxView, JfxCompactable {
-    public static final double WIDE_MODE_WIDTH_THRESHOLD = 1_500.0;
-    public static final int WIDE_MORE_CONSTRAINT_MULTIPLIER = 6;
-    public static final double DEFAULT_MODE_CONSTRAINT = 0.0;
+    private static final double WIDE_MODE_WIDTH_THRESHOLD = 1_500.0;
+    private static final int WIDE_MORE_CONSTRAINT_MULTIPLIER = 6;
+    private static final double DEFAULT_MODE_CONSTRAINT = 0.0;
 
     @FXML private AnchorPane root;
     @FXML private GridPane rootGrid;
@@ -42,30 +51,82 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
     @FXML private Button locationButton;
     @FXML private Button signin;
 
+    /**
+     * On back requested callback. Calls when back arrow button is clicked
+     * with mouse or space or enter while focused.
+     */
     @Getter(value = AccessLevel.PRIVATE, onMethod_ = {@Nullable})
     @Setter(onParam_ = {@NotNull})
     private Runnable onBackRequested;
 
+    /**
+     * On location requested dialog callback. Calls when location button is clicked
+     * with mouse or space or enter while focused.
+     * <p>
+     * By idea must display in-app fullscreen dialog with selecting city if city was
+     * detected not correctly.
+     */
+    @Getter(value = AccessLevel.PRIVATE, onMethod_ = {@Nullable})
+    @Setter(onParam_ = {@NotNull})
+    private Supplier<String> onLocationDialogRequested;
+
+    /**
+     * On search changed callback. Calls when text in search text field
+     * is changed.
+     * <p>
+     * By idea for every typed character must be shown in-app fullscreen dialog
+     * with selecting preview product.
+     */
     @Getter(value = AccessLevel.PRIVATE, onMethod_ = {@Nullable})
     @Setter(onParam_ = {@NotNull})
     private Consumer<String> onSearchChanged;
 
+    /**
+     * On search requested callback. Calls when search requested by user, by
+     * clicking on search icon or enter while focused in text field.
+     * <p>
+     * By idea must navigate to other page with displaying that thing user
+     * has requested.
+     */
+    @Getter(value = AccessLevel.PRIVATE, onMethod_ = {@Nullable})
+    @Setter(onParam_ = {@NotNull})
+    private Consumer<String> onSearchRequested;
+
+    /**
+     * On favorite requested callback. Calls when user clicked on
+     * favorite button.
+     * <p>
+     * By idea must display new page with favorite list.
+     */
     @Getter(value = AccessLevel.PRIVATE, onMethod_ = {@Nullable})
     @Setter(onParam_ = {@NotNull})
     private Runnable onFavoriteClicked;
 
+    /**
+     * On cart requested callback. Calls when user clicked on cart button.
+     * <p>
+     * By idea must display new page with cart.
+     */
     @Getter(value = AccessLevel.PRIVATE, onMethod_ = {@Nullable})
     @Setter(onParam_ = {@NotNull})
     private Runnable onCartClicked;
 
+    /**
+     * On login requested callback. Calls when user clicked on login or
+     * register button.
+     * <p>
+     * By idea must display new page with login\register page.
+     */
     @Getter(value = AccessLevel.PRIVATE, onMethod_ = {@Nullable})
     @Setter(onParam_ = {@NotNull})
     private Runnable onLoginOrRegisterClicked;
 
     @Getter
+    @ApiStatus.Internal
     private boolean isCompactModeEnabled;
 
     @Getter
+    @ApiStatus.Internal
     private final HashMap<Node, Object> compactSavedParams = new HashMap<>();
 
     private String compactSignInText;
@@ -127,7 +188,8 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
     }
 
     private void installSearchButtonToSearchField() {
-        final var resource = getClass().getResource("/com/mairwunnx/application/assets/round_search_black_18dp.jpg");
+        final var resource =
+            getClass().getClassLoader().getResource("/com/mairwunnx/application/assets/round_search_black_18dp.jpg");
 
         String path;
         try {

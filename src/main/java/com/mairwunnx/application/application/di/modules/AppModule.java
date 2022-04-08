@@ -5,9 +5,11 @@ import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.mairwunnx.application.application.components.HttpClientComponent;
 import com.mairwunnx.application.application.di.qulifiers.StartupArgs;
-import com.mairwunnx.application.application.preferences.Preferences;
-import com.mairwunnx.application.application.preferences.impl.PreferencesImpl;
+import com.mairwunnx.ui.preferences.PreferenceType;
+import com.mairwunnx.ui.preferences.Preferences;
 import org.jetbrains.annotations.NotNull;
+
+import java.nio.file.Path;
 
 public final class AppModule extends AbstractModule {
     @NotNull
@@ -21,7 +23,8 @@ public final class AppModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(Preferences.class).to(PreferencesImpl.class).asEagerSingleton();
+        bind(Preferences.class)
+            .toInstance(Preferences.load(Path.of("settings", "config.xml"), PreferenceType.XML));
     }
 
     @Provides
@@ -34,11 +37,5 @@ public final class AppModule extends AbstractModule {
     @Provides
     static HttpClientComponent provideHttpClientComponent() {
         return new HttpClientComponent();
-    }
-
-    @Singleton
-    @Provides
-    static PreferencesImpl providePreferences() {
-        return new PreferencesImpl(args);
     }
 }

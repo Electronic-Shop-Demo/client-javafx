@@ -1,9 +1,8 @@
 package com.mairwunnx.application.application;
 
 import com.mairwunnx.application.application.di.GuiceInjector;
-import com.mairwunnx.application.application.preferences.Preferences;
-import com.mairwunnx.application.application.preferences.impl.PreferencesImpl.PredefinedSettings;
-import com.mairwunnx.application.application.router.Router;
+import com.mairwunnx.ui.navigation.Router;
+import com.mairwunnx.ui.preferences.Preferences;
 import javafx.stage.Stage;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -89,7 +88,7 @@ public final class Application extends javafx.application.Application {
 
     private void loadResourceBundle() {
         if (preferences != null) {
-            final var lang = preferences.getStringOrDefault(PredefinedSettings.LOCALE.getKey(), null);
+            final var lang = preferences.getStringOrNull(ApplicationPreferences.LOCALE.getKey());
             if (lang == null) {
                 setCurrentResourceBundle(ResourceBundle.getBundle(BUNDLE));
             } else {

@@ -1,9 +1,9 @@
 package com.mairwunnx.application.application;
 
 import com.mairwunnx.application.application.di.GuiceInjector;
-import com.mairwunnx.application.application.router.Router;
-import com.mairwunnx.application.application.router.RouterFX;
-import com.mairwunnx.application.application.router.contracts.ListeningEvent;
+import com.mairwunnx.ui.navigation.Router;
+import com.mairwunnx.ui.navigation.RouterFX;
+import com.mairwunnx.ui.navigation.contracts.ListeningEvent;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
@@ -72,7 +72,7 @@ public final class ApplicationRouter {
     }
 
     public enum Routes {
-        HOME("home", "/com/mairwunnx/application/layouts/home/home.fxml");
+        HOME("home", "com/mairwunnx/application/layouts/home/home.fxml");
 
         @NotNull
         @Getter

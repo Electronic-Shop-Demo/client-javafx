@@ -1,9 +1,9 @@
 package com.mairwunnx.application.application.controllers.home;
 
-import com.mairwunnx.application.application.router.Router;
-import com.mairwunnx.application.application.router.controller.RouterController;
-import com.mairwunnx.application.application.router.types.RouterArg;
 import com.mairwunnx.application.application.views.TopBar;
+import com.mairwunnx.ui.navigation.Router;
+import com.mairwunnx.ui.navigation.controller.RouterController;
+import com.mairwunnx.ui.navigation.types.RouterArg;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import lombok.extern.log4j.Log4j2;

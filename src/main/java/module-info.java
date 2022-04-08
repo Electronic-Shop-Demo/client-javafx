@@ -18,17 +18,15 @@ module com.mairwunnx.application {
     requires org.apache.commons.lang3;
     requires org.apache.logging.log4j;
 
+    requires application.models.main;
+    requires application.ui.navigation;
+    requires application.ui.preferences;
     requires application.dto.main;
 
     exports com.mairwunnx.application;
     exports com.mairwunnx.application.application;
     exports com.mairwunnx.application.application.components;
     exports com.mairwunnx.application.application.controllers;
-    exports com.mairwunnx.application.application.router;
-    exports com.mairwunnx.application.application.router.configurators;
-    exports com.mairwunnx.application.application.router.graph;
-    exports com.mairwunnx.application.application.router.builders;
-    exports com.mairwunnx.application.application.router.types;
 
     opens com.mairwunnx.application to javafx.fxml, com.google.guice;
     opens com.mairwunnx.application.application to com.google.guice, javafx.fxml;

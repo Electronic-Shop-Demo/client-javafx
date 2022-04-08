@@ -6,22 +6,27 @@ import com.mairwunnx.application.application.contracts.JfxView;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.log4j.Log4j2;
+import org.controlsfx.control.textfield.CustomTextField;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.function.Consumer;
 
 import static com.mairwunnx.application.application.utils.CompactUtils.switchToCompact;
 import static com.mairwunnx.application.application.utils.InteractionUtils.setOnUserInteract;
 
+@Log4j2
 public final class TopBar extends AnchorPane implements JfxView, JfxCompactable {
     public static final double WIDE_MODE_WIDTH_THRESHOLD = 1_500.0;
     public static final int WIDE_MORE_CONSTRAINT_MULTIPLIER = 6;
@@ -31,7 +36,7 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
     @FXML private GridPane rootGrid;
     @FXML private Pane topbarBackgroundPane;
     @FXML private Button backButton;
-    @FXML private TextField search;
+    @FXML private CustomTextField search;
     @FXML private Button favorite;
     @FXML private Button cart;
     @FXML private Button locationButton;
@@ -65,6 +70,8 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
 
     private String compactSignInText;
     private double minCompactSize;
+
+    private final ImageView searchImageButton = new ImageView();
 
     public TopBar() {
         initialize();
@@ -101,6 +108,7 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
     private void initialize() {
         extractBundleValues();
         expose();
+        installSearchButtonToSearchField();
         updateWidthConstraints(root.getWidth());
         setCompactMode(root.getWidth() <= minCompactSize);
         subscribeOnRootWidthChanged();
@@ -116,6 +124,28 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
         minCompactSize = Double.parseDouble(
             Application.getCurrentResourceBundle().getString("layoutTopbarMinCompactSize")
         );
+    }
+
+    private void installSearchButtonToSearchField() {
+        final var resource = getClass().getResource("/com/mairwunnx/application/assets/round_search_black_18dp.jpg");
+
+        String path;
+        try {
+            path = resource != null ? resource.toURI().toString() : null;
+        } catch (final URISyntaxException e) {
+            log.error("An error occurred while resource translating to URI", e);
+            path = null;
+        }
+
+        if (path != null) {
+            searchImageButton.setImage(new Image(path));
+            searchImageButton.setOnMouseClicked(event -> {
+                // todo: call on search requested
+            });
+            search.setRight(searchImageButton);
+        } else {
+            log.error("Search image was not loaded correctly path != null");
+        }
     }
 
     private void subscribeOnRootWidthChanged() {

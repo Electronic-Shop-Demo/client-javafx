@@ -144,7 +144,7 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
             });
             search.setRight(searchImageButton);
         } else {
-            log.error("Search image was not loaded correctly path != null");
+            log.error("Search image was not loaded correctly, path == null");
         }
     }
 

@@ -1,6 +1,7 @@
 package com.mairwunnx.ui.navigation.impl;
 
 import com.mairwunnx.ui.navigation.configurators.RouterConfiguration;
+import javafx.util.BuilderFactory;
 import javafx.util.Callback;
 import lombok.Getter;
 import org.jetbrains.annotations.ApiStatus;
@@ -26,6 +27,10 @@ public final class RouterConfigurationImpl implements RouterConfiguration {
     @Nullable
     @Getter
     private Callback<Class<?>, Object> controllerFactory;
+
+    @Nullable
+    @Getter
+    private BuilderFactory builderFactory;
 
     @NotNull
     public RouterConfigurationImpl automapping(final boolean value) {
@@ -59,6 +64,13 @@ public final class RouterConfigurationImpl implements RouterConfiguration {
     public RouterConfigurationImpl controllerFactory(final Callback<Class<?>, Object> factory) {
         requireIsNotInitialized();
         controllerFactory = factory;
+        return this;
+    }
+
+    @NotNull
+    public RouterConfigurationImpl builderFactory(final BuilderFactory factory) {
+        requireIsNotInitialized();
+        builderFactory = factory;
         return this;
     }
 

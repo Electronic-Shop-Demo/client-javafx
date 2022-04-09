@@ -1,5 +1,6 @@
 package com.mairwunnx.ui.navigation.configurators;
 
+import javafx.util.BuilderFactory;
 import javafx.util.Callback;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,4 +16,6 @@ public interface RouterConfiguration {
     @Nullable ResourceBundle getCurrentBundle();
 
     @Nullable Callback<Class<?>, Object> getControllerFactory();
+
+    @Nullable BuilderFactory getBuilderFactory();
 }

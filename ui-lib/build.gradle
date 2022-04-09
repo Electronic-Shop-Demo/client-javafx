@@ -5,10 +5,13 @@ plugins {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation(libs.bundles.jetbrains)
+    implementation(libs.bundles.lombok)
+
+    annotationProcessor(libs.bundles.lombok)
 }
 
-test {
-    useJUnitPlatform()
+javafx {
+    version = '18'
+    modules = ['javafx.controls', 'javafx.fxml']
 }

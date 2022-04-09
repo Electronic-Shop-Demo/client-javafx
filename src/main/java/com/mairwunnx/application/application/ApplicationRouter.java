@@ -1,9 +1,11 @@
 package com.mairwunnx.application.application;
 
+import com.mairwunnx.application.application.contracts.JfxView;
 import com.mairwunnx.application.application.di.GuiceInjector;
 import com.mairwunnx.ui.navigation.Router;
 import com.mairwunnx.ui.navigation.RouterFX;
 import com.mairwunnx.ui.navigation.contracts.ListeningEvent;
+import javafx.util.Builder;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
@@ -39,6 +41,9 @@ public final class ApplicationRouter {
                 config.autosize(true);
                 config.implicitDefaults(true);
                 config.controllerFactory(type -> GuiceInjector.getInjector().getInstance(type));
+                config.builderFactory(type -> (Builder<JfxView>) () ->
+                    (JfxView) GuiceInjector.getInjector().getInstance(type)
+                );
             })
             .map(mapper -> {
                 for (final Routes value : Routes.values()) {
@@ -72,7 +77,7 @@ public final class ApplicationRouter {
     }
 
     public enum Routes {
-        HOME("home", "com/mairwunnx/application/layouts/home/home.fxml");
+        HOME("home", "/com/mairwunnx/application/layouts/home/home.fxml");
 
         @NotNull
         @Getter

@@ -458,15 +458,23 @@ public final class RouterImpl implements Router {
         final FXMLLoader loader;
 
         if (bundle != null) {
-            loader = new FXMLLoader(callerClass.getClassLoader().getResource(entry.layout()), bundle);
+            loader = new FXMLLoader(callerClass.getResource(entry.layout()), bundle);
         } else if (getCurrentBundle() != null) {
-            loader = new FXMLLoader(callerClass.getClassLoader().getResource(entry.layout()), getCurrentBundle());
+            loader = new FXMLLoader(callerClass.getResource(entry.layout()), getCurrentBundle());
         } else {
-            loader = new FXMLLoader(callerClass.getClassLoader().getResource(entry.layout()));
+            loader = new FXMLLoader(callerClass.getResource(entry.layout()));
         }
 
-        if (getConfiguration() != null && getConfiguration().getControllerFactory() != null) {
-            loader.setControllerFactory(getConfiguration().getControllerFactory());
+        loader.setClassLoader(callerClass.getClassLoader());
+
+        if (getConfiguration() != null) {
+            if (getConfiguration().getControllerFactory() != null) {
+                loader.setControllerFactory(getConfiguration().getControllerFactory());
+            }
+
+            if (getConfiguration().getBuilderFactory() != null) {
+                loader.setBuilderFactory(getConfiguration().getBuilderFactory());
+            }
         }
 
         return loader;

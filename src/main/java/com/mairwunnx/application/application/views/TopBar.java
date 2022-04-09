@@ -1,6 +1,5 @@
 package com.mairwunnx.application.application.views;
 
-import com.mairwunnx.application.application.Application;
 import com.mairwunnx.application.application.contracts.JfxCompactable;
 import com.mairwunnx.application.application.contracts.JfxView;
 import javafx.fxml.FXML;
@@ -22,6 +21,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -134,7 +134,15 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
 
     private final ImageView searchImageButton = new ImageView();
 
+    private final ResourceBundle bundle;
+
     public TopBar() {
+        /* placebo constructor, only for fxml compatibility. */
+        this.bundle = null;
+    }
+
+    public TopBar(@NotNull final ResourceBundle bundle) {
+        this.bundle = bundle;
         initialize();
     }
 
@@ -181,9 +189,9 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
     }
 
     private void extractBundleValues() {
-        compactSignInText = Application.getCurrentResourceBundle().getString("compactButtonSignInText");
+        compactSignInText = bundle.getString("compactButtonSignInText");
         minCompactSize = Double.parseDouble(
-            Application.getCurrentResourceBundle().getString("layoutTopbarMinCompactSize")
+            bundle.getString("layoutTopbarMinCompactSize")
         );
     }
 

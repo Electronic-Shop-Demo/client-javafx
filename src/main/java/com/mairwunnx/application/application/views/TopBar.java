@@ -205,6 +205,7 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
 
         if (path != null) {
             searchImageButton.setImage(new Image(path));
+            searchImageButton.setCursor(Cursor.HAND);
             searchImageButton.setOnMouseClicked(event -> {
                 // todo: call on search requested
             });

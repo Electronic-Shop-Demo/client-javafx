@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.mairwunnx.application.application.views.TopBar?><?import javafx.scene.layout.AnchorPane?>
+<?import com.mairwunnx.ui.lib.TopBar?><?import javafx.scene.layout.AnchorPane?>
 <AnchorPane fx:id="root"
             xmlns="http://javafx.com/javafx/11.0.14-internal"
             xmlns:fx="http://javafx.com/fxml/1"

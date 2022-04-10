@@ -1,8 +1,10 @@
 package com.mairwunnx.application.application.views;
 
+import com.google.inject.Inject;
 import com.mairwunnx.application.application.contracts.JfxCompactable;
 import com.mairwunnx.application.application.contracts.JfxView;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -134,17 +136,8 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
 
     private final ImageView searchImageButton = new ImageView();
 
-    private final ResourceBundle bundle;
-
-    public TopBar() {
-        /* placebo constructor, only for fxml compatibility. */
-        this.bundle = null;
-    }
-
-    public TopBar(@NotNull final ResourceBundle bundle) {
-        this.bundle = bundle;
-        initialize();
-    }
+    @Inject
+    private ResourceBundle bundle;
 
     @Override
     public @NotNull String layoutPath() {
@@ -174,7 +167,9 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
         switchToCompact(isEnabled, cart, favorite, locationButton);
     }
 
-    private void initialize() {
+    @NotNull
+    @Override
+    public TopBar init() {
         extractBundleValues();
         expose();
         installSearchButtonToSearchField();
@@ -186,6 +181,7 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
         subscribeOnFavoriteClicked();
         subscribeOnCartClicked();
         subscribeOnLoginOrRegisterRequested();
+        return this;
     }
 
     private void extractBundleValues() {

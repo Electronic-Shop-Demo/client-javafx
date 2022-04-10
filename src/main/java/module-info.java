@@ -24,15 +24,18 @@ module com.mairwunnx.application {
     requires application.dto.main;
 
     exports com.mairwunnx.application;
+    opens com.mairwunnx.application.layouts.home;
+    opens com.mairwunnx.application.styles;
     exports com.mairwunnx.application.application;
     exports com.mairwunnx.application.application.components;
     exports com.mairwunnx.application.application.controllers;
 
+
     opens com.mairwunnx.application to javafx.fxml, com.google.guice;
     opens com.mairwunnx.application.application to com.google.guice, javafx.fxml;
     opens com.mairwunnx.application.application.di.modules to com.google.guice;
+    opens com.mairwunnx.application.application.views to com.google.guice, javafx.fxml, application.ui.navigation;
     opens com.mairwunnx.application.application.controllers to com.google.guice, javafx.fxml;
     opens com.mairwunnx.application.application.controllers.home to com.google.guice, javafx.fxml;
     opens com.mairwunnx.application.application.components to com.google.guice, javafx.fxml;
-    opens com.mairwunnx.application.application.views to javafx.fxml;
 }

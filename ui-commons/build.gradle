@@ -1,0 +1,18 @@
+plugins {
+    id 'java'
+    id 'io.freefair.lombok' version "6.4.1"
+    id 'org.openjfx.javafxplugin' version '0.0.12'
+}
+
+dependencies {
+    implementation(libs.bundles.jetbrains)
+    implementation(libs.bundles.lombok)
+    implementation(libs.bundles.apacheCommons)
+
+    annotationProcessor(libs.bundles.lombok)
+}
+
+javafx {
+    version = '18'
+    modules = ['javafx.controls']
+}

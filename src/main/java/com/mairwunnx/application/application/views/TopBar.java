@@ -1,9 +1,11 @@
 package com.mairwunnx.application.application.views;
 
 import com.google.inject.Inject;
+import com.mairwunnx.application.application.contracts.Issue;
 import com.mairwunnx.application.application.contracts.JfxCompactable;
 import com.mairwunnx.application.application.contracts.JfxView;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -38,10 +40,14 @@ import static com.mairwunnx.application.application.utils.InteractionUtils.setOn
  * @since 1.0.0
  */
 @Log4j2
+@Issue(id = 1, value = "https://github.com/Electronic-Shop-Demo/client-javafx/issues/1")
 public final class TopBar extends AnchorPane implements JfxView, JfxCompactable {
     private static final double WIDE_MODE_WIDTH_THRESHOLD = 1_500.0;
     private static final int WIDE_MORE_CONSTRAINT_MULTIPLIER = 6;
     private static final double DEFAULT_MODE_CONSTRAINT = 0.0;
+
+    private static final Insets SIGN_IN_COMPACT_INSETS = new Insets(0, 32, 0, 8);
+    private static final Insets SIGN_IN_DEFAULT_INSETS = new Insets(0, 16, 0, 8);
 
     @FXML private AnchorPane root;
     @FXML private GridPane rootGrid;
@@ -147,24 +153,22 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
     @Override
     public void setCompactMode(final boolean isEnabled) {
         isCompactModeEnabled = isEnabled;
+
         if (isEnabled) {
             getCompactSavedParams().put(cart, cart.getText());
             getCompactSavedParams().put(favorite, favorite.getText());
             getCompactSavedParams().put(signin, signin.getText());
             getCompactSavedParams().put(locationButton, locationButton.getText());
-            cart.setText(null);
-            favorite.setText(null);
-            locationButton.setText(null);
-            signin.setText(compactSignInText);
-        } else {
-            cart.setText((String) getCompactSavedParams().get(cart));
-            favorite.setText((String) getCompactSavedParams().get(favorite));
-            signin.setText((String) getCompactSavedParams().get(signin));
-            locationButton.setText((String) getCompactSavedParams().get(locationButton));
-            getCompactSavedParams().clear();
         }
 
+        cart.setText(isEnabled ? null : (String) getCompactSavedParams().get(cart));
+        favorite.setText(isEnabled ? null : (String) getCompactSavedParams().get(favorite));
+        locationButton.setText(isEnabled ? null : (String) getCompactSavedParams().get(locationButton));
+        signin.setText(isEnabled ? compactSignInText : (String) getCompactSavedParams().get(signin));
+        GridPane.setMargin(signin, isEnabled ? SIGN_IN_COMPACT_INSETS : SIGN_IN_DEFAULT_INSETS);
+
         switchToCompact(isEnabled, cart, favorite, locationButton);
+        if (!isEnabled) getCompactSavedParams().clear();
     }
 
     @NotNull

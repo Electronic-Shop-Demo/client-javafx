@@ -91,4 +91,7 @@ dependencies {
     implementation(project('models')) { transitive false }
     implementation(project('ui-navigation')) { transitive false }
     implementation(project('ui-preferences')) { transitive false }
+    implementation(project('ui-commons')) { transitive false }
+    implementation(project('ui-annotations')) { transitive false }
+    implementation(project('ui-lib')) { transitive false }
 }

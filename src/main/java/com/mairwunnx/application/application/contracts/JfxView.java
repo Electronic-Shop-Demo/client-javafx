@@ -11,6 +11,8 @@ import java.io.IOException;
  * Contract for all JavaFX custom views can be exposed.
  */
 public sealed interface JfxView permits TopBar {
+    @NotNull JfxView init();
+
     /**
      * Simply supplier for receiving layout path for this view.
      *

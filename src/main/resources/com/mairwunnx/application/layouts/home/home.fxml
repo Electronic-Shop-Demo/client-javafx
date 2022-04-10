@@ -2,10 +2,6 @@
 
 <?import com.mairwunnx.application.application.views.TopBar?><?import javafx.scene.layout.AnchorPane?>
 <AnchorPane fx:id="root"
-            maxWidth="1600.0"
-            minWidth="530"
-            prefHeight="518.0"
-
             xmlns="http://javafx.com/javafx/11.0.14-internal"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.mairwunnx.application.application.controllers.home.HomeController">

@@ -193,7 +193,7 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
 
     private void installSearchButtonToSearchField() {
         final var resource =
-            getClass().getClassLoader().getResource("/com/mairwunnx/application/assets/round_search_black_18dp.jpg");
+            getClass().getResource("/com/mairwunnx/application/assets/round_search_black_18dp.jpg");
 
         String path;
         try {

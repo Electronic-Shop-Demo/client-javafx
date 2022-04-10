@@ -6,12 +6,12 @@ import com.google.inject.Singleton;
 import com.mairwunnx.application.application.Application;
 import com.mairwunnx.application.application.components.HttpClientComponent;
 import com.mairwunnx.application.application.di.qulifiers.StartupArgs;
-import com.mairwunnx.application.application.views.TopBar;
 import com.mairwunnx.ui.preferences.PreferenceType;
 import com.mairwunnx.ui.preferences.Preferences;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;
+import java.util.ResourceBundle;
 
 public final class AppModule extends AbstractModule {
     @NotNull
@@ -42,7 +42,7 @@ public final class AppModule extends AbstractModule {
     }
 
     @Provides
-    static TopBar provideTopBar() {
-        return new TopBar(Application.getCurrentResourceBundle());
+    static ResourceBundle provideResourceBundle() {
+        return Application.getCurrentResourceBundle();
     }
 }

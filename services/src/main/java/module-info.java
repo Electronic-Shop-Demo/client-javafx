@@ -1,0 +1,2 @@
+module application.services.main {
+}

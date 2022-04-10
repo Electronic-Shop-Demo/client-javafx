@@ -1,6 +1,6 @@
 package com.mairwunnx.application.application.controllers.home;
 
-import com.mairwunnx.application.application.views.TopBar;
+import com.mairwunnx.ui.lib.TopBar;
 import com.mairwunnx.ui.navigation.Router;
 import com.mairwunnx.ui.navigation.controller.RouterController;
 import com.mairwunnx.ui.navigation.types.RouterArg;

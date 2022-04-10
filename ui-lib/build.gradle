@@ -1,15 +1,21 @@
 plugins {
     id 'java'
+    id "io.freefair.lombok" version "6.4.1"
     id 'org.openjfx.javafxplugin' version '0.0.12'
-    id 'io.freefair.lombok' version "6.4.1"
 }
 
 dependencies {
     implementation(libs.bundles.jetbrains)
+    implementation(libs.bundles.fxControls) { exclude group: 'org.openjfx' }
     implementation(libs.bundles.lombok)
+    implementation(libs.bundles.guice)
 
     annotationProcessor(libs.bundles.lombok)
+
+    implementation(project(':ui-commons')) { transitive false }
+    implementation(project(':ui-annotations')) { transitive false }
 }
+
 
 javafx {
     version = '18'

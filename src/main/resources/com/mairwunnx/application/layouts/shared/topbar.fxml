@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?><?import javafx.scene.control.*?><?import javafx.scene.Cursor?><?import javafx.scene.layout.*?><?import org.controlsfx.control.textfield.CustomTextField?>
+<?import javafx.geometry.*?><?import javafx.scene.control.*?><?import javafx.scene.layout.*?><?import org.controlsfx.control.textfield.CustomTextField?>
 <fx:root fx:id="root"
          type="javafx.scene.layout.AnchorPane"
          xmlns="http://javafx.com/javafx/11.0.14-internal"
@@ -68,9 +68,6 @@
                          GridPane.columnIndex="2"
                          GridPane.valignment="CENTER"
                          GridPane.halignment="CENTER">
-            <cursor>
-                <Cursor fx:constant="HAND" />
-            </cursor>
         </CustomTextField>
 
         <Button fx:id="favorite" styleClass="button-favorite" text="%buttonFavoriteText" GridPane.columnIndex="3">

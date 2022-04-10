@@ -1,9 +1,12 @@
-package com.mairwunnx.application.application.views;
+package com.mairwunnx.ui.lib;
 
 import com.google.inject.Inject;
-import com.mairwunnx.application.application.contracts.Issue;
-import com.mairwunnx.application.application.contracts.JfxCompactable;
-import com.mairwunnx.application.application.contracts.JfxView;
+import com.mairwunnx.ui.annotations.Issue;
+import com.mairwunnx.ui.annotations.LocalizationStatus;
+import com.mairwunnx.ui.annotations.ViewApiStatus;
+import com.mairwunnx.ui.annotations.types.LocalizationStatusVariant;
+import com.mairwunnx.ui.annotations.types.ViewApiStatusVariant;
+import com.mairwunnx.ui.lib.exceptions.ViewInitializationException;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
@@ -17,7 +20,6 @@ import javafx.scene.layout.Pane;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.log4j.Log4j2;
 import org.controlsfx.control.textfield.CustomTextField;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
@@ -29,18 +31,19 @@ import java.util.ResourceBundle;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-import static com.mairwunnx.application.application.utils.CompactUtils.switchToCompact;
-import static com.mairwunnx.application.application.utils.InteractionUtils.setOnUserInteract;
+import static com.mairwunnx.ui.commons.CompactUtils.switchToCompact;
+import static com.mairwunnx.ui.commons.InteractionUtils.setOnUserInteract;
 
 /**
  * Top bar layout implementation class.
  *
- * @see com.mairwunnx.application.application.contracts.JfxView
- * @see com.mairwunnx.application.application.contracts.JfxCompactable
+ * @see JfxView
+ * @see JfxCompactable
  * @since 1.0.0
  */
-@Log4j2
 @Issue(id = 1, value = "https://github.com/Electronic-Shop-Demo/client-javafx/issues/1")
+@ViewApiStatus(ViewApiStatusVariant.IN_DEV)
+@LocalizationStatus(LocalizationStatusVariant.DONE)
 public final class TopBar extends AnchorPane implements JfxView, JfxCompactable {
     private static final double WIDE_MODE_WIDTH_THRESHOLD = 1_500.0;
     private static final int WIDE_MORE_CONSTRAINT_MULTIPLIER = 6;
@@ -147,11 +150,16 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
 
     @Override
     public @NotNull String layoutPath() {
-        return "/com/mairwunnx/application/layouts/shared/topbar.fxml";
+        return "/topbar.fxml";
     }
 
     @Override
-    public void setCompactMode(final boolean isEnabled) {
+    public @NotNull ResourceBundle resourceBundle() {
+        return bundle;
+    }
+
+    @Override
+    public void setCompactModeEnabled(final boolean isEnabled) {
         isCompactModeEnabled = isEnabled;
 
         if (isEnabled) {
@@ -178,7 +186,7 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
         expose();
         installSearchButtonToSearchField();
         updateWidthConstraints(root.getWidth());
-        setCompactMode(root.getWidth() <= minCompactSize);
+        setCompactModeEnabled(root.getWidth() <= minCompactSize);
         subscribeOnRootWidthChanged();
         subscribeOnBackButtonClicked();
         subscribeOnSearchTextChanged();
@@ -197,14 +205,14 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
 
     private void installSearchButtonToSearchField() {
         final var resource =
-            getClass().getResource("/com/mairwunnx/application/assets/round_search_black_18dp.jpg");
+            getClass().getResource("/assets/round_search_black_18dp.jpg");
 
         String path;
         try {
             path = resource != null ? resource.toURI().toString() : null;
         } catch (final URISyntaxException e) {
-            log.error("An error occurred while resource translating to URI", e);
             path = null;
+            throw new ViewInitializationException("An error occurred while resource translating to URI", e);
         }
 
         if (path != null) {
@@ -215,7 +223,7 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
             });
             search.setRight(searchImageButton);
         } else {
-            log.error("Search image was not loaded correctly, path == null");
+            throw new ViewInitializationException("Search image was not loaded correctly, path == null");
         }
     }
 
@@ -244,11 +252,11 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
         if (oldDoubleValue != newDoubleValue) {
             if (minCompactSize > newDoubleValue) {
                 if (!isCompactModeEnabled()) {
-                    setCompactMode(true);
+                    setCompactModeEnabled(true);
                 }
             } else {
                 if (isCompactModeEnabled()) {
-                    setCompactMode(false);
+                    setCompactModeEnabled(false);
                 }
             }
         }

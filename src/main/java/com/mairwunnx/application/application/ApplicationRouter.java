@@ -1,7 +1,7 @@
 package com.mairwunnx.application.application;
 
-import com.mairwunnx.application.application.contracts.JfxView;
 import com.mairwunnx.application.application.di.GuiceInjector;
+import com.mairwunnx.ui.lib.JfxView;
 import com.mairwunnx.ui.navigation.Router;
 import com.mairwunnx.ui.navigation.RouterFX;
 import com.mairwunnx.ui.navigation.contracts.ListeningEvent;

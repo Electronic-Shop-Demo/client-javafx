@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?><?import javafx.scene.control.*?><?import javafx.scene.layout.*?><?import org.controlsfx.control.textfield.CustomTextField?>
+<?import javafx.geometry.Insets?><?import javafx.scene.control.*?><?import javafx.scene.layout.*?><?import org.controlsfx.control.textfield.CustomTextField?>
 <fx:root fx:id="root"
          type="javafx.scene.layout.AnchorPane"
          xmlns="http://javafx.com/javafx/11.0.14-internal"
@@ -67,8 +67,7 @@
                          promptText="%searchPromptText"
                          GridPane.columnIndex="2"
                          GridPane.valignment="CENTER"
-                         GridPane.halignment="CENTER">
-        </CustomTextField>
+                         GridPane.halignment="CENTER" />
 
         <Button fx:id="favorite" styleClass="button-favorite" text="%buttonFavoriteText" GridPane.columnIndex="3">
             <GridPane.margin>
@@ -96,10 +95,6 @@
                 text="%buttonSignInText"
                 GridPane.columnIndex="5"
                 GridPane.halignment="RIGHT">
-            <GridPane.margin>
-                <Insets left="8.0" right="16.0" />
-            </GridPane.margin>
-
             <tooltip>
                 <Tooltip text="%buttonSignInTooltip" />
             </tooltip>

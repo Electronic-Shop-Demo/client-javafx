@@ -16,7 +16,6 @@ jobs:
               with:
                   java-version: 18
             - run: ./gradlew jpackage
-            - continue-on-error: true
             - run: mkdir staging && cp build/jpackage/* staging
             - name: upload build result
               uses: actions/upload-artifact@v2

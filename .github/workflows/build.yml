@@ -15,7 +15,7 @@ jobs:
             - name: Setup Java
               uses: actions/setup-java@v1
               with:
-                  java-version: 18
+                  java-version: 17
             - run: ./gradlew jpackage
             - run: mkdir staging && cp build/jpackage/* staging
             - name: upload build result

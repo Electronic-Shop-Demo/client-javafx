@@ -24,7 +24,12 @@ jobs:
             - run: ./gradlew jpackage
             - run: mkdir staging && cp build/jpackage/* staging
             - name: upload build result
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ github.token }}
               with:
-                  name: Electronic-Shop-JavaFX-${{matrix.os}}
-                  path: staging
+                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  asset_path: staging
+                  asset_name: Electronic-Shop-JavaFX-${{matrix.os}}
+                  asset_content_type: application/zip
+#                  path: staging

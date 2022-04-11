@@ -1,3 +1,5 @@
+import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
+
 plugins {
     id 'java'
     id 'application'
@@ -7,14 +9,17 @@ plugins {
     id 'checkstyle'
 }
 
+final def currentOS = DefaultNativePlatform.getCurrentOperatingSystem()
+
 allprojects {
     group 'com.mairwunnx'
     version '1.0.0'
 
     java {
+        modularity.inferModulePath.set(true)
         toolchain {
             languageVersion = JavaLanguageVersion.of 18
-            vendor = JvmVendorSpec.ORACLE
+            vendor = JvmVendorSpec.AZUL
         }
     }
 
@@ -25,6 +30,10 @@ allprojects {
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'
         options.compilerArgs += "--enable-preview"
+        options.fork = true
+        options.failOnError = false
+        options.debug = false
+        options.release = 18
     }
 
     tasks.withType(Test) {
@@ -35,6 +44,10 @@ allprojects {
 application {
     mainModule = 'com.mairwunnx.application'
     mainClass = 'com.mairwunnx.application.ZygoteInit'
+
+    if (currentOS.isMacOsX()) {
+        applicationDefaultJvmArgs = listOf("-Dsun.java2d.metal=true")
+    }
 }
 
 javafx {

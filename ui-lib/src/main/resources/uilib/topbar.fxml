@@ -36,6 +36,7 @@
         <Button fx:id="backButton"
                 styleClass="button-back"
                 accessibleText="%backButtonAccessible"
+                disable="true"
                 GridPane.valignment="CENTER"
                 GridPane.halignment="CENTER">
             <GridPane.margin>

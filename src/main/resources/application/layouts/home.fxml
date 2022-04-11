@@ -2,9 +2,9 @@
 
 <?import com.mairwunnx.ui.lib.TopBar?><?import javafx.scene.layout.AnchorPane?>
 <AnchorPane fx:id="root"
-            xmlns="http://javafx.com/javafx/11.0.14-internal"
+            xmlns="http://javafx.com/javafx/18"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.mairwunnx.application.application.controllers.home.HomeController">
+            fx:controller="com.mairwunnx.application.application.controllers.HomeController">
 
     <TopBar fx:id="topbar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
 </AnchorPane>

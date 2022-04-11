@@ -9,7 +9,10 @@ plugins {
     id 'checkstyle'
 }
 
+final def versionPattern = $/(\d+)\.(\d+)\.(\d+)(-(\w+)\.(\d+))?/$
 final def currentOS = DefaultNativePlatform.getCurrentOperatingSystem()
+final def isCI = System.getenv("CI") == "true"
+final def versionFile = new File('.version')
 
 allprojects {
     group 'com.mairwunnx'
@@ -19,7 +22,7 @@ allprojects {
         modularity.inferModulePath.set(true)
         toolchain {
             languageVersion = JavaLanguageVersion.of 18
-            if (System.getenv("CI") == "true") {
+            if (isCI) {
                 vendor = JvmVendorSpec.AZUL
             } else {
                 vendor = JvmVendorSpec.ORACLE
@@ -112,4 +115,37 @@ dependencies {
     implementation(project('ui-commons')) { transitive false }
     implementation(project('ui-annotations')) { transitive false }
     implementation(project('ui-lib')) { transitive false }
+}
+
+if (isCI) {
+    if (versionFile.exists() && versionFile.isFile()) {
+        final def versionLine = versionFile.readLines()[0] as String
+        final def versionCandidateMather = versionLine =~ versionPattern
+        final def versionMather = version.toString() =~ versionPattern
+
+        final def majorCandidate = versionCandidateMather[0][1]
+        final def minorCandidate = versionCandidateMather[0][2]
+        final def pathCandidate = versionCandidateMather[0][3]
+
+        final def major = versionMather[0][1]
+        final def minor = versionMather[0][2]
+        final def path = versionMather[0][3]
+
+        boolean versionMismatch = false
+
+        if (majorCandidate != major) versionMismatch = true
+        if (minorCandidate != minor) versionMismatch = true
+        if (pathCandidate != path) versionMismatch = true
+
+        if (versionMismatch) {
+            versionFile.write "${version}-SNAPSHOT.1"
+        } else {
+            final def typeNumber = versionCandidateMather[0][6]
+            final def intTypeNumber = Integer.parseInt(typeNumber) + 1
+            versionFile.write "${version}-SNAPSHOT.${intTypeNumber.intValue().toString()}"
+        }
+    } else {
+        versionFile.createNewFile()
+        versionFile.write "${version}-SNAPSHOT.1"
+    }
 }

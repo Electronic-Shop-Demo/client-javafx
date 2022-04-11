@@ -17,19 +17,28 @@ jobs:
         runs-on: ${{ matrix.os }}
         continue-on-error: true
         steps:
-            -   name: checkout
+            -   name: Checkout
                 uses: actions/checkout@v2
-            -   name: Setup Java
+            -   name: Setup JDK
                 uses: actions/setup-java@v1
                 with:
                     java-version: 18
+            -   name: Packaging bundle
             -   run: ./gradlew jpackage
+            -   name: Zipping bundle
+            -   uses: papeloto/action-zip@v1
+                with:
+                    files: build/jpackage/app
+                    dest: build/jpackage/app-dist.zip
+            -   name: Preparing bundle
             -   run: mkdir staging && cp build/jpackage/* staging
             -   name: Release
                 uses: softprops/action-gh-release@v1
                 env:
                     GITHUB_TOKEN: ${{ github.token }}
                 with:
-                    tag_name: github.ref
+                    tag_name: ${{github.ref}}
                     prerelease: true
-                    files: staging
+                    files: |
+                        staging/**.msi
+                        staging/**.zip

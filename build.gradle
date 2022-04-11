@@ -19,7 +19,7 @@ allprojects {
         modularity.inferModulePath.set(true)
         toolchain {
             languageVersion = JavaLanguageVersion.of 18
-            if (System.getenv("is_ci") == "true") {
+            if (System.getenv("CI") == "true") {
                 vendor = JvmVendorSpec.AZUL
             } else {
                 vendor = JvmVendorSpec.ORACLE

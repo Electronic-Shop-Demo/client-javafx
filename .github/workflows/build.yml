@@ -1,9 +1,6 @@
 name: Build installer for supported os
 on: push
 
-env:
-    ic_ci: true
-
 jobs:
     build-app:
         strategy:

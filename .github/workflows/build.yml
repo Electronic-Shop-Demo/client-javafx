@@ -1,5 +1,12 @@
-name: Build installer for supported os
-on: push
+name: Build installer
+
+on:
+    push:
+        branches:
+            - 'master'
+
+permissions:
+    contents: write
 
 jobs:
     build-app:
@@ -10,21 +17,18 @@ jobs:
         runs-on: ${{ matrix.os }}
         continue-on-error: true
         steps:
-            - name: checkout
-              uses: actions/checkout@v2
-            - name: Setup Java
-              uses: actions/setup-java@v1
-              with:
-                  java-version: 18
-            - run: ./gradlew jpackage
-            - run: mkdir staging && cp build/jpackage/* staging
-            - name: upload build result
-              uses: actions/upload-release-asset@v1
-              env:
-                  GITHUB_TOKEN: ${{ github.token }}
-              with:
-                  upload_url: ${{ steps.create_release.outputs.upload_url }}
-                  asset_path: staging
-                  asset_name: Electronic-Shop-JavaFX-${{matrix.os}}
-                  asset_content_type: application/zip
-#                  path: staging
+            -   name: checkout
+                uses: actions/checkout@v2
+            -   name: Setup Java
+                uses: actions/setup-java@v1
+                with:
+                    java-version: 18
+            -   run: ./gradlew jpackage
+            -   run: mkdir staging && cp build/jpackage/* staging
+            -   name: Release
+                uses: softprops/action-gh-release@v1
+                env:
+                    GITHUB_TOKEN: ${{ github.token }}
+                with:
+                    prerelease: true
+                    files: staging

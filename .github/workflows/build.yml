@@ -24,7 +24,7 @@ jobs:
                 with:
                     java-version: 18
             -   name: Packaging bundle
-            -   run: ./gradlew jpackage
+                run: ./gradlew jpackage
             -   name: Zipping bundle
                 uses: papeloto/action-zip@v1
                 with:

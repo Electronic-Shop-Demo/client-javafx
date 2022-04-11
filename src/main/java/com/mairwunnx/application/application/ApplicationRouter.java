@@ -80,7 +80,7 @@ public final class ApplicationRouter {
     }
 
     public enum Routes {
-        HOME("home", "/com/mairwunnx/application/layouts/home/home.fxml");
+        HOME("home", "/application/layouts/home.fxml");
 
         @NotNull
         @Getter

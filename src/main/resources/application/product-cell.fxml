@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?><?import javafx.scene.control.Label?><?import javafx.scene.image.Image?><?import javafx.scene.image.ImageView?><?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?><?import javafx.scene.control.Label?><?import javafx.scene.image.ImageView?><?import javafx.scene.layout.*?>
 <VBox style="-fx-background-color: #f2f2f2; -fx-border-color: #b1b1b1; -fx-background-radius: 8; -fx-border-radius: 8;"
       xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
@@ -12,7 +12,7 @@
     </padding>
 
     <ImageView fx:id="image" pickOnBounds="true" preserveRatio="true">
-        <Image url="@./ana.png" smooth="true" requestedWidth="300" preserveRatio="true" />
+        <!--<Image url="@ana.png" smooth="true" requestedWidth="300" preserveRatio="true" />-->
 
         <VBox.margin>
             <Insets bottom="10" />

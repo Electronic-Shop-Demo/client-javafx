@@ -15,8 +15,8 @@ import java.util.ResourceBundle;
 
 @Log4j2
 public final class Application extends javafx.application.Application {
-    private static final String STYLESHEET = "/com/mairwunnx/application/styles/application.css";
-    private static final String BUNDLE = "/com/mairwunnx/application/bundles/strings";
+    private static final String STYLESHEET = "/application/styles/application.css";
+    private static final String BUNDLE = "/application/bundles/strings";
 
     @Getter
     @Setter(AccessLevel.PRIVATE)
@@ -90,14 +90,16 @@ public final class Application extends javafx.application.Application {
         if (preferences != null) {
             final var lang = preferences.getStringOrNull(ApplicationPreferences.LOCALE.getKey());
             if (lang == null) {
-                setCurrentResourceBundle(ResourceBundle.getBundle(BUNDLE));
+                setCurrentResourceBundle(ResourceBundle.getBundle(BUNDLE, getClass().getModule()));
             } else {
                 log.info("Loading bundle with requested language code {}", lang);
-                setCurrentResourceBundle(ResourceBundle.getBundle(BUNDLE, Locale.forLanguageTag(lang)));
+                setCurrentResourceBundle(
+                    ResourceBundle.getBundle(BUNDLE, Locale.forLanguageTag(lang), getClass().getModule())
+                );
             }
         } else {
             log.error("Must be not happen! But preferences is null, instance of preferences not injected.");
-            setCurrentResourceBundle(ResourceBundle.getBundle(BUNDLE));
+            setCurrentResourceBundle(ResourceBundle.getBundle(BUNDLE, getClass().getModule()));
         }
     }
 

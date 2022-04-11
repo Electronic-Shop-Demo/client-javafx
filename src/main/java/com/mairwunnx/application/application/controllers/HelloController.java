@@ -1,3 +1,4 @@
+/*
 package com.mairwunnx.application.application.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -6,7 +7,6 @@ import com.google.inject.Inject;
 import com.mairwunnx.application.application.components.HttpClientComponent;
 import com.mairwunnx.dto.response.products.ProductResponse;
 import com.mairwunnx.ui.navigation.Router;
-import com.mairwunnx.ui.navigation.controller.RouterController;
 import com.mairwunnx.ui.navigation.types.RouterArg;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -29,7 +29,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public final class HelloController implements RouterController, Initializable {
+public final class HelloController extends Controller implements Initializable {
     private Router router;
 
     @FXML
@@ -111,7 +111,13 @@ public final class HelloController implements RouterController, Initializable {
     }
 
     @Override
+    protected @NotNull Node getRoot() {
+        return products;
+    }
+
+    @Override
     public <T> void onShow(@NotNull final Router router, @Nullable final RouterArg<T> arg) {
         this.router = router;
     }
 }
+*/

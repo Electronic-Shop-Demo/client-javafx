@@ -8,7 +8,8 @@ module application.ui.lib {
     requires application.ui.annotations;
     requires application.ui.commons;
 
-    opens assets;
+    opens uilib.assets;
+    opens uilib;
     opens com.mairwunnx.ui.lib;
     exports com.mairwunnx.ui.lib;
 }

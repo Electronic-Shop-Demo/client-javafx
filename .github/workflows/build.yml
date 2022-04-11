@@ -19,6 +19,9 @@ jobs:
         steps:
             -   name: Checkout
                 uses: actions/checkout@v2
+            -   name: Injecting version
+                id: version
+                run: echo "::set-output name=version::$(cat .version)"
             -   name: Setup JDK
                 uses: actions/setup-java@v1
                 with:
@@ -37,8 +40,13 @@ jobs:
                 env:
                     GITHUB_TOKEN: ${{ github.token }}
                 with:
-                    tag_name: ${{github.ref}}
+                    tag_name: ${{ steps.version.outputs.version }}
                     prerelease: true
                     files: |
                         staging/**.msi
                         staging/**.zip
+            -   name: Updating version number
+                uses: EndBug/add-and-commit@v9
+                with:
+                    default_author: github_actions
+                    message: Version updated

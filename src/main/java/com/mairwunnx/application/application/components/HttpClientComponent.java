@@ -6,7 +6,6 @@ import java.net.http.HttpClient;
 import java.time.Duration;
 
 // TODO: Move in the services layer.
-
 public final class HttpClientComponent {
     @Getter
     private final HttpClient httpClient;

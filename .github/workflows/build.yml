@@ -30,6 +30,6 @@ jobs:
                 env:
                     GITHUB_TOKEN: ${{ github.token }}
                 with:
-                    tag: github.ref
+                    tag_name: github.ref
                     prerelease: true
                     files: staging

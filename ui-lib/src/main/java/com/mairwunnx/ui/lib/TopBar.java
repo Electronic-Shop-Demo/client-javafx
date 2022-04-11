@@ -7,6 +7,7 @@ import com.mairwunnx.ui.annotations.ViewApiStatus;
 import com.mairwunnx.ui.annotations.types.LocalizationStatusVariant;
 import com.mairwunnx.ui.annotations.types.ViewApiStatusVariant;
 import com.mairwunnx.ui.lib.exceptions.ViewInitializationException;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
@@ -132,6 +133,16 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
     @Setter(onParam_ = {@NotNull})
     private Runnable onLoginOrRegisterClicked;
 
+    private final SimpleBooleanProperty backAvailable = new SimpleBooleanProperty(this, "backAvailable");
+
+    public void setBackAvailable(final boolean value) {
+        backAvailable.set(value);
+    }
+
+    public boolean isBackAvailable() {
+        return backAvailable.get();
+    }
+
     @Getter
     @ApiStatus.Internal
     private boolean isCompactModeEnabled;
@@ -150,7 +161,7 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
 
     @Override
     public @NotNull String layoutPath() {
-        return "/topbar.fxml";
+        return "/uilib/topbar.fxml";
     }
 
     @Override
@@ -205,7 +216,7 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
 
     private void installSearchButtonToSearchField() {
         final var resource =
-            getClass().getResource("/assets/round_search_black_18dp.jpg");
+            getClass().getResource("/uilib/assets/round_search_black_18dp.jpg");
 
         String path;
         try {

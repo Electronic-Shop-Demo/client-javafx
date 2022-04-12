@@ -42,7 +42,7 @@ public final class ApplicationRouter {
                 config.controllerFactory(type -> GuiceInjector.getInjector().getInstance(type));
                 config.builderFactory(type -> {
                     if (JfxView.class.isAssignableFrom(type)) {
-                        return () -> ((JfxView) GuiceInjector.getInjector().getInstance(type)).init();
+                        return () -> ((JfxView) GuiceInjector.getInjector().getInstance(type)).onViewCreate();
                     } else {
                         return null;
                     }

@@ -12,4 +12,5 @@ module application.ui.lib {
     opens uilib;
     opens com.mairwunnx.ui.lib;
     exports com.mairwunnx.ui.lib;
+    exports com.mairwunnx.ui.lib.apis;
 }

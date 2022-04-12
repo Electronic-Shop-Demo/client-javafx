@@ -1,24 +1,11 @@
 package com.mairwunnx.application.application;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
-import org.jetbrains.annotations.NotNull;
-
-public enum ApplicationPreferences {
-    SIZE_WIDTH("window-width"),
-    SIZE_HEIGHT("window-height"),
-    WINDOW_X("window-x"),
-    WINDOW_Y("window-y"),
-    WINDOW_IS_MAXIMIZED("window-is-maximized"),
-    LOCALE("locale");
-
-    @NotNull
-    @Getter
-    @Setter(value = AccessLevel.PRIVATE)
-    private String key;
-
-    ApplicationPreferences(final String key) {
-        setKey(key);
-    }
+// 144B / 6obj
+public final class ApplicationPreferences {
+    public static final String SIZE_WIDTH = "window-width";
+    public static final String SIZE_HEIGHT = "window-height";
+    public static final String WINDOW_X = "window-x";
+    public static final String WINDOW_Y = "window-y";
+    public static final String WINDOW_IS_MAXIMIZED = "window-is-maximized";
+    public static final String LOCALE = "locale";
 }

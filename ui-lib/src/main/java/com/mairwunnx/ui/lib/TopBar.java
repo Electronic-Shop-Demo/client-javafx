@@ -42,6 +42,7 @@ import static com.mairwunnx.ui.commons.InteractionUtils.setOnUserInteract;
  * @see JfxCompactable
  * @since 1.0.0
  */
+@SuppressWarnings("unused")
 @Issue(id = 1, value = "https://github.com/Electronic-Shop-Demo/client-javafx/issues/1")
 @ViewApiStatus(ViewApiStatusVariant.IN_DEV)
 @LocalizationStatus(LocalizationStatusVariant.DONE)
@@ -66,6 +67,8 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
     /**
      * On back requested callback. Calls when back arrow button is clicked
      * with mouse or space or enter while focused.
+     *
+     * @since 1.0.0.
      */
     @Getter(value = AccessLevel.PRIVATE, onMethod_ = {@Nullable})
     @Setter(onParam_ = {@NotNull})
@@ -77,6 +80,8 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
      * <p>
      * By idea must display in-app fullscreen dialog with selecting city if city was
      * detected not correctly.
+     *
+     * @since 1.0.0.
      */
     @Getter(value = AccessLevel.PRIVATE, onMethod_ = {@Nullable})
     @Setter(onParam_ = {@NotNull})
@@ -88,6 +93,8 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
      * <p>
      * By idea for every typed character must be shown in-app fullscreen dialog
      * with selecting preview product.
+     *
+     * @since 1.0.0.
      */
     @Getter(value = AccessLevel.PRIVATE, onMethod_ = {@Nullable})
     @Setter(onParam_ = {@NotNull})
@@ -99,6 +106,8 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
      * <p>
      * By idea must navigate to other page with displaying that thing user
      * has requested.
+     *
+     * @since 1.0.0.
      */
     @Getter(value = AccessLevel.PRIVATE, onMethod_ = {@Nullable})
     @Setter(onParam_ = {@NotNull})
@@ -109,6 +118,8 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
      * favorite button.
      * <p>
      * By idea must display new page with favorite list.
+     *
+     * @since 1.0.0.
      */
     @Getter(value = AccessLevel.PRIVATE, onMethod_ = {@Nullable})
     @Setter(onParam_ = {@NotNull})
@@ -118,6 +129,8 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
      * On cart requested callback. Calls when user clicked on cart button.
      * <p>
      * By idea must display new page with cart.
+     *
+     * @since 1.0.0.
      */
     @Getter(value = AccessLevel.PRIVATE, onMethod_ = {@Nullable})
     @Setter(onParam_ = {@NotNull})
@@ -128,17 +141,38 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
      * register button.
      * <p>
      * By idea must display new page with login\register page.
+     *
+     * @since 1.0.0.
      */
     @Getter(value = AccessLevel.PRIVATE, onMethod_ = {@Nullable})
     @Setter(onParam_ = {@NotNull})
     private Runnable onLoginOrRegisterClicked;
 
+    /**
+     * Is back available state, if value is true then back button will
+     * available to interact otherwise will not.
+     *
+     * @since 1.0.0.
+     */
     private final SimpleBooleanProperty backAvailable = new SimpleBooleanProperty(this, "backAvailable");
 
+    /**
+     * Does set available status for back button. True to enable, false
+     * to disable.
+     * <p/>
+     * By idea, we must disable this back button when router graph is empty.
+     *
+     * @param value value representing enabled state of button.
+     * @since 1.0.0.
+     */
     public void setBackAvailable(final boolean value) {
         backAvailable.set(value);
     }
 
+    /**
+     * @return interact-available status of back button.
+     * @since 1.0.0.
+     */
     public boolean isBackAvailable() {
         return backAvailable.get();
     }

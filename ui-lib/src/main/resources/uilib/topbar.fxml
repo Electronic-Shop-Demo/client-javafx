@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?><?import javafx.scene.control.*?><?import javafx.scene.layout.*?><?import org.controlsfx.control.textfield.CustomTextField?>
+<?import javafx.geometry.*?><?import javafx.scene.control.*?><?import javafx.scene.image.Image?><?import javafx.scene.image.ImageView?><?import javafx.scene.layout.*?><?import javafx.scene.shape.Circle?><?import org.controlsfx.control.textfield.CustomTextField?>
 <fx:root fx:id="root"
          type="javafx.scene.layout.AnchorPane"
          xmlns="http://javafx.com/javafx/18"
@@ -79,6 +79,22 @@
             </tooltip>
         </Button>
 
+        <StackPane fx:id="favoriteBadge"
+                   GridPane.fillWidth="false"
+                   GridPane.fillHeight="false"
+                   GridPane.valignment="TOP"
+                   GridPane.halignment="RIGHT"
+                   GridPane.columnIndex="3"
+                   visible="false"
+                   managed="false">
+            <GridPane.margin>
+                <Insets top="2" />
+            </GridPane.margin>
+
+            <Circle styleClass="ns-c-topbar__counter" radius="10.0" />
+            <Label fx:id="favoriteBadgeText" styleClass="ns-c-topbar__counter__text" text="?" />
+        </StackPane>
+
         <Button fx:id="cart" styleClass="button-cart" text="%buttonCartText" GridPane.columnIndex="4">
             <GridPane.margin>
                 <Insets left="6.0" right="8.0" />
@@ -88,6 +104,22 @@
                 <Tooltip text="%buttonCartTooltip" />
             </tooltip>
         </Button>
+
+        <StackPane fx:id="cartBadge"
+                   GridPane.fillWidth="false"
+                   GridPane.fillHeight="false"
+                   GridPane.valignment="TOP"
+                   GridPane.halignment="RIGHT"
+                   GridPane.columnIndex="4"
+                   visible="false"
+                   managed="false">
+            <GridPane.margin>
+                <Insets top="2" />
+            </GridPane.margin>
+
+            <Circle styleClass="ns-c-topbar__counter" radius="10.0" />
+            <Label fx:id="cartBadgeText" styleClass="ns-c-topbar__counter__text" text="?" />
+        </StackPane>
 
         <Button fx:id="signin"
                 styleClass="button-primary"
@@ -99,5 +131,20 @@
                 <Tooltip text="%buttonSignInTooltip" />
             </tooltip>
         </Button>
+
+        <ImageView fx:id="profile"
+                   pickOnBounds="true"
+                   preserveRatio="true"
+                   GridPane.columnIndex="5"
+                   GridPane.halignment="RIGHT"
+                   visible="false"
+                   managed="false">
+
+            <Image url="uilib/assets/default_avatar.webp"
+                   smooth="true"
+                   requestedWidth="24"
+                   requestedHeight="24"
+                   preserveRatio="true" />
+        </ImageView>
     </GridPane>
 </fx:root>

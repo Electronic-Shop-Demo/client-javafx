@@ -229,6 +229,11 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
     public TopBar init() {
         extractBundleValues();
         expose();
+        return this;
+    }
+
+    @Override
+    public void onViewExposed() {
         installSearchButtonToSearchField();
         updateWidthConstraints(root.getWidth());
         setCompactModeEnabled(root.getWidth() <= minCompactSize);
@@ -238,7 +243,6 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
         subscribeOnFavoriteClicked();
         subscribeOnCartClicked();
         subscribeOnLoginOrRegisterRequested();
-        return this;
     }
 
     private void extractBundleValues() {

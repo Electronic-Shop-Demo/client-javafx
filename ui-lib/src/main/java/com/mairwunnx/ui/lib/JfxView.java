@@ -58,6 +58,15 @@ public sealed interface JfxView permits TopBar {
     }
 
     /**
+     * View lifecycle method, calling when layout successfully exposed.
+     * <p/>
+     * In this method you can interact with views.
+     *
+     * @since 1.0.0.
+     */
+    void onViewExposed();
+
+    /**
      * On expose failure callback. When exception will throw by
      * {@link FXMLLoader}, this method will call.
      * <p>

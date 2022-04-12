@@ -18,7 +18,7 @@ public sealed interface JfxView permits TopBar {
      * @return {@link JfxView} class instance.
      * @since 1.0.0.
      */
-    @NotNull JfxView init();
+    @NotNull JfxView onViewCreate();
 
     /**
      * Simply supplier for receiving layout path for this view.
@@ -52,7 +52,7 @@ public sealed interface JfxView permits TopBar {
 
         try {
             fxmlLoader.load();
-            onViewExposed();
+            onViewCreated();
         } catch (final IOException e) {
             onExposeFailure(e);
         }
@@ -65,7 +65,14 @@ public sealed interface JfxView permits TopBar {
      *
      * @since 1.0.0.
      */
-    void onViewExposed();
+    void onViewCreated();
+
+    /**
+     * View lifecycle method, calling when view destroy called.
+     *
+     * @since 1.0.0.
+     */
+    default void onViewDestroy() {}
 
     /**
      * On expose failure callback. When exception will throw by

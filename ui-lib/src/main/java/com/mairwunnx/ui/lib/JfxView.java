@@ -52,6 +52,7 @@ public sealed interface JfxView permits TopBar {
 
         try {
             fxmlLoader.load();
+            onViewExposed();
         } catch (final IOException e) {
             onExposeFailure(e);
         }

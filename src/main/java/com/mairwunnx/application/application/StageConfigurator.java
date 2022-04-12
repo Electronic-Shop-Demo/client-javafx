@@ -17,17 +17,17 @@ public final class StageConfigurator {
     ) {
         if (preferences != null) {
             final var sizeW = preferences.getIntOrDefault(
-                ApplicationPreferences.SIZE_WIDTH.getKey(),
+                ApplicationPreferences.SIZE_WIDTH,
                 Integer.parseInt(bundle.getString("defaultWindowWidth"))
             );
             final var sizeH = preferences.getIntOrDefault(
-                ApplicationPreferences.SIZE_HEIGHT.getKey(),
+                ApplicationPreferences.SIZE_HEIGHT,
                 Integer.parseInt(bundle.getString("defaultWindowHeight"))
             );
 
-            final var winX = preferences.getIntOrDefault(ApplicationPreferences.WINDOW_X.getKey(), -1);
-            final var winY = preferences.getIntOrDefault(ApplicationPreferences.WINDOW_Y.getKey(), -1);
-            final var isMaximized = preferences.getBoolean(ApplicationPreferences.WINDOW_IS_MAXIMIZED.getKey());
+            final var winX = preferences.getIntOrDefault(ApplicationPreferences.WINDOW_X, -1);
+            final var winY = preferences.getIntOrDefault(ApplicationPreferences.WINDOW_Y, -1);
+            final var isMaximized = preferences.getBoolean(ApplicationPreferences.WINDOW_IS_MAXIMIZED);
 
             if (isMaximized) {
                 stage.setMaximized(true);
@@ -50,11 +50,11 @@ public final class StageConfigurator {
     public void saveStageProperties(@NotNull final Stage stage, @Nullable final Preferences preferences) {
         if (preferences != null) {
             preferences
-                .setInt(ApplicationPreferences.WINDOW_X.getKey(), (int) stage.getX())
-                .setInt(ApplicationPreferences.WINDOW_Y.getKey(), (int) stage.getY())
-                .setInt(ApplicationPreferences.SIZE_WIDTH.getKey(), (int) stage.getWidth())
-                .setInt(ApplicationPreferences.SIZE_HEIGHT.getKey(), (int) stage.getHeight())
-                .setBoolean(ApplicationPreferences.WINDOW_IS_MAXIMIZED.getKey(), stage.isMaximized())
+                .setInt(ApplicationPreferences.WINDOW_X, (int) stage.getX())
+                .setInt(ApplicationPreferences.WINDOW_Y, (int) stage.getY())
+                .setInt(ApplicationPreferences.SIZE_WIDTH, (int) stage.getWidth())
+                .setInt(ApplicationPreferences.SIZE_HEIGHT, (int) stage.getHeight())
+                .setBoolean(ApplicationPreferences.WINDOW_IS_MAXIMIZED, stage.isMaximized())
                 .commitSync();
         } else {
             log.warn("Preferences saving call skipped, preferences is null");

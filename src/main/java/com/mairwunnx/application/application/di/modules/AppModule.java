@@ -25,8 +25,7 @@ public final class AppModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(Preferences.class)
-            .toInstance(Preferences.load(Path.of("settings", "config.xml"), PreferenceType.XML));
+        /*bind(ListenerManager.class).to(ListenerManagerImpl.class).asEagerSingleton();*/
     }
 
     @Provides
@@ -44,5 +43,11 @@ public final class AppModule extends AbstractModule {
     @Provides
     static ResourceBundle provideResourceBundle() {
         return Application.getCurrentResourceBundle();
+    }
+
+    @Singleton
+    @Provides
+    static Preferences providePreferences() {
+        return Preferences.load(Path.of("settings", "config.xml"), PreferenceType.XML);
     }
 }

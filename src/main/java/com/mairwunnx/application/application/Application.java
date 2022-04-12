@@ -88,7 +88,7 @@ public final class Application extends javafx.application.Application {
 
     private void loadResourceBundle() {
         if (preferences != null) {
-            final var lang = preferences.getStringOrNull(ApplicationPreferences.LOCALE.getKey());
+            final var lang = preferences.getStringOrNull(ApplicationPreferences.LOCALE);
             if (lang == null) {
                 setCurrentResourceBundle(ResourceBundle.getBundle(BUNDLE, getClass().getModule()));
             } else {

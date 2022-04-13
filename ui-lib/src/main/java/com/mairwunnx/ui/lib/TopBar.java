@@ -9,6 +9,7 @@ import com.mairwunnx.ui.annotations.types.ViewApiStatusVariant;
 import com.mairwunnx.ui.commons.ImageUtils;
 import com.mairwunnx.ui.lib.apis.TopBarApi;
 import com.mairwunnx.ui.lib.exceptions.ViewInitializationException;
+import com.mairwunnx.ui.lib.managers.BadgeManager;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.WeakChangeListener;
 import javafx.fxml.FXML;
@@ -131,18 +132,12 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable,
 
     @Override
     public void setFavoriteCount(final int value) {
-        final var displayBadge = value > 0;
-        if (displayBadge) favoriteBadgeText.setText(String.valueOf(value));
-        favoriteBadge.setVisible(displayBadge);
-        favoriteBadge.setManaged(displayBadge);
+        badgeManager.use(favoriteBadge, favoriteBadgeText).withCount(value).apply();
     }
 
     @Override
     public void setCartCount(final int value) {
-        final var displayBadge = value > 0;
-        if (displayBadge) cartBadgeText.setText(String.valueOf(value));
-        cartBadge.setVisible(displayBadge);
-        cartBadge.setManaged(displayBadge);
+        badgeManager.use(cartBadge, cartBadgeText).withCount(value).apply();
     }
 
     @Override
@@ -183,6 +178,7 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable,
     private double minCompactSize;
 
     @Inject private ResourceBundle bundle;
+    @Inject private BadgeManager badgeManager;
 
     @NotNull
     @Override

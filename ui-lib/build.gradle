@@ -14,8 +14,8 @@ dependencies {
 
     implementation(project(':ui-commons')) { transitive false }
     implementation(project(':ui-annotations')) { transitive false }
+    implementation(project(':ui-di-qualifiers')) { transitive false }
 }
-
 
 javafx {
     version = '18'

@@ -42,11 +42,11 @@ public final class HomeController extends Controller implements RouterController
         });
         avatar.setOnMouseClicked(event -> topBarApi.setAvatarImage("https://www.w3schools.com/howto/img_avatar.png"));
         decrementBadge.setOnMouseClicked(event -> {
-            counter -= 10;
+            counter -= 100;
             topBarApi.setFavoriteCount(counter);
         });
         incrementBadge.setOnMouseClicked(event -> {
-            counter += 10;
+            counter += 100;
             topBarApi.setFavoriteCount(counter);
         });
         setLocation.setOnMouseClicked(event -> topBarApi.setLocation("Moscow"));

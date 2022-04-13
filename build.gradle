@@ -1,16 +1,10 @@
-import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
-
 plugins {
     id 'java'
-    id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.12'
-    id 'org.beryx.jlink' version '2.25.0'
-    id "io.freefair.lombok" version "6.4.1"
     id 'checkstyle'
 }
 
 final def versionPattern = $/(\d+)\.(\d+)\.(\d+)(-(\w+)\.(\d+))?/$
-final def currentOS = DefaultNativePlatform.getCurrentOperatingSystem()
 final def isCI = System.getenv("CI") == "true"
 final def versionFile = new File('.version')
 
@@ -46,75 +40,14 @@ allprojects {
     tasks.withType(Test) {
         jvmArgs += "--enable-preview"
     }
-}
 
-application {
-    mainModule = 'com.mairwunnx.application'
-    mainClass = 'com.mairwunnx.application.ZygoteInit'
-
-    if (currentOS.isMacOsX()) {
-        applicationDefaultJvmArgs = listOf("-Dsun.java2d.metal=true")
+    tasks.withType(Checkstyle) {
+        reports {
+            xml.required = false
+            html.required = true
+            html.stylesheet resources.text.fromFile('config/xsl/checkstyle.xsl')
+        }
     }
-}
-
-javafx {
-    version = '18'
-    modules = ['javafx.controls', 'javafx.fxml']
-}
-
-jlink {
-    imageZip = project.file "${buildDir}/distributions/app-${javafx.platform.classifier}.zip"
-    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
-    forceMerge 'jackson', 'log4j'
-    launcher {
-        name = 'app'
-    }
-}
-
-jlinkZip {
-    group = 'distribution'
-}
-
-tasks.withType(Checkstyle) {
-    reports {
-        xml.required = false
-        html.required = true
-        html.stylesheet resources.text.fromFile('config/xsl/checkstyle.xsl')
-    }
-}
-
-dependencies {
-    implementation(libs.bundles.jetbrains)
-    implementation(libs.bundles.fxControls) { exclude group: 'org.openjfx' }
-    implementation(libs.bundles.fxForms) { exclude group: 'org.openjfx' }
-    implementation(libs.bundles.lombok)
-    implementation(libs.bundles.mapstruct)
-    implementation(libs.bundles.jackson)
-    implementation(libs.bundles.log4j2)
-    implementation(libs.bundles.apacheCommons)
-    implementation(libs.bundles.guice)
-
-    annotationProcessor(libs.bundles.lombok)
-    annotationProcessor(libs.bundles.mapstructProcessor)
-
-    testCompileOnly(libs.bundles.lombok)
-    testCompileOnly(libs.bundles.mapstructProcessor)
-
-    testAnnotationProcessor(libs.bundles.lombok)
-    testAnnotationProcessor(libs.bundles.mapstructProcessor)
-
-    testImplementation(libs.bundles.javaAssert)
-    testImplementation(libs.bundles.fxTest)
-    testImplementation(libs.bundles.jupiterApi)
-    testRuntimeOnly(libs.bundles.jupiterEngine)
-
-    implementation(project('dto')) { transitive false }
-    implementation(project('models')) { transitive false }
-    implementation(project('ui-navigation')) { transitive false }
-    implementation(project('ui-preferences')) { transitive false }
-    implementation(project('ui-commons')) { transitive false }
-    implementation(project('ui-annotations')) { transitive false }
-    implementation(project('ui-lib')) { transitive false }
 }
 
 if (isCI) {

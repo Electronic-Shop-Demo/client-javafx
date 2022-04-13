@@ -1,9 +1,9 @@
 package com.mairwunnx.ui.lib.managers;
 
 import com.google.inject.Inject;
+import com.mairwunnx.ui.di.qualifiers.CompactNumberFormatter;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -13,13 +13,13 @@ import java.util.ResourceBundle;
 public final class BadgeManagerImpl implements BadgeManager {
     @Inject private ResourceBundle resourceBundle;
 
+    @Inject
+    @CompactNumberFormatter
+    private NumberFormat formatter;
+
     @Nullable private Node badge;
     @Nullable private Label badgeText;
     private int count;
-
-    @Getter(lazy = true)
-    private final NumberFormat formatter =
-        NumberFormat.getCompactNumberInstance(resourceBundle.getLocale(), NumberFormat.Style.SHORT);
 
     @Override
     public @NotNull BadgeManager use(@NotNull final Node badge, @NotNull final Label badgeText) {
@@ -50,6 +50,6 @@ public final class BadgeManagerImpl implements BadgeManager {
 
     @NotNull
     private String format(final int value) {
-        return value > 99 && value < 1000 ? resourceBundle.getString("overOneHundred") : getFormatter().format(value);
+        return value > 99 && value < 1000 ? resourceBundle.getString("overOneHundred") : formatter.format(value);
     }
 }

@@ -2,7 +2,7 @@ package com.mairwunnx.application;
 
 import com.google.inject.Inject;
 import com.mairwunnx.application.application.Application;
-import com.mairwunnx.application.application.di.qulifiers.StartupArgs;
+import com.mairwunnx.ui.di.qualifiers.StartupArgs;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.SystemUtils;
 import org.jetbrains.annotations.NotNull;

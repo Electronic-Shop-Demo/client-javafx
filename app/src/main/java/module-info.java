@@ -18,13 +18,16 @@ module com.mairwunnx.application {
     requires org.apache.commons.lang3;
     requires org.apache.logging.log4j;
 
+    requires application.ui.lib;
     requires application.ui.navigation;
     requires application.ui.preferences;
-    requires application.ui.lib;
     requires application.ui.commons;
 
     requires application.dto.main;
     requires application.models.main;
+    requires application.ui.di.qualifiers;
+
+    opens com.mairwunnx.application;
 
     exports com.mairwunnx.application;
 
@@ -39,7 +42,6 @@ module com.mairwunnx.application {
     exports com.mairwunnx.application.application.controllers;
 
 
-    opens com.mairwunnx.application to javafx.fxml, com.google.guice;
     opens com.mairwunnx.application.application to com.google.guice, javafx.fxml;
     opens com.mairwunnx.application.application.di.modules to com.google.guice;
     /*opens com.mairwunnx.application.application.views to com.google.guice, javafx.fxml, application.ui.navigation;*/

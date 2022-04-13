@@ -5,7 +5,8 @@ import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.mairwunnx.application.application.Application;
 import com.mairwunnx.application.application.components.HttpClientComponent;
-import com.mairwunnx.application.application.di.qulifiers.StartupArgs;
+import com.mairwunnx.ui.di.qualifiers.CompactNumberFormatter;
+import com.mairwunnx.ui.di.qualifiers.StartupArgs;
 import com.mairwunnx.ui.lib.managers.BadgeManager;
 import com.mairwunnx.ui.lib.managers.BadgeManagerImpl;
 import com.mairwunnx.ui.preferences.PreferenceType;
@@ -13,6 +14,7 @@ import com.mairwunnx.ui.preferences.Preferences;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;
+import java.text.NumberFormat;
 import java.util.ResourceBundle;
 
 public final class AppModule extends AbstractModule {
@@ -52,5 +54,11 @@ public final class AppModule extends AbstractModule {
     @Provides
     static Preferences providePreferences() {
         return Preferences.load(Path.of("settings", "config.xml"), PreferenceType.XML);
+    }
+
+    @Provides
+    @CompactNumberFormatter
+    static NumberFormat provideCompactNumberInstance() {
+        return NumberFormat.getCompactNumberInstance(provideResourceBundle().getLocale(), NumberFormat.Style.SHORT);
     }
 }

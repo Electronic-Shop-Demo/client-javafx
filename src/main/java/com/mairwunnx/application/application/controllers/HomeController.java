@@ -41,8 +41,14 @@ public final class HomeController extends Controller implements RouterController
             topBarApi.setIsLoggedIn(isLoggedIn);
         });
         avatar.setOnMouseClicked(event -> topBarApi.setAvatarImage("https://www.w3schools.com/howto/img_avatar.png"));
-        decrementBadge.setOnMouseClicked(event -> topBarApi.setFavoriteCount(--counter - 1));
-        incrementBadge.setOnMouseClicked(event -> topBarApi.setFavoriteCount(++counter + 1));
+        decrementBadge.setOnMouseClicked(event -> {
+            counter -= 10;
+            topBarApi.setFavoriteCount(counter);
+        });
+        incrementBadge.setOnMouseClicked(event -> {
+            counter += 10;
+            topBarApi.setFavoriteCount(counter);
+        });
         setLocation.setOnMouseClicked(event -> topBarApi.setLocation("Moscow"));
         requestLocation.setOnMouseClicked(event -> topBarApi.setOnLocationDialogRequested(() -> "Tokyo"));
 

@@ -13,4 +13,6 @@ module application.ui.lib {
     opens com.mairwunnx.ui.lib;
     exports com.mairwunnx.ui.lib;
     exports com.mairwunnx.ui.lib.apis;
+    exports com.mairwunnx.ui.lib.managers;
+    opens com.mairwunnx.ui.lib.managers;
 }

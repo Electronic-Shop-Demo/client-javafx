@@ -6,6 +6,8 @@ import com.google.inject.Singleton;
 import com.mairwunnx.application.application.Application;
 import com.mairwunnx.application.application.components.HttpClientComponent;
 import com.mairwunnx.application.application.di.qulifiers.StartupArgs;
+import com.mairwunnx.ui.lib.managers.BadgeManager;
+import com.mairwunnx.ui.lib.managers.BadgeManagerImpl;
 import com.mairwunnx.ui.preferences.PreferenceType;
 import com.mairwunnx.ui.preferences.Preferences;
 import org.jetbrains.annotations.NotNull;
@@ -25,6 +27,7 @@ public final class AppModule extends AbstractModule {
 
     @Override
     protected void configure() {
+        bind(BadgeManager.class).to(BadgeManagerImpl.class);
         /*bind(ListenerManager.class).to(ListenerManagerImpl.class).asEagerSingleton();*/
     }
 

@@ -74,6 +74,7 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable,
     @FXML private Button locationButton;
     @FXML private Button signin;
     @FXML private ImageView profile;
+    private final ImageView searchImageButton = new ImageView();
 
     private ChangeListener<Number> imageProgressListener;
     private ChangeListener<String> searchTextListener;
@@ -238,8 +239,6 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable,
             bundle.getString("layoutTopbarMinCompactSize")
         );
     }
-
-    private final ImageView searchImageButton = new ImageView();
 
     private void initializeSearchButton() {
         final var resource = getClass().getResource("/uilib/assets/round_search_black_18dp.jpg");

@@ -35,6 +35,7 @@ public final class HomeController extends Controller implements RouterController
         super.onShow(router, arg);
         final var topBarApi = topbar.getApi();
 
+        topBarApi.setOnProfileClicked(() -> log.info("Profile clicked!"));
         switchBack.setOnMouseClicked(event -> topBarApi.setBackAvailable(!topBarApi.isBackAvailable()));
         switchLogin.setOnMouseClicked(event -> {
             isLoggedIn = !isLoggedIn;

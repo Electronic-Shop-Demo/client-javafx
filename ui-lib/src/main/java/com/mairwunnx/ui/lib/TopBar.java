@@ -200,6 +200,7 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable,
         subscribeOnFavoriteClicked();
         subscribeOnCartClicked();
         subscribeOnLoginOrRegisterRequested();
+        subscribeOnProfileClicked();
     }
 
     @Override
@@ -375,6 +376,14 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable,
         setOnUserInteract(signin, button -> {
             if (getOnLoginOrRegisterClicked() != null) {
                 getOnLoginOrRegisterClicked().run();
+            }
+        });
+    }
+
+    private void subscribeOnProfileClicked() {
+        setOnUserInteract(profile, imageView -> {
+            if (getOnProfileClicked() != null) {
+                getOnProfileClicked().run();
             }
         });
     }

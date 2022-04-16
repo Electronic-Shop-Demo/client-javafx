@@ -56,6 +56,8 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable,
     private static final double WIDE_MODE_WIDTH_THRESHOLD = 1_500.0;
     private static final int WIDE_MORE_CONSTRAINT_MULTIPLIER = 6;
     private static final double DEFAULT_MODE_CONSTRAINT = 0.0;
+    private static final int AVATAR_RADII = 12;
+    private static final int AVATAR_SIZE = 28;
 
     private static final Insets SIGN_IN_COMPACT_INSETS = new Insets(0, 32, 0, 8);
     private static final Insets SIGN_IN_DEFAULT_INSETS = new Insets(0, 16, 0, 8);
@@ -148,7 +150,7 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable,
         profile.setManaged(isLoggedIn);
         profile.setVisible(isLoggedIn);
 
-        if (isLoggedIn) ImageUtils.clip(profile, 12, 28);
+        if (isLoggedIn) ImageUtils.clip(profile, AVATAR_RADII, AVATAR_SIZE);
     }
 
     @Override
@@ -158,7 +160,7 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable,
         imageProgressListener = (observable, oldValue, newValue) -> {
             if (newValue.doubleValue() == 1.0) {
                 profile.setImage(image);
-                ImageUtils.clip(profile, 12, 28);
+                ImageUtils.clip(profile, AVATAR_RADII, AVATAR_SIZE);
             }
         };
 

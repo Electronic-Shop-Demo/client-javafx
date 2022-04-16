@@ -139,11 +139,14 @@
                    GridPane.halignment="RIGHT"
                    visible="false"
                    managed="false">
+            <GridPane.margin>
+                <Insets right="16" left="8" />
+            </GridPane.margin>
 
-            <Image url="uilib/assets/default_avatar.webp"
+            <Image url="uilib/assets/default_avatar_1.png"
                    smooth="true"
-                   requestedWidth="24"
-                   requestedHeight="24"
+                   requestedWidth="28"
+                   requestedHeight="28"
                    preserveRatio="true" />
         </ImageView>
     </GridPane>

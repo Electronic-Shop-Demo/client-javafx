@@ -334,6 +334,14 @@
   -fx-font-family: "Open Sans Medium";
   -fx-font-size: 1em;
 }
+.ns-c-topbar__profile {
+  -fx-border-radius: 6;
+  -fx-border-width: 2;
+  -fx-border-color: transparent;
+}
+.ns-c-topbar__profile:focused {
+  -fx-border-color: white;
+}
 .topbar-panel {
   -fx-background-color: #232323;
 }

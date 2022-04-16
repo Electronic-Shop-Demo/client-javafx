@@ -143,24 +143,22 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable,
 
     @Override
     public void setIsLoggedIn(final boolean isLoggedIn) {
-        if (isLoggedIn) {
-            signin.setVisible(false);
-            signin.setManaged(false);
-            ImageUtils.clip(profile, 12, 24);
-        } else {
-            signin.setVisible(true);
-            signin.setManaged(true);
-        }
+        signin.setVisible(!isLoggedIn);
+        signin.setManaged(!isLoggedIn);
+        profile.setManaged(isLoggedIn);
+        profile.setVisible(isLoggedIn);
+
+        if (isLoggedIn) ImageUtils.clip(profile, 12, 28);
     }
 
     @Override
     public void setAvatarImage(final @NotNull String ref) {
-        final var image = new Image(ref);
+        final var image = new Image(ref, true);
 
         imageProgressListener = (observable, oldValue, newValue) -> {
-            if (newValue.intValue() == 100) {
+            if (newValue.doubleValue() == 1.0) {
                 profile.setImage(image);
-                ImageUtils.clip(profile, 12, 24);
+                ImageUtils.clip(profile, 12, 28);
             }
         };
 

@@ -8,6 +8,9 @@ import org.jetbrains.annotations.NotNull;
 
 public final class ImageUtils {
     public static void clip(@NotNull final ImageView imageView, final double radii, final double size) {
+        imageView.setFitWidth(size);
+        imageView.setFitHeight(size);
+
         final var clip = new Rectangle(size, size);
         final var parameters = new SnapshotParameters();
 

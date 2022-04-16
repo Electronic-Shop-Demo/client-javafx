@@ -143,7 +143,7 @@
                 <Insets right="16" left="8" />
             </GridPane.margin>
 
-            <Image url="uilib/assets/default_avatar_1.png"
+            <Image url="uilib/assets/placeholder.png"
                    smooth="true"
                    requestedWidth="28"
                    requestedHeight="28"

@@ -133,10 +133,12 @@
         </Button>
 
         <ImageView fx:id="profile"
+                   styleClass="ns-c-topbar__profile"
                    pickOnBounds="true"
                    preserveRatio="true"
                    GridPane.columnIndex="5"
                    GridPane.halignment="RIGHT"
+                   focusTraversable="true"
                    visible="false"
                    managed="false">
             <GridPane.margin>

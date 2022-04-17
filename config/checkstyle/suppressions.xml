@@ -6,4 +6,5 @@
 <suppressions>
     <suppress files="EmailValidator\.java" checks="LineLength" />
     <suppress files="AuthServiceImpl\.java" checks="ParameterNumber" />
+    <suppress files="*" checks="VisibilityModifier" />
 </suppressions>

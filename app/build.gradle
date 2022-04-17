@@ -10,12 +10,14 @@ plugins {
 
 final def currentOS = DefaultNativePlatform.getCurrentOperatingSystem()
 
+run.environment += ["com.mairwunnx.application.debug": true]
+
 application {
     mainModule = 'com.mairwunnx.application'
     mainClass = 'com.mairwunnx.application.ZygoteInit'
 
     if (currentOS.isMacOsX()) {
-        applicationDefaultJvmArgs = listOf("-Dsun.java2d.metal=true")
+        applicationDefaultJvmArgs += ["-Dsun.java2d.metal=true"]
     }
 }
 

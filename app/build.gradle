@@ -12,6 +12,8 @@ final def currentOS = DefaultNativePlatform.getCurrentOperatingSystem()
 
 run.environment += ["com.mairwunnx.application.debug": true]
 
+build.dependsOn check
+
 application {
     mainModule = 'com.mairwunnx.application'
     mainClass = 'com.mairwunnx.application.ZygoteInit'

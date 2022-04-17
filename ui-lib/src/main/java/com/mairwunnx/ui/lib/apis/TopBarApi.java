@@ -3,7 +3,6 @@ package com.mairwunnx.ui.lib.apis;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 /**
  * Top bar UI element API. Recommended to use it because

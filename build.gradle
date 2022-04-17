@@ -34,7 +34,6 @@ allprojects {
         options.fork = true
         options.failOnError = false
         options.debug = false
-        options.release = 18
     }
 
     tasks.withType(Test) {

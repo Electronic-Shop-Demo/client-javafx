@@ -1,0 +1,76 @@
+import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
+
+plugins {
+    id 'java'
+    id 'org.openjfx.javafxplugin' version '0.0.12'
+    id "io.freefair.lombok" version "6.4.1"
+    id 'application'
+    id 'org.beryx.jlink' version '2.25.0'
+}
+
+final def currentOS = DefaultNativePlatform.getCurrentOperatingSystem()
+
+application {
+    mainModule = 'com.mairwunnx.application'
+    mainClass = 'com.mairwunnx.application.ZygoteInit'
+
+    if (currentOS.isMacOsX()) {
+        applicationDefaultJvmArgs = listOf("-Dsun.java2d.metal=true")
+    }
+}
+
+mainClassName = "$moduleName/com.mairwunnx.application.ZygoteInit"
+
+javafx {
+    version = '18'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+jlink {
+    imageZip = project.file "${buildDir}/distributions/app-${javafx.platform.classifier}.zip"
+    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+    forceMerge 'jackson', 'log4j'
+    launcher {
+        name = 'app'
+    }
+}
+
+jlinkZip {
+    group = 'distribution'
+}
+
+dependencies {
+    implementation(libs.bundles.jetbrains)
+    implementation(libs.bundles.fxControls) { exclude group: 'org.openjfx' }
+    implementation(libs.bundles.fxForms) { exclude group: 'org.openjfx' }
+    implementation(libs.bundles.lombok)
+    implementation(libs.bundles.mapstruct)
+    implementation(libs.bundles.jackson)
+    implementation(libs.bundles.log4j2)
+    implementation(libs.bundles.apacheCommons)
+    implementation(libs.bundles.guice)
+    implementation(libs.bundles.javax)
+
+    annotationProcessor(libs.bundles.lombok)
+    annotationProcessor(libs.bundles.mapstructProcessor)
+
+    testCompileOnly(libs.bundles.lombok)
+    testCompileOnly(libs.bundles.mapstructProcessor)
+
+    testAnnotationProcessor(libs.bundles.lombok)
+    testAnnotationProcessor(libs.bundles.mapstructProcessor)
+
+    testImplementation(libs.bundles.javaAssert)
+    testImplementation(libs.bundles.fxTest)
+    testImplementation(libs.bundles.jupiterApi)
+    testRuntimeOnly(libs.bundles.jupiterEngine)
+
+    implementation(project(':dto')) { transitive false }
+    implementation(project(':models')) { transitive false }
+    implementation(project(':ui-navigation')) { transitive false }
+    implementation(project(':ui-preferences')) { transitive false }
+    implementation(project(':ui-commons')) { transitive false }
+    implementation(project(':ui-annotations')) { transitive false }
+    implementation(project(':ui-lib')) { transitive false }
+    implementation(project(':ui-di-qualifiers')) { transitive false }
+}

@@ -33,7 +33,7 @@ public final class CompactUtils {
                 currentNode.getStyleClass().addAll(clazz + COMPACT_CSS_CLASS_SUFFIX);
             } else {
                 currentNode.getStyleClass().removeAll(clazz);
-                currentNode.getStyleClass().addAll(StringUtils.replace(clazz, "-compact", ""));
+                currentNode.getStyleClass().addAll(StringUtils.replace(clazz, COMPACT_CSS_CLASS_SUFFIX, ""));
             }
         }
     }

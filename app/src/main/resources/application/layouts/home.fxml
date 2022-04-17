@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.mairwunnx.ui.lib.TopBar?><?import javafx.scene.control.*?><?import javafx.scene.layout.*?>
+<AnchorPane fx:id="root"
+            xmlns="http://javafx.com/javafx/18"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.mairwunnx.application.application.controllers.HomeController">
+
+    <TopBar fx:id="topbar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+
+    <VBox AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0">
+        <Button fx:id="switchBack" text="Switch back button" />
+        <Button fx:id="switchLogin" text="Switch login" />
+        <Button fx:id="avatar" text="Load avatar" />
+        <Button fx:id="decrementBadge" text="Decrement badge" />
+        <Button fx:id="incrementBadge" text="Increment badge" />
+        <Button fx:id="setLocation" text="Set location to Moscow" />
+        <Button fx:id="requestLocation" text="Request location -> Tokyo" />
+    </VBox>
+</AnchorPane>

@@ -6,23 +6,29 @@ import com.mairwunnx.ui.annotations.LocalizationStatus;
 import com.mairwunnx.ui.annotations.ViewApiStatus;
 import com.mairwunnx.ui.annotations.types.LocalizationStatusVariant;
 import com.mairwunnx.ui.annotations.types.ViewApiStatusVariant;
+import com.mairwunnx.ui.commons.ImageUtils;
+import com.mairwunnx.ui.lib.apis.TopBarApi;
 import com.mairwunnx.ui.lib.exceptions.ViewInitializationException;
-import javafx.beans.property.SimpleBooleanProperty;
+import com.mairwunnx.ui.lib.managers.BadgeManager;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.WeakChangeListener;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.controlsfx.control.textfield.CustomTextField;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,7 +36,6 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 import static com.mairwunnx.ui.commons.CompactUtils.switchToCompact;
 import static com.mairwunnx.ui.commons.InteractionUtils.setOnUserInteract;
@@ -42,13 +47,16 @@ import static com.mairwunnx.ui.commons.InteractionUtils.setOnUserInteract;
  * @see JfxCompactable
  * @since 1.0.0
  */
+@SuppressWarnings({"unused", "FieldCanBeLocal"})
 @Issue(id = 1, value = "https://github.com/Electronic-Shop-Demo/client-javafx/issues/1")
 @ViewApiStatus(ViewApiStatusVariant.IN_DEV)
 @LocalizationStatus(LocalizationStatusVariant.DONE)
-public final class TopBar extends AnchorPane implements JfxView, JfxCompactable {
+public final class TopBar extends AnchorPane implements JfxView, JfxCompactable, TopBarApi {
     private static final double WIDE_MODE_WIDTH_THRESHOLD = 1_500.0;
     private static final int WIDE_MORE_CONSTRAINT_MULTIPLIER = 6;
     private static final double DEFAULT_MODE_CONSTRAINT = 0.0;
+    private static final int AVATAR_RADII = 12;
+    private static final int AVATAR_SIZE = 28;
 
     private static final Insets SIGN_IN_COMPACT_INSETS = new Insets(0, 32, 0, 8);
     private static final Insets SIGN_IN_DEFAULT_INSETS = new Insets(0, 16, 0, 8);
@@ -59,105 +67,140 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
     @FXML private Button backButton;
     @FXML private CustomTextField search;
     @FXML private Button favorite;
+    @FXML private StackPane favoriteBadge;
+    @FXML private Label favoriteBadgeText;
     @FXML private Button cart;
+    @FXML private StackPane cartBadge;
+    @FXML private Label cartBadgeText;
     @FXML private Button locationButton;
     @FXML private Button signin;
+    @FXML private ImageView profile;
+    private final ImageView searchImageButton = new ImageView();
 
-    /**
-     * On back requested callback. Calls when back arrow button is clicked
-     * with mouse or space or enter while focused.
-     */
+    private ChangeListener<Number> imageProgressListener;
+    private ChangeListener<String> searchTextListener;
+    private ChangeListener<Number> wideScreenListener;
+    private ChangeListener<Number> smallScreenListener;
+
     @Getter(value = AccessLevel.PRIVATE, onMethod_ = {@Nullable})
     @Setter(onParam_ = {@NotNull})
     private Runnable onBackRequested;
 
-    /**
-     * On location requested dialog callback. Calls when location button is clicked
-     * with mouse or space or enter while focused.
-     * <p>
-     * By idea must display in-app fullscreen dialog with selecting city if city was
-     * detected not correctly.
-     */
     @Getter(value = AccessLevel.PRIVATE, onMethod_ = {@Nullable})
     @Setter(onParam_ = {@NotNull})
-    private Supplier<String> onLocationDialogRequested;
+    private Runnable onLocationDialogRequested;
 
-    /**
-     * On search changed callback. Calls when text in search text field
-     * is changed.
-     * <p>
-     * By idea for every typed character must be shown in-app fullscreen dialog
-     * with selecting preview product.
-     */
     @Getter(value = AccessLevel.PRIVATE, onMethod_ = {@Nullable})
     @Setter(onParam_ = {@NotNull})
     private Consumer<String> onSearchChanged;
 
-    /**
-     * On search requested callback. Calls when search requested by user, by
-     * clicking on search icon or enter while focused in text field.
-     * <p>
-     * By idea must navigate to other page with displaying that thing user
-     * has requested.
-     */
     @Getter(value = AccessLevel.PRIVATE, onMethod_ = {@Nullable})
     @Setter(onParam_ = {@NotNull})
     private Consumer<String> onSearchRequested;
 
-    /**
-     * On favorite requested callback. Calls when user clicked on
-     * favorite button.
-     * <p>
-     * By idea must display new page with favorite list.
-     */
     @Getter(value = AccessLevel.PRIVATE, onMethod_ = {@Nullable})
     @Setter(onParam_ = {@NotNull})
     private Runnable onFavoriteClicked;
 
-    /**
-     * On cart requested callback. Calls when user clicked on cart button.
-     * <p>
-     * By idea must display new page with cart.
-     */
     @Getter(value = AccessLevel.PRIVATE, onMethod_ = {@Nullable})
     @Setter(onParam_ = {@NotNull})
     private Runnable onCartClicked;
 
-    /**
-     * On login requested callback. Calls when user clicked on login or
-     * register button.
-     * <p>
-     * By idea must display new page with login\register page.
-     */
     @Getter(value = AccessLevel.PRIVATE, onMethod_ = {@Nullable})
     @Setter(onParam_ = {@NotNull})
     private Runnable onLoginOrRegisterClicked;
 
-    private final SimpleBooleanProperty backAvailable = new SimpleBooleanProperty(this, "backAvailable");
+    @Getter(value = AccessLevel.PRIVATE, onMethod_ = {@Nullable})
+    @Setter(onParam_ = {@NotNull})
+    private Runnable onProfileClicked;
+
+    @Getter
+    private boolean backAvailable;
 
     public void setBackAvailable(final boolean value) {
-        backAvailable.set(value);
+        backAvailable = value;
+        backButton.setDisable(!value);
     }
 
-    public boolean isBackAvailable() {
-        return backAvailable.get();
+    @Override
+    public void setLocation(@NotNull final String value) {
+        locationButton.setText(value);
     }
 
-    @Getter
-    @ApiStatus.Internal
-    private boolean isCompactModeEnabled;
+    @Override
+    public void setSearchText(@NotNull final String value) {
+        search.setText(value);
+    }
 
-    @Getter
-    @ApiStatus.Internal
-    private final HashMap<Node, Object> compactSavedParams = new HashMap<>();
+    @Override
+    public void setFavoriteCount(final int value) {
+        badgeManager.use(favoriteBadge, favoriteBadgeText).withCount(value).apply();
+    }
+
+    @Override
+    public void setCartCount(final int value) {
+        badgeManager.use(cartBadge, cartBadgeText).withCount(value).apply();
+    }
+
+    @Override
+    public void setIsLoggedIn(final boolean isLoggedIn) {
+        signin.setVisible(!isLoggedIn);
+        signin.setManaged(!isLoggedIn);
+        profile.setManaged(isLoggedIn);
+        profile.setVisible(isLoggedIn);
+
+        if (isLoggedIn) ImageUtils.clip(profile, AVATAR_RADII, AVATAR_SIZE);
+    }
+
+    @Override
+    public void setAvatarImage(final @NotNull String ref) {
+        final var image = new Image(ref, true);
+
+        imageProgressListener = (observable, oldValue, newValue) -> {
+            if (newValue.doubleValue() == 1.0) {
+                profile.setImage(image);
+                ImageUtils.clip(profile, AVATAR_RADII, AVATAR_SIZE);
+            }
+        };
+
+        image.progressProperty().addListener(new WeakChangeListener<>(imageProgressListener));
+    }
+
+    @NotNull
+    public TopBarApi getApi() {
+        return this;
+    }
+
+    @Getter private boolean isCompactModeEnabled;
+    @Getter private final HashMap<Node, Object> compactSavedParams = new HashMap<>();
 
     private String compactSignInText;
     private double minCompactSize;
 
-    private final ImageView searchImageButton = new ImageView();
+    @Inject private ResourceBundle bundle;
+    @Inject private BadgeManager badgeManager;
 
-    @Inject
-    private ResourceBundle bundle;
+    @NotNull
+    @Override
+    public TopBar onViewCreate() {
+        extractBundleValues();
+        expose();
+        return this;
+    }
+
+    @Override
+    public void onViewCreated() {
+        initializeSearchButton();
+        updateWidthConstraints(root.getWidth());
+        setCompactModeEnabled(root.getWidth() <= minCompactSize);
+        subscribeOnRootWidthChanged();
+        subscribeOnBackButtonClicked();
+        subscribeOnSearchTextChanged();
+        subscribeOnFavoriteClicked();
+        subscribeOnCartClicked();
+        subscribeOnLoginOrRegisterRequested();
+        subscribeOnProfileClicked();
+    }
 
     @Override
     public @NotNull String layoutPath() {
@@ -190,23 +233,6 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
         if (!isEnabled) getCompactSavedParams().clear();
     }
 
-    @NotNull
-    @Override
-    public TopBar init() {
-        extractBundleValues();
-        expose();
-        installSearchButtonToSearchField();
-        updateWidthConstraints(root.getWidth());
-        setCompactModeEnabled(root.getWidth() <= minCompactSize);
-        subscribeOnRootWidthChanged();
-        subscribeOnBackButtonClicked();
-        subscribeOnSearchTextChanged();
-        subscribeOnFavoriteClicked();
-        subscribeOnCartClicked();
-        subscribeOnLoginOrRegisterRequested();
-        return this;
-    }
-
     private void extractBundleValues() {
         compactSignInText = bundle.getString("compactButtonSignInText");
         minCompactSize = Double.parseDouble(
@@ -214,15 +240,13 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
         );
     }
 
-    private void installSearchButtonToSearchField() {
-        final var resource =
-            getClass().getResource("/uilib/assets/round_search_black_18dp.jpg");
+    private void initializeSearchButton() {
+        final var resource = getClass().getResource("/uilib/assets/round_search_black_18dp.jpg");
+        final String path;
 
-        String path;
         try {
             path = resource != null ? resource.toURI().toString() : null;
         } catch (final URISyntaxException e) {
-            path = null;
             throw new ViewInitializationException("An error occurred while resource translating to URI", e);
         }
 
@@ -230,7 +254,11 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
             searchImageButton.setImage(new Image(path));
             searchImageButton.setCursor(Cursor.HAND);
             searchImageButton.setOnMouseClicked(event -> {
-                // todo: call on search requested
+                if (event.getButton() == MouseButton.PRIMARY) {
+                    if (getOnSearchRequested() != null) {
+                        getOnSearchRequested().accept(search.getText());
+                    }
+                }
             });
             search.setRight(searchImageButton);
         } else {
@@ -239,8 +267,11 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
     }
 
     private void subscribeOnRootWidthChanged() {
-        root.widthProperty().addListener((o, oldValue, newValue) -> handleWideScreen(oldValue, newValue));
-        root.widthProperty().addListener((o, oldValue, newValue) -> handleSmallScreen(oldValue, newValue));
+        wideScreenListener = (o, oldValue, newValue) -> handleWideScreen(oldValue, newValue);
+        smallScreenListener = (o, oldValue, newValue) -> handleSmallScreen(oldValue, newValue);
+
+        root.widthProperty().addListener(new WeakChangeListener<>(wideScreenListener));
+        root.widthProperty().addListener(new WeakChangeListener<>(smallScreenListener));
     }
 
     private void handleWideScreen(@NotNull final Number oldValue, @NotNull final Number newValue) {
@@ -304,14 +335,24 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
         });
     }
 
+    private void subscribeOnLocationButtonClicked() {
+        setOnUserInteract(locationButton, button -> {
+            if (getOnLocationDialogRequested() != null) {
+                getOnLocationDialogRequested().run();
+            }
+        });
+    }
+
     private void subscribeOnSearchTextChanged() {
-        search.textProperty().addListener((observable, oldValue, newValue) -> {
+        searchTextListener = (observable, oldValue, newValue) -> {
             if (!oldValue.equals(newValue)) {
                 if (getOnSearchChanged() != null) {
                     getOnSearchChanged().accept(newValue);
                 }
             }
-        });
+        };
+
+        search.textProperty().addListener(new WeakChangeListener<>(searchTextListener));
     }
 
     private void subscribeOnFavoriteClicked() {
@@ -334,6 +375,14 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable 
         setOnUserInteract(signin, button -> {
             if (getOnLoginOrRegisterClicked() != null) {
                 getOnLoginOrRegisterClicked().run();
+            }
+        });
+    }
+
+    private void subscribeOnProfileClicked() {
+        setOnUserInteract(profile, imageView -> {
+            if (getOnProfileClicked() != null) {
+                getOnProfileClicked().run();
             }
         });
     }

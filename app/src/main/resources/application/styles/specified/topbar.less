@@ -1,0 +1,21 @@
+@import "../system";
+@import "../font-collection";
+@import "../font-sizes";
+@import "../components/buttons";
+
+.ns-c-topbar__counter {
+    -fx-fill: radial-gradient(center 0.5 0.5, radius 80%, @sweet-green 35%, @pure-white 100%);
+    -fx-stroke: @chocolate-dark;
+    -fx-stroke-type: inside;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 5, 0, 0, 0);
+}
+
+.ns-c-topbar__counter__text {
+    -fx-text-fill: @pure-white;
+    -fx-font-family: @font-medium;
+    -fx-font-size: @size-12-px;
+}
+
+.ns-c-topbar__profile {
+    .focusable-button();
+}

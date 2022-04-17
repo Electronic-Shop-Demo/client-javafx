@@ -8,8 +8,13 @@ module application.ui.lib {
     requires application.ui.annotations;
     requires application.ui.commons;
 
+    requires application.ui.di.qualifiers;
+
     opens uilib.assets;
     opens uilib;
     opens com.mairwunnx.ui.lib;
     exports com.mairwunnx.ui.lib;
+    exports com.mairwunnx.ui.lib.apis;
+    exports com.mairwunnx.ui.lib.managers;
+    opens com.mairwunnx.ui.lib.managers;
 }

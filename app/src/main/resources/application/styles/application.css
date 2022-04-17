@@ -1,0 +1,348 @@
+@font-face {
+  font-family: "Open Sans";
+  src: url('../fonts/OpenSans-Regular.ttf');
+}
+@font-face {
+  font-family: "Open Sans Medium";
+  src: url('../fonts/OpenSans-Medium.ttf');
+}
+@font-face {
+  font-family: "Open Sans Semiold";
+  src: url('../fonts/OpenSans-SemiBold.ttf');
+}
+.button-primary {
+  -fx-background-color: #166d3c;
+  -fx-text-fill: white;
+  -fx-background-radius: 8;
+  -fx-padding: 4 14;
+  -fx-font-size: 1.08333333em;
+  -fx-font-family: "Open Sans Medium";
+  -fx-border-radius: 6;
+  -fx-border-width: 2;
+  -fx-border-color: transparent;
+}
+.button-primary:focused {
+  -fx-border-color: white;
+}
+.button-primary:hover {
+  -fx-background-color: #1a8248;
+}
+.button-primary:armed,
+.button-primary:pressed {
+  -fx-background-color: #125830;
+}
+.button-regular {
+  -fx-background-color: #232323;
+  -fx-text-fill: white;
+  -fx-background-radius: 8;
+  -fx-padding: 4 14;
+  -fx-font-size: 1.08333333em;
+  -fx-font-family: "Open Sans Medium";
+  -fx-border-radius: 6;
+  -fx-border-width: 2;
+  -fx-border-color: transparent;
+}
+.button-regular:focused {
+  -fx-border-color: white;
+}
+.button-regular:hover {
+  -fx-background-color: #303030;
+}
+.button-regular:armed,
+.button-regular:pressed {
+  -fx-background-color: #161616;
+}
+.button-regular-alt {
+  -fx-background-color: white;
+  -fx-text-fill: #232323;
+  -fx-background-radius: 8;
+  -fx-padding: 4 14;
+  -fx-font-size: 1.08333333em;
+  -fx-font-family: "Open Sans Medium";
+  -fx-border-radius: 6;
+  -fx-border-width: 2;
+  -fx-border-color: transparent;
+}
+.button-regular-alt:focused {
+  -fx-border-color: white;
+}
+.button-regular-alt:hover {
+  -fx-background-color: #f2f2f2;
+}
+.button-regular-alt:armed,
+.button-regular-alt:pressed {
+  -fx-background-color: #e6e6e6;
+}
+.iconic-button-text {
+  -fx-padding: 4 14 !important;
+  -fx-font-size: 1.08333333em;
+  -fx-font-family: "Open Sans Medium";
+  -fx-background-radius: 8;
+  -fx-padding: 4;
+  -fx-text-fill: white;
+  -fx-text-alignment: center;
+  -fx-background-color: transparent;
+  -fx-border-radius: 6;
+  -fx-border-width: 2;
+  -fx-border-color: transparent;
+}
+.iconic-button-text:focused {
+  -fx-border-color: white;
+}
+.iconic-button-text:hover {
+  -fx-background-color: rgba(255, 255, 255, 0.1);
+}
+.iconic-button-text:armed,
+.iconic-button-text:pressed {
+  -fx-background-color: rgba(255, 255, 255, 0.06);
+}
+.iconic-button {
+  -fx-background-radius: 8;
+  -fx-padding: 4;
+  -fx-text-fill: white;
+  -fx-text-alignment: center;
+  -fx-background-color: transparent;
+  -fx-border-radius: 6;
+  -fx-border-width: 2;
+  -fx-border-color: transparent;
+}
+.iconic-button:focused {
+  -fx-border-color: white;
+}
+.iconic-button:hover {
+  -fx-background-color: rgba(255, 255, 255, 0.1);
+}
+.iconic-button:armed,
+.iconic-button:pressed {
+  -fx-background-color: rgba(255, 255, 255, 0.06);
+}
+.regular-button {
+  -fx-background-radius: 8;
+  -fx-padding: 4 14;
+  -fx-font-size: 1.08333333em;
+  -fx-font-family: "Open Sans Medium";
+  -fx-border-radius: 6;
+  -fx-border-width: 2;
+  -fx-border-color: transparent;
+}
+.regular-button:focused {
+  -fx-border-color: white;
+}
+.focusable-button {
+  -fx-border-radius: 6;
+  -fx-border-width: 2;
+  -fx-border-color: transparent;
+}
+.focusable-button:focused {
+  -fx-border-color: white;
+}
+.tooltip {
+  -fx-background-color: white;
+  -fx-background-radius: 6;
+  -fx-border-color: white;
+  -fx-border-radius: 4;
+  -fx-border-width: 2;
+  -fx-text-fill: #232323;
+  -fx-font-family: "Open Sans";
+  -fx-font-size: 1.08333333em;
+}
+.field-regular {
+  -fx-font-family: "Open Sans";
+  -fx-font-size: 1em;
+  -fx-text-fill: #232323;
+  -fx-background-color: linear-gradient(to bottom, derive(#166d3c, -10%), #125830), linear-gradient(from 0px 0px to 0px 5px, derive(#898989, -9%), white);
+  -fx-background-radius: 6;
+  -fx-background-insets: 0, 1;
+  -fx-border-color: transparent;
+  -fx-border-width: 2;
+  -fx-border-radius: 5;
+  -fx-highlight-fill: #166d3c;
+  -fx-highlight-text-fill: white;
+  -fx-prompt-text-fill: #898989;
+  -fx-padding: 0.333333em 0.583em 0.333333em 0.583em;
+}
+.field-regular:focused {
+  -fx-background-color: #166d3c, white, #166d3c, linear-gradient(from 0px 0px to 0px 5px, derive(#166d3c, -9%), white);
+  -fx-background-insets: -1, 1, -1, 2.35;
+  -fx-border-color: white;
+  -fx-border-width: 2;
+}
+.button-location {
+  -fx-graphic: url("../assets/outline_location_on_white_24dp.png");
+  -fx-padding: 4 14 !important;
+  -fx-font-size: 1.08333333em;
+  -fx-font-family: "Open Sans Medium";
+  -fx-background-radius: 8;
+  -fx-padding: 4;
+  -fx-text-fill: white;
+  -fx-text-alignment: center;
+  -fx-background-color: transparent;
+  -fx-border-radius: 6;
+  -fx-border-width: 2;
+  -fx-border-color: transparent;
+}
+.button-location:focused {
+  -fx-border-color: white;
+}
+.button-location:hover {
+  -fx-background-color: rgba(255, 255, 255, 0.1);
+}
+.button-location:armed,
+.button-location:pressed {
+  -fx-background-color: rgba(255, 255, 255, 0.06);
+}
+.button-back {
+  -fx-graphic: url("../assets/round_arrow_back_white_24dp.png");
+  -fx-background-radius: 8;
+  -fx-padding: 4;
+  -fx-text-fill: white;
+  -fx-text-alignment: center;
+  -fx-background-color: transparent;
+  -fx-border-radius: 6;
+  -fx-border-width: 2;
+  -fx-border-color: transparent;
+}
+.button-back:focused {
+  -fx-border-color: white;
+}
+.button-back:hover {
+  -fx-background-color: rgba(255, 255, 255, 0.1);
+}
+.button-back:armed,
+.button-back:pressed {
+  -fx-background-color: rgba(255, 255, 255, 0.06);
+}
+.button-favorite {
+  -fx-graphic: url("../assets/round_favorite_border_white_24dp.png");
+  -fx-padding: 4 14 !important;
+  -fx-font-size: 1.08333333em;
+  -fx-font-family: "Open Sans Medium";
+  -fx-background-radius: 8;
+  -fx-padding: 4;
+  -fx-text-fill: white;
+  -fx-text-alignment: center;
+  -fx-background-color: transparent;
+  -fx-border-radius: 6;
+  -fx-border-width: 2;
+  -fx-border-color: transparent;
+}
+.button-favorite:focused {
+  -fx-border-color: white;
+}
+.button-favorite:hover {
+  -fx-background-color: rgba(255, 255, 255, 0.1);
+}
+.button-favorite:armed,
+.button-favorite:pressed {
+  -fx-background-color: rgba(255, 255, 255, 0.06);
+}
+.button-cart {
+  -fx-graphic: url("../assets/round_shopping_cart_white_24dp.png");
+  -fx-padding: 4 14 !important;
+  -fx-font-size: 1.08333333em;
+  -fx-font-family: "Open Sans Medium";
+  -fx-background-radius: 8;
+  -fx-padding: 4;
+  -fx-text-fill: white;
+  -fx-text-alignment: center;
+  -fx-background-color: transparent;
+  -fx-border-radius: 6;
+  -fx-border-width: 2;
+  -fx-border-color: transparent;
+}
+.button-cart:focused {
+  -fx-border-color: white;
+}
+.button-cart:hover {
+  -fx-background-color: rgba(255, 255, 255, 0.1);
+}
+.button-cart:armed,
+.button-cart:pressed {
+  -fx-background-color: rgba(255, 255, 255, 0.06);
+}
+.button-location-compact {
+  -fx-graphic: url("../assets/outline_location_on_white_24dp.png");
+  -fx-background-radius: 8;
+  -fx-padding: 4;
+  -fx-text-fill: white;
+  -fx-text-alignment: center;
+  -fx-background-color: transparent;
+  -fx-border-radius: 6;
+  -fx-border-width: 2;
+  -fx-border-color: transparent;
+}
+.button-location-compact:focused {
+  -fx-border-color: white;
+}
+.button-location-compact:hover {
+  -fx-background-color: rgba(255, 255, 255, 0.1);
+}
+.button-location-compact:armed,
+.button-location-compact:pressed {
+  -fx-background-color: rgba(255, 255, 255, 0.06);
+}
+.button-favorite-compact {
+  -fx-graphic: url("../assets/round_favorite_border_white_24dp.png");
+  -fx-background-radius: 8;
+  -fx-padding: 4;
+  -fx-text-fill: white;
+  -fx-text-alignment: center;
+  -fx-background-color: transparent;
+  -fx-border-radius: 6;
+  -fx-border-width: 2;
+  -fx-border-color: transparent;
+}
+.button-favorite-compact:focused {
+  -fx-border-color: white;
+}
+.button-favorite-compact:hover {
+  -fx-background-color: rgba(255, 255, 255, 0.1);
+}
+.button-favorite-compact:armed,
+.button-favorite-compact:pressed {
+  -fx-background-color: rgba(255, 255, 255, 0.06);
+}
+.button-cart-compact {
+  -fx-graphic: url("../assets/round_shopping_cart_white_24dp.png");
+  -fx-background-radius: 8;
+  -fx-padding: 4;
+  -fx-text-fill: white;
+  -fx-text-alignment: center;
+  -fx-background-color: transparent;
+  -fx-border-radius: 6;
+  -fx-border-width: 2;
+  -fx-border-color: transparent;
+}
+.button-cart-compact:focused {
+  -fx-border-color: white;
+}
+.button-cart-compact:hover {
+  -fx-background-color: rgba(255, 255, 255, 0.1);
+}
+.button-cart-compact:armed,
+.button-cart-compact:pressed {
+  -fx-background-color: rgba(255, 255, 255, 0.06);
+}
+.ns-c-topbar__counter {
+  -fx-fill: radial-gradient(center 0.5 0.5, radius 80%, #166d3c 35%, white 100%);
+  -fx-stroke: #232323;
+  -fx-stroke-type: inside;
+  -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 5, 0, 0, 0);
+}
+.ns-c-topbar__counter__text {
+  -fx-text-fill: white;
+  -fx-font-family: "Open Sans Medium";
+  -fx-font-size: 1em;
+}
+.ns-c-topbar__profile {
+  -fx-border-radius: 6;
+  -fx-border-width: 2;
+  -fx-border-color: transparent;
+}
+.ns-c-topbar__profile:focused {
+  -fx-border-color: white;
+}
+.topbar-panel {
+  -fx-background-color: #232323;
+}
+/*# sourceMappingURL=application.css.map */

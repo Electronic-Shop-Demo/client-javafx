@@ -51,7 +51,6 @@ public final class HomeController extends Controller implements RouterController
             topBarApi.setFavoriteCount(counter);
         });
         setLocation.setOnMouseClicked(event -> topBarApi.setLocation("Moscow"));
-        requestLocation.setOnMouseClicked(event -> topBarApi.setOnLocationDialogRequested(() -> "Tokyo"));
 
         topbar.getApi().setBackAvailable(router.getGraph().getPages().size() > 1);
 

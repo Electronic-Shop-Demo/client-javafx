@@ -31,10 +31,10 @@ jobs:
             -   name: Zipping bundle
                 uses: papeloto/action-zip@v1
                 with:
-                    files: build/jpackage/app
-                    dest: build/jpackage/app-dist.zip
+                    files: app/build/jpackage/app
+                    dest: app/build/jpackage/app-dist.zip
             -   name: Preparing bundle
-                run: mkdir staging && cp build/jpackage/* staging
+                run: mkdir staging && cp app/build/jpackage/* staging
             -   name: Release
                 uses: softprops/action-gh-release@v1
                 env:

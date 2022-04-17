@@ -2,6 +2,7 @@ package com.mairwunnx.application;
 
 import com.google.inject.Inject;
 import com.mairwunnx.application.application.Application;
+import com.mairwunnx.application.application.EnvironmentVariables;
 import com.mairwunnx.ui.di.qualifiers.StartupArgs;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.SystemUtils;
@@ -24,6 +25,7 @@ public final class PostInit {
                 SystemUtils.OS_ARCH,
                 SystemUtils.OS_VERSION
             );
+            log.info("Debug enabled status: {}", EnvironmentVariables.isDebugEnabled);
             Application.launch(Application.class, args);
         } catch (final RuntimeException ex) {
             log.error("An error occurred while application running", ex);

@@ -36,7 +36,6 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 import static com.mairwunnx.ui.commons.CompactUtils.switchToCompact;
 import static com.mairwunnx.ui.commons.InteractionUtils.setOnUserInteract;
@@ -89,7 +88,7 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable,
 
     @Getter(value = AccessLevel.PRIVATE, onMethod_ = {@Nullable})
     @Setter(onParam_ = {@NotNull})
-    private Supplier<String> onLocationDialogRequested;
+    private Runnable onLocationDialogRequested;
 
     @Getter(value = AccessLevel.PRIVATE, onMethod_ = {@Nullable})
     @Setter(onParam_ = {@NotNull})
@@ -339,7 +338,7 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable,
     private void subscribeOnLocationButtonClicked() {
         setOnUserInteract(locationButton, button -> {
             if (getOnLocationDialogRequested() != null) {
-                locationButton.setText(getOnLocationDialogRequested().get());
+                getOnLocationDialogRequested().run();
             }
         });
     }

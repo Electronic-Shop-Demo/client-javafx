@@ -30,7 +30,7 @@ public interface TopBarApi {
      *
      * @since 1.0.0.
      */
-    void setOnLocationDialogRequested(@NotNull final Supplier<String> onLocationDialogRequested);
+    void setOnLocationDialogRequested(@NotNull final Runnable onLocationDialogRequested);
 
     /**
      * On search changed callback. Calls when text in search text field

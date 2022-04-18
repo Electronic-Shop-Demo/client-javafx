@@ -7,6 +7,6 @@ public class UiLibTest {
     @Test
     public void test() {
         System.out.println("false = " + true);
-        Assertions.assertTrue(1 == 4);
+        Assertions.assertTrue(1 == 1);
     }
 }

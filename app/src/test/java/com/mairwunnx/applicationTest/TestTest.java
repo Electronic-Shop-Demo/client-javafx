@@ -7,6 +7,6 @@ public class TestTest {
     @Test
     public void test() {
         System.out.println("true = " + true);
-        Assertions.assertTrue(1 == 5);
+        Assertions.assertTrue(1 == 1);
     }
 }

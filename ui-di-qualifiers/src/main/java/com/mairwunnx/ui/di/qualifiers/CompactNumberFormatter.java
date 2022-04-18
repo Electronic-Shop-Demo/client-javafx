@@ -1,7 +1,6 @@
 package com.mairwunnx.ui.di.qualifiers;
 
-import jakarta.inject.Qualifier;
-
+import javax.inject.Qualifier;
 import java.lang.annotation.Retention;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;

@@ -12,6 +12,9 @@ dependencies {
 
     annotationProcessor(libs.bundles.lombok)
 
+    testImplementation(libs.bundles.jupiterApi)
+    testRuntimeOnly(libs.bundles.jupiterEngine)
+
     implementation(project(':ui-commons')) { transitive false }
     implementation(project(':ui-annotations')) { transitive false }
     implementation(project(':ui-di-qualifiers')) { transitive false }
@@ -20,4 +23,8 @@ dependencies {
 javafx {
     version = '18'
     modules = ['javafx.controls', 'javafx.fxml']
+}
+
+test {
+    useJUnitPlatform()
 }

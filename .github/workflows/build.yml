@@ -15,7 +15,7 @@ jobs:
                 os: [ windows-latest ]
         name: Build the application
         runs-on: ${{ matrix.os }}
-        continue-on-error: true
+        continue-on-error: false
         steps:
             -   name: Checkout
                 uses: actions/checkout@v2
@@ -26,6 +26,10 @@ jobs:
                 uses: actions/setup-java@v1
                 with:
                     java-version: 18
+            -   name: Executing tests
+                run: ./gradlew allTests
+            -   name: Checking code for code style
+                run: ./gradlew allCheckstyles
             -   name: Packaging bundle
                 run: ./gradlew jpackage
             -   name: Zipping bundle

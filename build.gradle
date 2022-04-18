@@ -1,26 +1,35 @@
 plugins {
     id 'java'
     id 'org.openjfx.javafxplugin' version '0.0.12'
+    id 'org.javamodularity.moduleplugin' version '1.8.10' apply false
     id 'checkstyle'
 }
 
-final def versionPattern = $/(\d+)\.(\d+)\.(\d+)(-(\w+)\.(\d+))?/$
-final def isCI = System.getenv("CI") == "true"
+final def versionPattern = '(\\d+)\\.(\\d+)\\.(\\d+)(-(\\w+)\\.(\\d+))?'
+final def isCI = System.getenv('CI') == 'true'
 final def versionFile = new File('.version')
 
+tasks.register('allTests') {
+    dependsOn(allprojects.stream().map({ it.path + ':test' }).toList())
+}
+
+tasks.register('allCheckstyles') {
+    dependsOn(allprojects.stream().map({ it.path + ':check' }).toList())
+}
+
 allprojects {
+    apply plugin: 'java'
+    apply plugin: 'org.javamodularity.moduleplugin'
+
     group 'com.mairwunnx'
     version '1.0.0'
 
+    check.dependsOn checkstyleMain
+
     java {
-        modularity.inferModulePath.set(true)
         toolchain {
             languageVersion = JavaLanguageVersion.of 18
-            if (isCI) {
-                vendor = JvmVendorSpec.AZUL
-            } else {
-                vendor = JvmVendorSpec.ORACLE
-            }
+            vendor = JvmVendorSpec.ADOPTIUM
         }
     }
 
@@ -30,14 +39,14 @@ allprojects {
 
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'
-        options.compilerArgs += "--enable-preview"
+        options.compilerArgs += '--enable-preview'
         options.fork = true
         options.failOnError = false
         options.debug = false
     }
 
     tasks.withType(Test) {
-        jvmArgs += "--enable-preview"
+        jvmArgs += '--enable-preview'
     }
 
     tasks.withType(Checkstyle) {

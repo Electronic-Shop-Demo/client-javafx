@@ -3,5 +3,6 @@ plugins {
 }
 
 dependencies {
+    implementation(libs.bundles.guice)
     implementation(libs.bundles.javax)
 }

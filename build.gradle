@@ -29,7 +29,11 @@ allprojects {
     java {
         toolchain {
             languageVersion = JavaLanguageVersion.of 18
-            vendor = JvmVendorSpec.ORACLE
+            if (isCI) {
+                vendor = JvmVendorSpec.AZUL
+            } else {
+                vendor = JvmVendorSpec.ORACLE
+            }
         }
     }
 

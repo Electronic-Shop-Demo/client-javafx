@@ -3,44 +3,51 @@ import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 plugins {
     id 'java'
     id 'org.openjfx.javafxplugin' version '0.0.12'
-    id "io.freefair.lombok" version "6.4.1"
+    id 'io.freefair.lombok' version '6.4.1'
     id 'application'
-    id 'org.beryx.jlink' version '2.25.0'
+    id 'org.beryx.runtime' version '1.12.5'
 }
 
 final def currentOS = DefaultNativePlatform.getCurrentOperatingSystem()
+final def name = 'Electronic Shop'
+final def vendor = 'Pavel Erokhin'
 
 run.environment += ["com.mairwunnx.application.debug": true]
 
-build.dependsOn check
-
 application {
-    mainModule = 'com.mairwunnx.application'
     mainClass = 'com.mairwunnx.application.ZygoteInit'
+    applicationName = name
 
     if (currentOS.isMacOsX()) {
-        applicationDefaultJvmArgs += ["-Dsun.java2d.metal=true"]
+        applicationDefaultJvmArgs += ['-Dsun.java2d.metal=true']
     }
 }
-
-mainClassName = "$moduleName/com.mairwunnx.application.ZygoteInit"
 
 javafx {
     version = '18'
     modules = ['javafx.controls', 'javafx.fxml']
 }
 
-jlink {
-    imageZip = project.file "${buildDir}/distributions/app-${javafx.platform.classifier}.zip"
+runtime {
     options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
-    forceMerge 'jackson', 'log4j'
-    launcher {
-        name = 'app'
-    }
-}
+    modules = ['java.base', 'jdk.crypto.cryptoki', 'jdk.crypto.ec', 'java.se', 'jdk.unsupported', 'java.xml']
 
-jlinkZip {
-    group = 'distribution'
+    launcher {
+        noConsole = false
+    }
+
+    jpackage {
+        installerOptions += ['--resource-dir', 'src/main/resources']
+        installerOptions += ['--vendor', vendor]
+
+        if (currentOS.windows) {
+            installerOptions += ['--win-per-user-install', '--win-dir-chooser', '--win-menu', '--win-shortcut']
+        } else if (currentOS.linux) {
+            installerOptions += ['--linux-package-name', name, '--linux-shortcut']
+        } else if (currentOS.macOsX) {
+            installerOptions += ['--mac-package-name', name]
+        }
+    }
 }
 
 dependencies {
@@ -78,3 +85,8 @@ dependencies {
     implementation(project(':ui-lib')) { transitive false }
     implementation(project(':ui-di-qualifiers')) { transitive false }
 }
+
+test {
+    useJUnitPlatform()
+}
+

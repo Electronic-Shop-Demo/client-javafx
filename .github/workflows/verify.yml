@@ -1,0 +1,51 @@
+name: Verify pull request
+
+on: pull_request
+
+permissions:
+    pull-requests: write
+
+jobs:
+    verify:
+        strategy:
+            matrix:
+                os: [ windows-latest ]
+        name: Build application
+        runs-on: ${{ matrix.os }}
+        continue-on-error: false
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v2
+            -   name: Setup JDK
+                uses: actions/setup-java@v1
+                with:
+                    java-version: 18
+            -   name: Executing tests
+                run: ./gradlew allTests
+            -   name: Checking code for code style
+                run: ./gradlew allCheckstyles
+            -   name: Packaging bundle
+                run: ./gradlew jpackage
+            -   name: Zipping bundle
+                uses: papeloto/action-zip@v1
+                with:
+                    files: app/build/jpackage/app
+                    dest: app/build/jpackage/app-dist.zip
+            -   name: Preparing bundle
+                run: mkdir staging && cp app/build/jpackage/* staging
+            -   name: Uploading pull request artifacts
+                uses: actions/upload-artifact@v3
+                with:
+                    name: Electronic-Shop-JavaFX-${{matrix.os}}
+                    path: |
+                        staging/**.msi
+                        staging/**.zip
+                    if-no-files-found: error
+            -   name: Marking pull request
+                uses: actions-ecosystem/action-add-labels@v1
+                if: ${{ contains(github.event.comment.body, '/add-labels') }}
+                with:
+                    labels: |
+                        ready for review
+                        feature
+

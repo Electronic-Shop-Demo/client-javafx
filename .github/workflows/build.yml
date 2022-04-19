@@ -13,13 +13,13 @@ jobs:
         strategy:
             matrix:
                 os: [ windows-latest ]
+        if: "!contains(github.event.commits[0].message, 'no-ci')"
         name: Build the application
         runs-on: ${{ matrix.os }}
         continue-on-error: false
         steps:
             -   name: Checkout
                 uses: actions/checkout@v2
-                if: "!contains(github.event.commits[0].message, 'no-ci')"
             -   name: Injecting version
                 id: version
                 run: echo "::set-output name=version::$(cat .version)"

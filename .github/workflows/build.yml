@@ -19,6 +19,8 @@ jobs:
         steps:
             -   name: Checkout
                 uses: actions/checkout@v2
+            -   name: Checking for commit name
+                if: "!contains(github.event.commits[0].message, 'no-ci')"
             -   name: Injecting version
                 id: version
                 run: echo "::set-output name=version::$(cat .version)"

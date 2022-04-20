@@ -146,6 +146,37 @@
   -fx-font-family: "Open Sans";
   -fx-font-size: 1.08333333em;
 }
+.context-menu {
+  -fx-border-radius: 6;
+  -fx-background-radius: 6;
+  -fx-background-color: linear-gradient(to bottom, derive(-fx-color, -17%), derive(-fx-color, -30%)), #3d3d3d;
+  -fx-background-insets: 0, 1;
+  -fx-padding: 1.166666em 0.083333em 1.166666em 0.083333em;
+  /* 14 1 14 1 */
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 12, 0, 0, 8);
+}
+.context-menu .separator:horizontal .line {
+  -fx-border-color: #636363 transparent transparent transparent;
+  -fx-border-insets: 1 0 0 0;
+}
+.menu-item {
+  -fx-background-color: transparent;
+  -fx-padding: 0.333333em 1em 0.333333em 1em;
+}
+.menu-item > .label {
+  -fx-padding: 0.333333em 2.5em 0.333333em 1.5em;
+  -fx-font-size: 1em;
+  -fx-font-family: "Open Sans";
+  -fx-text-fill: white;
+}
+.menu-item:focused {
+  -fx-background: #166d3c;
+  -fx-background-color: #166d3c;
+  -fx-text-fill: white;
+}
+.menu-item:focused > .label {
+  -fx-text-fill: white;
+}
 .field-regular {
   -fx-font-family: "Open Sans";
   -fx-font-size: 1em;

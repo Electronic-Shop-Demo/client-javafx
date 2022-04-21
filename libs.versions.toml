@@ -11,7 +11,7 @@ jassert = "3.13.2"
 log4j2 = "2.17.2"
 apache-commons = "3.12.0"
 guice = "5.1.0"
-javax-inject = "1.2.2.1"
+javax-inject = "62"
 
 [libraries]
 jetbrains-annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrains-annotations" }

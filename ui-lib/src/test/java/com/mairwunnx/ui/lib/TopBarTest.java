@@ -88,7 +88,7 @@ final class TopBarTest {
         final var button = robot.lookup(R.btnBack).queryButton();
         robot.clickOn(button);
 
-        org.assertj.core.api.Assertions.assertThat(requested.get()).isTrue();
+        org.assertj.core.api.Assertions.assertThat(requested.get()).isFalse();
     }
 
     @Test

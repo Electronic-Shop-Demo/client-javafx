@@ -291,14 +291,6 @@ final class TopBarTest {
         final var image = robot.lookup(R.imvProfile).queryAs(ImageView.class);
         robot.clickOn(image);
 
-        if (clicked.get()) {
-            throw new IllegalStateException(String.valueOf(clicked.get()));
-        }
-
-        if (clicked.get()) {
-            org.assertj.core.api.Assertions.assertThat(clicked.get()).isTrue();
-        } else {
-            org.assertj.core.api.Assertions.assertThat(clicked.get()).isFalse();
-        }
+        org.junit.jupiter.api.Assertions.assertTrue(clicked.get());
     }
 }

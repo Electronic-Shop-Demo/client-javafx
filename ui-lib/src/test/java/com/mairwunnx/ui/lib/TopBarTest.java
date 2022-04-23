@@ -77,7 +77,6 @@ final class TopBarTest {
         Assertions.assertThat(robot.lookup(R.btnBack).queryButton()).isDisabled();
     }
 
-
     boolean backButtonClickRequested = false;
 
     @Test
@@ -89,7 +88,9 @@ final class TopBarTest {
         final var button = robot.lookup(R.btnBack).queryButton();
         robot.clickOn(button);
 
-        org.assertj.core.api.Assertions.assertThat(backButtonClickRequested).isTrue();
+        throw new IllegalStateException(String.valueOf(backButtonClickRequested));
+
+//        org.assertj.core.api.Assertions.assertThat(backButtonClickRequested).isTrue();
     }
 
     @Test

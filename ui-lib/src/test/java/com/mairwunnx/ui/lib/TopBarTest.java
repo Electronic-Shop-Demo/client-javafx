@@ -83,10 +83,11 @@ final class TopBarTest {
         final AtomicBoolean requested = new AtomicBoolean(false);
 
         WaitForAsyncUtils.asyncFx(() -> api.setBackAvailable(true)).get();
-        WaitForAsyncUtils.asyncFx(() -> api.setBackAvailable(true)).get();
         api.setOnBackRequested(() -> requested.set(true));
 
         final var button = robot.lookup(R.btnBack).queryButton();
+        robot.moveTo(button);
+        robot.clickOn(button);
         robot.clickOn(button);
 
         org.assertj.core.api.Assertions.assertThat(requested.get()).isTrue();

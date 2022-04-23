@@ -69,7 +69,7 @@ final class TopBarTest {
     }
 
     @Test
-    @Order(-1)
+    @Order(0)
     void setBackAvailable(final FxRobot robot) throws ExecutionException, InterruptedException {
         WaitForAsyncUtils.asyncFx(() -> api.setBackAvailable(true)).get();
         Assertions.assertThat(robot.lookup(R.btnBack).queryButton()).isEnabled();
@@ -78,31 +78,14 @@ final class TopBarTest {
         Assertions.assertThat(robot.lookup(R.btnBack).queryButton()).isDisabled();
     }
 
-    @Test
-    @Order(0)
-    void prepare$ci(final FxRobot robot) throws ExecutionException, InterruptedException { // always true
-        final AtomicBoolean requested = new AtomicBoolean(false);
 
-        WaitForAsyncUtils.asyncFx(() -> api.setBackAvailable(true)).get();
-        api.setOnBackRequested(() -> requested.set(true));
-
-        final var button = robot.lookup(R.btnBack).queryButton();
-        robot.moveTo(button);
-        robot.press(MouseButton.PRIMARY);
-        robot.release(MouseButton.PRIMARY);
-        robot.clickOn(button);
-        robot.press(KeyCode.SPACE);
-
-        org.assertj.core.api.Assertions.assertThat(true).isTrue();
-    }
+    boolean backButtonClickRequested = false;
 
     @Test
     @Order(1)
     void setOnBackRequested(final FxRobot robot) throws ExecutionException, InterruptedException {
-        final AtomicBoolean requested = new AtomicBoolean(false);
-
         WaitForAsyncUtils.asyncFx(() -> api.setBackAvailable(true)).get();
-        api.setOnBackRequested(() -> requested.set(true));
+        api.setOnBackRequested(() -> backButtonClickRequested = true);
 
         final var button = robot.lookup(R.btnBack).queryButton();
         robot.moveTo(button);
@@ -111,7 +94,7 @@ final class TopBarTest {
         robot.clickOn(button);
         robot.press(KeyCode.SPACE);
 
-        org.assertj.core.api.Assertions.assertThat(requested.get()).isTrue();
+        org.assertj.core.api.Assertions.assertThat(backButtonClickRequested).isTrue();
     }
 
     @Test

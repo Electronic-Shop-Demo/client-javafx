@@ -91,6 +91,7 @@ final class TopBarTest {
         robot.press(MouseButton.PRIMARY);
         robot.release(MouseButton.PRIMARY);
         robot.clickOn(button);
+        robot.press(KeyCode.SPACE);
 
         org.assertj.core.api.Assertions.assertThat(requested.get()).isTrue();
     }

@@ -32,5 +32,6 @@ test {
 
     testLogging {
         exceptionFormat = 'full'
+        showStackTraces = true
     }
 }

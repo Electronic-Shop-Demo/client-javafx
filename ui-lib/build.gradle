@@ -13,7 +13,9 @@ dependencies {
     annotationProcessor(libs.bundles.lombok)
 
     testImplementation(libs.bundles.jupiterApi)
+    testImplementation(libs.bundles.fxTest)
     testRuntimeOnly(libs.bundles.jupiterEngine)
+    testImplementation(project(':app'))
 
     implementation(project(':ui-commons')) { transitive false }
     implementation(project(':ui-annotations')) { transitive false }
@@ -27,4 +29,9 @@ javafx {
 
 test {
     useJUnitPlatform()
+
+    testLogging {
+        exceptionFormat = 'full'
+        showStackTraces = true
+    }
 }

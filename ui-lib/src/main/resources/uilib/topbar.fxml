@@ -34,6 +34,7 @@
         <Pane styleClass="topbar-panel" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" />
 
         <Button fx:id="backButton"
+                id="ns-c-topbar__btn_back"
                 styleClass="button-back"
                 accessibleText="%backButtonAccessible"
                 GridPane.valignment="CENTER"
@@ -48,6 +49,7 @@
         </Button>
 
         <Button fx:id="locationButton"
+                id="ns-c-topbar__btn_location"
                 styleClass="button-location"
                 text="Bryansk"
                 GridPane.columnIndex="1"
@@ -62,6 +64,7 @@
         </Button>
 
         <CustomTextField fx:id="search"
+                         id="ns-c-topbar__field_search"
                          styleClass="field-regular"
                          maxWidth="800.0"
                          promptText="%searchPromptText"
@@ -69,7 +72,11 @@
                          GridPane.valignment="CENTER"
                          GridPane.halignment="CENTER" />
 
-        <Button fx:id="favorite" styleClass="button-favorite" text="%buttonFavoriteText" GridPane.columnIndex="3">
+        <Button fx:id="favorite"
+                id="ns-c-topbar__btn_favorite"
+                styleClass="button-favorite"
+                text="%buttonFavoriteText"
+                GridPane.columnIndex="3">
             <GridPane.margin>
                 <Insets left="12.0" right="6.0" />
             </GridPane.margin>
@@ -80,6 +87,7 @@
         </Button>
 
         <StackPane fx:id="favoriteBadge"
+                   id="ns-c-topbar__pane_favorite_badge"
                    GridPane.fillWidth="false"
                    GridPane.fillHeight="false"
                    GridPane.valignment="TOP"
@@ -92,10 +100,17 @@
             </GridPane.margin>
 
             <Circle styleClass="ns-c-topbar__counter" radius="10.0" />
-            <Label fx:id="favoriteBadgeText" styleClass="ns-c-topbar__counter__text" text="?" />
+            <Label fx:id="favoriteBadgeText"
+                   id="ns-c-topbar__favorite__lbl_badge"
+                   styleClass="ns-c-topbar__counter__text"
+                   text="?" />
         </StackPane>
 
-        <Button fx:id="cart" styleClass="button-cart" text="%buttonCartText" GridPane.columnIndex="4">
+        <Button fx:id="cart"
+                id="ns-c-topbar__btn_cart"
+                styleClass="button-cart"
+                text="%buttonCartText"
+                GridPane.columnIndex="4">
             <GridPane.margin>
                 <Insets left="6.0" right="8.0" />
             </GridPane.margin>
@@ -106,6 +121,7 @@
         </Button>
 
         <StackPane fx:id="cartBadge"
+                   id="ns-c-topbar__pane_cart_badge"
                    GridPane.fillWidth="false"
                    GridPane.fillHeight="false"
                    GridPane.valignment="TOP"
@@ -118,10 +134,14 @@
             </GridPane.margin>
 
             <Circle styleClass="ns-c-topbar__counter" radius="10.0" />
-            <Label fx:id="cartBadgeText" styleClass="ns-c-topbar__counter__text" text="?" />
+            <Label fx:id="cartBadgeText"
+                   id="ns-c-topbar__cart__lbl_badge"
+                   styleClass="ns-c-topbar__counter__text"
+                   text="?" />
         </StackPane>
 
         <Button fx:id="signin"
+                id="ns-c-topbar__btn_signin"
                 styleClass="button-primary"
                 defaultButton="true"
                 text="%buttonSignInText"
@@ -133,6 +153,7 @@
         </Button>
 
         <ImageView fx:id="profile"
+                   id="ns-c-topbar__imv_profile"
                    styleClass="ns-c-topbar__profile"
                    pickOnBounds="true"
                    preserveRatio="true"

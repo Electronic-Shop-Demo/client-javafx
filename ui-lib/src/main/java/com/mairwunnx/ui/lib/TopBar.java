@@ -4,8 +4,10 @@ import com.google.inject.Inject;
 import com.mairwunnx.ui.annotations.Issue;
 import com.mairwunnx.ui.annotations.LocalizationStatus;
 import com.mairwunnx.ui.annotations.ViewApiStatus;
+import com.mairwunnx.ui.annotations.ViewTestCover;
 import com.mairwunnx.ui.annotations.types.LocalizationStatusVariant;
 import com.mairwunnx.ui.annotations.types.ViewApiStatusVariant;
+import com.mairwunnx.ui.annotations.types.ViewTestCoverVariant;
 import com.mairwunnx.ui.commons.ImageUtils;
 import com.mairwunnx.ui.lib.apis.TopBarApi;
 import com.mairwunnx.ui.lib.exceptions.ViewInitializationException;
@@ -20,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -49,7 +52,8 @@ import static com.mairwunnx.ui.commons.InteractionUtils.setOnUserInteract;
  */
 @SuppressWarnings({"unused", "FieldCanBeLocal"})
 @Issue(id = 1, value = "https://github.com/Electronic-Shop-Demo/client-javafx/issues/1")
-@ViewApiStatus(ViewApiStatusVariant.IN_DEV)
+@ViewTestCover(ViewTestCoverVariant.FULL)
+@ViewApiStatus(ViewApiStatusVariant.STABLE)
 @LocalizationStatus(LocalizationStatusVariant.DONE)
 public final class TopBar extends AnchorPane implements JfxView, JfxCompactable, TopBarApi {
     private static final double WIDE_MODE_WIDTH_THRESHOLD = 1_500.0;
@@ -195,7 +199,9 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable,
         setCompactModeEnabled(root.getWidth() <= minCompactSize);
         subscribeOnRootWidthChanged();
         subscribeOnBackButtonClicked();
+        subscribeOnLocationButtonClicked();
         subscribeOnSearchTextChanged();
+        subscribeOnSearchActionDone();
         subscribeOnFavoriteClicked();
         subscribeOnCartClicked();
         subscribeOnLoginOrRegisterRequested();
@@ -251,6 +257,7 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable,
         }
 
         if (path != null) {
+            searchImageButton.setId("ns-c-topbar__field_search__imv_search");
             searchImageButton.setImage(new Image(path));
             searchImageButton.setCursor(Cursor.HAND);
             searchImageButton.setOnMouseClicked(event -> {
@@ -353,6 +360,16 @@ public final class TopBar extends AnchorPane implements JfxView, JfxCompactable,
         };
 
         search.textProperty().addListener(new WeakChangeListener<>(searchTextListener));
+    }
+
+    private void subscribeOnSearchActionDone() {
+        search.setOnKeyReleased(event -> {
+            if (getOnSearchRequested() != null) {
+                if (event.getCode() == KeyCode.ENTER) {
+                    getOnSearchRequested().accept(search.getText());
+                }
+            }
+        });
     }
 
     private void subscribeOnFavoriteClicked() {

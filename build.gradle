@@ -68,6 +68,8 @@ allprojects {
 
 if (isCI) {
     if ('true' != System.getProperty('version.upscaled')) {
+        System.setProperty('version.upscaled', 'true')
+
         if (versionFile.exists() && versionFile.isFile()) {
             final def versionLine = versionFile.readLines()[0] as String
             final def versionCandidateMather = versionLine =~ versionPattern

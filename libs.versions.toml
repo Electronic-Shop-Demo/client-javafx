@@ -2,7 +2,7 @@
 jetbrains-annotations = "23.0.0"
 fx-controls = "11.1.1"
 fx-forms = "11.5.0"
-fx-test = "4.0.16-alpha"
+fx-test = "4.0.18"
 lombok = "1.18.24"
 mapstruct = "1.4.2.Final"
 jackson = "2.13.3"
